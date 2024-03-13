@@ -233,6 +233,11 @@ public class MainScreen extends javax.swing.JFrame {
         jMenu2.add(jMenuItem3);
 
         jMenuItem4.setText("Gerenciador de Relatórios");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuItem5.setText("Emitir Relatório");
@@ -369,12 +374,24 @@ public class MainScreen extends javax.swing.JFrame {
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
 
     }//GEN-LAST:event_jMenu4ActionPerformed
-
+/**
+ * Event responsible for calling the About screen
+ * @param evt 
+ */
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         AboutScreen about = new AboutScreen();
         about.setVisible(true);
         desktop.add(about);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+/**
+ * Event responsible for calling the ReportManagement screen
+ * @param evt 
+ */
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+       ReportManagementScreen reportsmanagement = new ReportManagementScreen();
+       reportsmanagement.setVisible(true);
+       desktop.add(reportsmanagement);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
