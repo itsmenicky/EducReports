@@ -22,7 +22,6 @@ public class ScreenLogin extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);   
         this.setVisible(true);
         conexao = ModuloConexao.conector();
-        System.out.println(conexao);
         initComponents();
         if(conexao != null){
             lblDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dbconnected.png")));
