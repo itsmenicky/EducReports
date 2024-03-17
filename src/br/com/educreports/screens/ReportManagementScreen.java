@@ -227,7 +227,7 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
         jLabel1.setText("Gerenciador de Relatórios");
 
         searchBar.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        searchBar.setText("Pesquisar aluno(a)");
+        searchBar.setToolTipText("Pesquisar aluno(a)");
         searchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchBarActionPerformed(evt);
