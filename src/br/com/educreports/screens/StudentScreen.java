@@ -211,6 +211,8 @@ public class StudentScreen extends javax.swing.JInternalFrame {
         txtAddress.setText(null);
         txtTeacherName.setText(null);
         txtTeacherId.setText(null);
+        txtSearchStudent.setText(null);
+        txtSearchTeacher.setText(null);
         lblPhoto.setIcon(new ImageIcon(getClass().getResource("/assets/camera-icon.png")));
         ((DefaultTableModel) tbTeacher.getModel()).setRowCount(0);
         ((DefaultTableModel) tbStudent.getModel()).setRowCount(0);
@@ -319,6 +321,7 @@ public class StudentScreen extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("Alunos");
 
         jLabel1.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(224, 18, 53));
@@ -413,7 +416,6 @@ public class StudentScreen extends javax.swing.JInternalFrame {
         jLabel11.setToolTipText("");
 
         txtSearchStudent.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        txtSearchStudent.setText("Pesquisar/Selecionar aluno");
         txtSearchStudent.setToolTipText("Pesquisar/Selecionar aluno");
         txtSearchStudent.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -425,7 +427,6 @@ public class StudentScreen extends javax.swing.JInternalFrame {
         jLabel12.setToolTipText("");
 
         txtSearchTeacher.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        txtSearchTeacher.setText("Selecionar o professor");
         txtSearchTeacher.setToolTipText("Selecionar o professor");
         txtSearchTeacher.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

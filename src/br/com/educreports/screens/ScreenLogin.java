@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2024 Nickolas Martins
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 package br.com.educreports.screens;
 import br.com.educreports.dal.ModuloConexao;
 import java.awt.Color;
@@ -9,7 +26,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * @version 1.0
  * @author Nick1
  */
 public class ScreenLogin extends javax.swing.JFrame {
@@ -17,7 +34,9 @@ public class ScreenLogin extends javax.swing.JFrame {
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+    /**
+     * Creates new form ScreenLogin and starts connection with database
+     */
     public ScreenLogin() {
         this.getContentPane().setBackground(Color.WHITE);   
         this.setVisible(true);
@@ -27,7 +46,9 @@ public class ScreenLogin extends javax.swing.JFrame {
             lblDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dbconnected.png")));
         }
     }
-    
+    /**
+     * Method responsible for checking the existence of the user in the database, and if so, calling the main screen
+     */
      private void login(){
         String sql = "select * from tb_user where login=? and password=?";
         try {

@@ -176,6 +176,7 @@ public class ReportsEmission extends javax.swing.JInternalFrame {
         txtClass.setText(null);
         txtTeacher.setText(null);
         txtAreaReport.setText(null);
+        lblSearch.setText(null);
         ((DefaultTableModel) tbChild.getModel()).setRowCount(0);
     }
 
@@ -269,7 +270,7 @@ public class ReportsEmission extends javax.swing.JInternalFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search-icon.png"))); // NOI18N
 
         lblSearch.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        lblSearch.setText("Selecione a criança");
+        lblSearch.setToolTipText("Selecione a criança");
         lblSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lblSearchActionPerformed(evt);

@@ -90,6 +90,7 @@ public class UserScreen extends javax.swing.JInternalFrame {
         txtUserLogin.setText(null);
         txtUserPass.setText(null);
         cbProfile.setSelectedItem(null);
+        lblSearch.setText(null);
         ((DefaultTableModel) tbUsers.getModel()).setRowCount(0);
     }
 
@@ -268,7 +269,7 @@ public class UserScreen extends javax.swing.JInternalFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search-icon.png"))); // NOI18N
 
         lblSearch.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        lblSearch.setText("Pesquisar/Selecionar Usuário");
+        lblSearch.setToolTipText("Pesquisar/Selecionar Usuário");
         lblSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 lblSearchKeyReleased(evt);

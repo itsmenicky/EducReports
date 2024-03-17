@@ -1,12 +1,27 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
+ * Copyright (C) 2024 Nickolas Martins
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
+
 import java.sql.*;
 import javax.swing.JOptionPane;
 import br.com.educreports.dal.ModuloConexao;
 import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -17,18 +32,23 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author Nick1
  */
 public class ReportManagementScreen extends javax.swing.JInternalFrame {
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
 
     /**
-     * Creates new form ReportManagementScreen
+     * Creates new form ReportManagementScreen and starts conection with
+     * database
      */
     public ReportManagementScreen() {
         initComponents();
         conexao = ModuloConexao.conector();
     }
-    
+
+    /**
+     * Function responsible for searching child in the database
+     */
     private void search_child() {
         String sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ?";
         try {
@@ -40,83 +60,124 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    private void set_reports(){
+
+    /**
+     * Function responsible for setting registered reports according to the
+     * selected student
+     */
+    private void set_reports() {
         int student = tbChild.getSelectedRow();
         String sql = "select ID_Rel as ID, report as Relatório, date_format(emission_date, '%d/%m/%Y') as 'Data de emissão' from tb_reports where child_RA=?";
         try {
-             pst = conexao.prepareStatement(sql);
-             pst.setString(1, tbChild.getModel().getValueAt(student, 0).toString());
-             rs = pst.executeQuery();
-             tbReports.setModel(DbUtils.resultSetToTableModel(rs));
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, tbChild.getModel().getValueAt(student, 0).toString());
+            rs = pst.executeQuery();
+            tbReports.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    private void set_report_area(){
+
+    /**
+     * Function responsible for setting report text area according to the
+     * selected report
+     */
+    private void set_report_area() {
         int report = tbReports.getSelectedRow();
         txtReport.setText(tbReports.getModel().getValueAt(report, 1).toString());
+        btnPrintReport.setEnabled(true);
+        btnUpdateReport.setEnabled(true);
+        btnDeleteReport.setEnabled(true);
     }
-    
-    private void print_report(){
+
+    /**
+     * Function responsible for print the selected report
+     */
+    private void print_report() {
         int report = tbReports.getSelectedRow();
         String id_report = tbReports.getModel().getValueAt(report, 0).toString();
-        int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "ATENÇÃO",  JOptionPane.YES_NO_OPTION);
-        if(confirmation == JOptionPane.YES_OPTION){
+        int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "ATENÇÃO", JOptionPane.YES_NO_OPTION);
+        if (confirmation == JOptionPane.YES_OPTION) {
             try {
                 System.out.println(conexao);
                 HashMap<String, Object> filtro = new HashMap<>();
                 filtro.put("ID_Rel", Integer.parseInt(id_report));
                 JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/Reports/StudentLearningReport.jasper"), filtro, conexao);
                 JasperViewer.viewReport(print, false);
+                clean_fields();
+                btnPrintReport.setEnabled(false);
+                btnUpdateReport.setEnabled(false);
+                btnDeleteReport.setEnabled(false);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
     }
-    
-    private void delete_report(){
+
+    /**
+     * Function responsible for deleting the selected report
+     */
+    private void delete_report() {
         int report = tbReports.getSelectedRow();
         String id_report = tbReports.getModel().getValueAt(report, 0).toString();
         int confirmation = JOptionPane.showConfirmDialog(null, "Deseja excluir este relatório?", "ATENÇÃO", JOptionPane.YES_NO_OPTION);
-        if(confirmation == JOptionPane.YES_OPTION){
+        if (confirmation == JOptionPane.YES_OPTION) {
             String sql = "delete from tb_reports where ID_Rel=?";
             try {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, id_report);
                 int removed = pst.executeUpdate();
-                if(removed > 0){
+                if (removed > 0) {
                     JOptionPane.showMessageDialog(null, "Relatório removido com sucesso!");
-                } else{
+                    clean_fields();
+                    btnPrintReport.setEnabled(false);
+                    btnUpdateReport.setEnabled(false);
+                    btnDeleteReport.setEnabled(false);
+                } else {
                     JOptionPane.showMessageDialog(null, "ERRO INESPERADO: Não foi possível deletar o relatório.");
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
-            }   
+            }
         }
     }
-    
-    private void update_report(){
+
+    /**
+     * Function responsible for update the selected report content
+     */
+    private void update_report() {
         int report = tbReports.getSelectedRow();
         String id_report = tbReports.getModel().getValueAt(report, 0).toString();
         int confirmation = JOptionPane.showConfirmDialog(null, "Confirma as alterações no relatório?", "CONFIRMAÇÃO", JOptionPane.YES_NO_OPTION);
-        if(confirmation == JOptionPane.YES_OPTION){
-            String sql = "update tb_reports report=? where ID_Rel=?";
+        if (confirmation == JOptionPane.YES_OPTION) {
+            String sql = "update tb_reports set report=? where ID_Rel=?";
             try {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, txtReport.getText());
                 pst.setString(2, id_report);
                 int updated = pst.executeUpdate();
-                if(updated > 0){
+                if (updated > 0) {
                     JOptionPane.showMessageDialog(null, "Relatório atualizado com sucesso!");
-                } else{
+                    clean_fields();
+                    btnPrintReport.setEnabled(false);
+                    btnUpdateReport.setEnabled(false);
+                    btnDeleteReport.setEnabled(false);
+                } else {
                     JOptionPane.showMessageDialog(null, "ERRO INESPERADO: Não foi possível atualizar o relatório.");
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
-            }   
+            }
         }
+    }
+    /**
+     * Function responsible for cleaning tables, report text area and search bar
+     */
+    private void clean_fields() {
+        ((DefaultTableModel) tbReports.getModel()).setRowCount(0);
+        ((DefaultTableModel) tbChild.getModel()).setRowCount(0);
+        txtReport.setText(null);
+        searchBar.setText(null);
     }
 
     /**
@@ -141,9 +202,9 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
         txtReport = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnPrintReport = new javax.swing.JButton();
+        btnDeleteReport = new javax.swing.JButton();
+        btnUpdateReport = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -158,6 +219,7 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("Gerenciador de Relatórios");
 
         jLabel1.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(224, 18, 53));
@@ -234,33 +296,36 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-icon.png"))); // NOI18N
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/print-report.png"))); // NOI18N
-        jButton1.setToolTipText("Imprimir relatório");
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPrintReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/print-report.png"))); // NOI18N
+        btnPrintReport.setToolTipText("Imprimir relatório");
+        btnPrintReport.setContentAreaFilled(false);
+        btnPrintReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrintReport.setEnabled(false);
+        btnPrintReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPrintReportActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/delete-report.png"))); // NOI18N
-        jButton2.setToolTipText("Excluir relatório");
-        jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/delete-report.png"))); // NOI18N
+        btnDeleteReport.setToolTipText("Excluir relatório");
+        btnDeleteReport.setContentAreaFilled(false);
+        btnDeleteReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeleteReport.setEnabled(false);
+        btnDeleteReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnDeleteReportActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit-report.png"))); // NOI18N
-        jButton3.setToolTipText("Editar relatório");
-        jButton3.setContentAreaFilled(false);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdateReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit-report.png"))); // NOI18N
+        btnUpdateReport.setToolTipText("Editar relatório");
+        btnUpdateReport.setContentAreaFilled(false);
+        btnUpdateReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUpdateReport.setEnabled(false);
+        btnUpdateReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnUpdateReportActionPerformed(evt);
             }
         });
 
@@ -289,11 +354,11 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
                                         .addGap(104, 104, 104)
                                         .addComponent(jLabel2))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(btnPrintReport)
                                         .addGap(69, 69, 69)
-                                        .addComponent(jButton3)
+                                        .addComponent(btnUpdateReport)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton2)))
+                                        .addComponent(btnDeleteReport)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane3)
@@ -331,10 +396,10 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnUpdateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton1)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnPrintReport)
+                                .addComponent(btnDeleteReport, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(15, 15, 15))))
         );
 
@@ -344,7 +409,11 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchBarActionPerformed
-
+    /**
+     * Event responsible for calling the search_child function
+     *
+     * @param evt
+     */
     private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
         search_child();
     }//GEN-LAST:event_searchBarKeyReleased
@@ -352,32 +421,52 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
     private void tbChildKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbChildKeyPressed
 
     }//GEN-LAST:event_tbChildKeyPressed
-
+    /**
+     * Event responsible for calling the set_reports function
+     *
+     * @param evt
+     */
     private void tbChildMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbChildMouseClicked
-      set_reports();
+        set_reports();
     }//GEN-LAST:event_tbChildMouseClicked
-
+    /**
+     * Event responsible for calling the set_report_area function
+     *
+     * @param evt
+     */
     private void tbReportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbReportsMouseClicked
         set_report_area();
     }//GEN-LAST:event_tbReportsMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    /**
+     * Event responsible for calling print_report function
+     *
+     * @param evt
+     */
+    private void btnPrintReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintReportActionPerformed
         print_report();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       delete_report();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       update_report();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnPrintReportActionPerformed
+    /**
+     * Event responsible for calling delete_report function
+     *
+     * @param evt
+     */
+    private void btnDeleteReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteReportActionPerformed
+        delete_report();
+    }//GEN-LAST:event_btnDeleteReportActionPerformed
+    /**
+     * Event responsible for calling update_report function
+     *
+     * @param evt
+     */
+    private void btnUpdateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateReportActionPerformed
+        update_report();
+    }//GEN-LAST:event_btnUpdateReportActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnDeleteReport;
+    private javax.swing.JButton btnPrintReport;
+    private javax.swing.JButton btnUpdateReport;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
