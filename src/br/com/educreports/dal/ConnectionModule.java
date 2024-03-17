@@ -16,14 +16,13 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.dal;
-
 import java.sql.*;
 /**
+ * Class responsible for the connection of the system with database
  * @version 1.0
  * @author Nick1
- * Class responsible for the connection of the system with database
  */
-public class ModuloConexao {
+public class ConnectionModule {
     
      public static Connection conector() {
         java.sql.Connection conexao = null;

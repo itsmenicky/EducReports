@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
-import br.com.educreports.dal.ModuloConexao;
+import br.com.educreports.dal.ConnectionModule;
 import java.sql.*;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -55,7 +55,7 @@ public class StudentScreen extends javax.swing.JInternalFrame {
      */
     public StudentScreen() {
         initComponents();
-        conexao = ModuloConexao.conector();
+        conexao = ConnectionModule.conector();
     }
 
     /**

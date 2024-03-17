@@ -17,7 +17,7 @@
  */
 package br.com.educreports.screens;
 
-import br.com.educreports.dal.ModuloConexao;
+import br.com.educreports.dal.ConnectionModule;
 import java.sql.*;
 import java.awt.Color;
 import java.awt.Image;
@@ -32,7 +32,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
- * Main interface of the system
+ * EducReports main screen
  * 
  * @version 1.0
  * @author Nick1
@@ -55,7 +55,7 @@ public class MainScreen extends javax.swing.JFrame {
         int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirmation == JOptionPane.YES_OPTION) {
             try {
-                Connection conexao = ModuloConexao.conector();
+                Connection conexao = ConnectionModule.conector();
                 JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/Reports/StudentReport.jasper"), null, conexao);
                 JasperViewer.viewReport(print, false);
             } catch (Exception e) {
@@ -71,7 +71,7 @@ public class MainScreen extends javax.swing.JFrame {
         int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirmation == JOptionPane.YES_OPTION) {
             try {
-                Connection conexao = ModuloConexao.conector();
+                Connection conexao = ConnectionModule.conector();
                 JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/Reports/TeacherReport.jasper"), null, conexao);
                 JasperViewer.viewReport(print, false);
             } catch (Exception e) {

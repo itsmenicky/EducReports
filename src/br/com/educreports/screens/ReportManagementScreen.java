@@ -19,7 +19,7 @@ package br.com.educreports.screens;
 
 import java.sql.*;
 import javax.swing.JOptionPane;
-import br.com.educreports.dal.ModuloConexao;
+import br.com.educreports.dal.ConnectionModule;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
@@ -28,7 +28,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
- *
+ * Reports Management screen
+ * @version 1.0
  * @author Nick1
  */
 public class ReportManagementScreen extends javax.swing.JInternalFrame {
@@ -43,7 +44,7 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
      */
     public ReportManagementScreen() {
         initComponents();
-        conexao = ModuloConexao.conector();
+        conexao = ConnectionModule.conector();
     }
 
     /**

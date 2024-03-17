@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
-import br.com.educreports.dal.ModuloConexao;
+import br.com.educreports.dal.ConnectionModule;
 import java.awt.Graphics;
 import java.sql.*;
 import javax.sql.rowset.serial.SerialBlob;
@@ -53,7 +53,7 @@ public class ReportsEmission extends javax.swing.JInternalFrame {
      */
     public ReportsEmission() {
         initComponents();
-        conexao = ModuloConexao.conector();
+        conexao = ConnectionModule.conector();
     }
 
     /**

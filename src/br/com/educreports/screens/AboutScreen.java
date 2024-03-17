@@ -18,6 +18,7 @@
 package br.com.educreports.screens;
 
 /**
+ * Info about EducReports
  * @version 1.0
  * @author Nick1
  */

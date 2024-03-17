@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
-import br.com.educreports.dal.ModuloConexao;
+import br.com.educreports.dal.ConnectionModule;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +26,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
+ * Login screen of EducReports
  * @version 1.0
  * @author Nick1
  */
@@ -40,7 +41,7 @@ public class ScreenLogin extends javax.swing.JFrame {
     public ScreenLogin() {
         this.getContentPane().setBackground(Color.WHITE);   
         this.setVisible(true);
-        conexao = ModuloConexao.conector();
+        conexao = ConnectionModule.conector();
         initComponents();
         if(conexao != null){
             lblDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dbconnected.png")));
