@@ -77,6 +77,8 @@ public class ScreenLogin extends javax.swing.JFrame {
                     MainScreen.users_menu.setEnabled(true);
                     MainScreen.menu_students_rel.setEnabled(true);
                     MainScreen.menu_teachers_rel.setEnabled(true);
+                    MainScreen.students_menuitem.setEnabled(true);
+                    MainScreen.users_menuitem.setEnabled(true);
                     Adminprofile = true;
                 }
                 this.dispose();

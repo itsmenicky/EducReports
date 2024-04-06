@@ -16,12 +16,16 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
+
 import br.com.educreports.dal.ConnectionModule;
+import java.awt.Graphics2D;
 import java.sql.*;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -34,7 +38,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * Student management screen
- * 
+ *
  * @version 1.0
  * @author Nick1
  */
@@ -59,7 +63,8 @@ public class StudentScreen extends javax.swing.JInternalFrame {
     }
 
     /**
-     * Function responsible for uploading photo on the system, and setting the photo on the interface
+     * Function responsible for uploading photo on the system, and setting the
+     * photo on the interface
      */
     private void photoUpload() {
         JFileChooser fileExplorer = new JFileChooser();
@@ -110,7 +115,8 @@ public class StudentScreen extends javax.swing.JInternalFrame {
     }
 
     /**
-     * Function responsible for setting student txt fields and photo on the interface
+     * Function responsible for setting student txt fields and photo on the
+     * interface
      */
     private void setStudentFields() {
         int set = tbStudent.getSelectedRow();
@@ -147,7 +153,7 @@ public class StudentScreen extends javax.swing.JInternalFrame {
     }
 
     /**
-     * Function responsible for setting teacher text fields 
+     * Function responsible for setting teacher text fields
      */
     private void setTeacherFields() {
         int set = tbTeacher.getSelectedRow();
@@ -199,7 +205,8 @@ public class StudentScreen extends javax.swing.JInternalFrame {
     }
 
     /**
-     * Function responsible for cleaning interface text fields, table and setting default icon on photo area
+     * Function responsible for cleaning interface text fields, table and
+     * setting default icon on photo area
      */
     private void clean_fields() {
         txtRA.setText(null);
@@ -245,37 +252,51 @@ public class StudentScreen extends javax.swing.JInternalFrame {
     /**
      * Function responsible for update student information in database
      */
-    private void edit_student() {
-        String sql = "update tb_users class=?, child_photo=?, child_phone=?, responsible=?, address=?, teacher_name=?, teacher_id=? where RA=?";
-        int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a atualização dos dados deste usuário?", "CONFIRMAÇÃO", JOptionPane.YES_NO_OPTION);
-        if (confirmation == JOptionPane.YES_OPTION) {
-            try {
-                if (txtClass.getText().isBlank() || txtPhone.getText().isBlank() || txtResponsible.getText().isBlank() || txtAddress.getText().isBlank() || txtTeacherName.getText().isBlank() || txtTeacherId.getText().isBlank()) {
-                    JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
-                } else {
-                    pst = conexao.prepareStatement(sql);
-                    pst.setString(1, txtClass.getText());
-                    pst.setBlob(2, fis, size);
-                    pst.setString(3, txtPhone.getText());
-                    pst.setString(4, txtResponsible.getText());
-                    pst.setString(5, txtAddress.getText());
-                    pst.setString(6, txtTeacherName.getText());
-                    pst.setString(7, txtTeacherId.getText());
-                    pst.setString(8, txtRA.getText());
-                    int updated = pst.executeUpdate();
-                    if (updated > 0) {
-                        JOptionPane.showMessageDialog(null, "Dados do aluno atualizados com sucesso!");
-                        btnAddStudent.setEnabled(true);
-                        txtRA.setEnabled(true);
-                        txtName.setEnabled(true);
-                        txtBirth.setEnabled(true);
-                    }
+private void edit_student() {
+    String sql = "update tb_child set class=?, child_photo=?, child_phone=?, responsible=?, address=?, teacher_name=?, teacher_id=? where RA=?";
+    int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a atualização dos dados deste usuário?", "CONFIRMAÇÃO", JOptionPane.YES_NO_OPTION);
+    if (confirmation == JOptionPane.YES_OPTION) {
+        try {
+            if (txtClass.getText().isBlank() || txtPhone.getText().isBlank() || txtResponsible.getText().isBlank() || txtAddress.getText().isBlank() || txtTeacherName.getText().isBlank() || txtTeacherId.getText().isBlank()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
+            } else {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtClass.getText());
+
+                // Convertendo o ícone em bytes
+                ImageIcon icon = (ImageIcon) lblPhoto.getIcon();
+                Image image = icon.getImage();
+                BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2d = bufferedImage.createGraphics();
+                g2d.drawImage(image, 0, 0, null);
+                g2d.dispose();
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
+                byte[] imageBytes = byteArrayOutputStream.toByteArray();
+
+                pst.setBytes(2, imageBytes);
+                pst.setString(3, txtPhone.getText());
+                pst.setString(4, txtResponsible.getText());
+                pst.setString(5, txtAddress.getText());
+                pst.setString(6, txtTeacherName.getText());
+                pst.setString(7, txtTeacherId.getText());
+                pst.setString(8, txtRA.getText());
+                int updated = pst.executeUpdate();
+                if (updated > 0) {
+                    JOptionPane.showMessageDialog(null, "Dados do aluno atualizados com sucesso!");
+                    btnAddStudent.setEnabled(true);
+                    txtRA.setEnabled(true);
+                    txtName.setEnabled(true);
+                    txtBirth.setEnabled(true);
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -649,7 +670,8 @@ public class StudentScreen extends javax.swing.JInternalFrame {
 
     /**
      * Event responsible for calling photo upload function
-     * @param evt 
+     *
+     * @param evt
      */
     private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
         photoUpload();
@@ -657,7 +679,8 @@ public class StudentScreen extends javax.swing.JInternalFrame {
 
     /**
      * Event responsible for calling search teacher function
-     * @param evt 
+     *
+     * @param evt
      */
     private void txtSearchTeacherKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchTeacherKeyReleased
         search_teacher();
@@ -665,7 +688,8 @@ public class StudentScreen extends javax.swing.JInternalFrame {
 
     /**
      * Event responsible for calling set teacher fields function
-     * @param evt 
+     *
+     * @param evt
      */
     private void tbTeacherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbTeacherMouseClicked
         setTeacherFields();
@@ -673,7 +697,8 @@ public class StudentScreen extends javax.swing.JInternalFrame {
 
     /**
      * Event responsible for calling add student function
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
         addStudent();
@@ -681,15 +706,18 @@ public class StudentScreen extends javax.swing.JInternalFrame {
 
     /**
      * Event responsible for calling search student function
-     * @param evt 
+     *
+     * @param evt
      */
     private void txtSearchStudentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchStudentKeyReleased
         search_student();
     }//GEN-LAST:event_txtSearchStudentKeyReleased
 
     /**
-     * Event responsible for, with the click on a table field, setting the interface student text fields and configuring student buttons
-     * @param evt 
+     * Event responsible for, with the click on a table field, setting the
+     * interface student text fields and configuring student buttons
+     *
+     * @param evt
      */
     private void tbStudentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbStudentMouseClicked
         setStudentFields();
@@ -703,7 +731,8 @@ public class StudentScreen extends javax.swing.JInternalFrame {
 
     /**
      * Event responsible for calling delete student function
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnDelStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelStudentActionPerformed
         delete_student();
@@ -711,7 +740,8 @@ public class StudentScreen extends javax.swing.JInternalFrame {
 
     /**
      * Event responsible for calling edit student function
-     * @param evt 
+     *
+     * @param evt
      */
     private void btnEditStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditStudentActionPerformed
         edit_student();

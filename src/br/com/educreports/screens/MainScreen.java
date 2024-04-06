@@ -112,7 +112,7 @@ public class MainScreen extends javax.swing.JFrame {
         menu_reportsmanagement = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         users_menu = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        users_menuitem = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
 
@@ -199,7 +199,6 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         students_menu.setText("Alunos");
-        students_menu.setEnabled(false);
 
         students_menuitem.setText("Cadastro/Edição");
         students_menuitem.setEnabled(false);
@@ -256,21 +255,20 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         users_menu.setText("Usuários");
-        users_menu.setEnabled(false);
         users_menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 users_menuActionPerformed(evt);
             }
         });
 
-        jMenuItem2.setText("Cadastro/Edição");
-        jMenuItem2.setEnabled(false);
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        users_menuitem.setText("Cadastro/Edição");
+        users_menuitem.setEnabled(false);
+        users_menuitem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                users_menuitemActionPerformed(evt);
             }
         });
-        users_menu.add(jMenuItem2);
+        users_menu.add(users_menuitem);
 
         jMenuBar1.add(users_menu);
 
@@ -349,11 +347,11 @@ public class MainScreen extends javax.swing.JFrame {
      * Event responsbile for open the Users screen
      * @param evt 
      */
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void users_menuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_users_menuitemActionPerformed
         UserScreen usuarios = new UserScreen();
         desktop.add(usuarios);
         usuarios.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_users_menuitemActionPerformed
 /**
  * Event responsible for open the Students screen
  * @param evt 
@@ -442,7 +440,6 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
@@ -452,7 +449,8 @@ public class MainScreen extends javax.swing.JFrame {
     public static javax.swing.JMenuItem menu_teachers_rel;
     public static javax.swing.JLabel menu_username;
     public static javax.swing.JMenu students_menu;
-    public javax.swing.JMenuItem students_menuitem;
+    public static javax.swing.JMenuItem students_menuitem;
     public static javax.swing.JMenu users_menu;
+    public static javax.swing.JMenuItem users_menuitem;
     // End of variables declaration//GEN-END:variables
 }
