@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
+
 import br.com.educreports.dal.ConnectionModule;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -27,30 +28,37 @@ import javax.swing.JOptionPane;
 
 /**
  * Login screen of EducReports
+ *
  * @version 1.0
  * @author Nick1
  */
 public class ScreenLogin extends javax.swing.JFrame {
-    
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
+
     /**
      * Creates new form ScreenLogin and starts connection with database
      */
     public ScreenLogin() {
-        this.getContentPane().setBackground(Color.WHITE);   
+        this.getContentPane().setBackground(Color.WHITE);
         this.setVisible(true);
         conexao = ConnectionModule.conector();
         initComponents();
-        if(conexao != null){
+        if (conexao != null) {
             lblDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dbconnected.png")));
         }
     }
+
     /**
-     * Method responsible for checking the existence of the user in the database, and if so, calling the main screen
+     * Method responsible for checking the existence of the user in the
+     * database, and if so, calling the main screen
      */
-     private void login(){
+    
+    public static Boolean Adminprofile = false;
+    
+    private void login() {
         String sql = "select * from tb_user where login=? and password=?";
         try {
             pst = conexao.prepareStatement(sql);
@@ -58,15 +66,22 @@ public class ScreenLogin extends javax.swing.JFrame {
             String captura = new String(txtPass.getPassword());
             pst.setString(2, captura);
             rs = pst.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 MainScreen telaPrincipal = new MainScreen();
                 telaPrincipal.setExtendedState(6);
                 telaPrincipal.setVisible(true);
                 MainScreen.menu_username.setText(rs.getString(2));
+                if (rs.getString(6).equals("Admin")) {
+                    MainScreen.students_menu.setEnabled(true);
+                    MainScreen.users_menu.setEnabled(true);
+                    MainScreen.menu_students_rel.setEnabled(true);
+                    MainScreen.menu_teachers_rel.setEnabled(true);
+                    Adminprofile = true;
+                }
                 this.dispose();
                 conexao.close();
-            } else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Usuário/Senha incorretos");
             }
         } catch (Exception e) {
@@ -211,7 +226,7 @@ public class ScreenLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-  
+
     }//GEN-LAST:event_formWindowActivated
 
     /**

@@ -64,6 +64,7 @@ public class MainScreen extends javax.swing.JFrame {
         }
     }
 
+
     /**
      * Function responsible for issuing reports on students registered in the system
      */
@@ -103,14 +104,14 @@ public class MainScreen extends javax.swing.JFrame {
             }
         };
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        students_menu = new javax.swing.JMenu();
+        students_menuitem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menu_teachers_rel = new javax.swing.JMenuItem();
+        menu_students_rel = new javax.swing.JMenuItem();
+        menu_reportsmanagement = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        users_menu = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -197,17 +198,19 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("Alunos");
+        students_menu.setText("Alunos");
+        students_menu.setEnabled(false);
 
-        jMenuItem6.setText("Cadastro/Edição");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        students_menuitem.setText("Cadastro/Edição");
+        students_menuitem.setEnabled(false);
+        students_menuitem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                students_menuitemActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem6);
+        students_menu.add(students_menuitem);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(students_menu);
 
         jMenu2.setText("Relatórios");
         jMenu2.addActionListener(new java.awt.event.ActionListener() {
@@ -216,29 +219,31 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem1.setText("Relatório de Docentes");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menu_teachers_rel.setText("Relatório de Docentes");
+        menu_teachers_rel.setEnabled(false);
+        menu_teachers_rel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menu_teachers_relActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(menu_teachers_rel);
 
-        jMenuItem3.setText("Relatório de Alunos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menu_students_rel.setText("Relatório de Alunos");
+        menu_students_rel.setEnabled(false);
+        menu_students_rel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menu_students_relActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(menu_students_rel);
 
-        jMenuItem4.setText("Gerenciador de Relatórios");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menu_reportsmanagement.setText("Gerenciador de Relatórios");
+        menu_reportsmanagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menu_reportsmanagementActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(menu_reportsmanagement);
 
         jMenuItem5.setText("Emitir Relatório");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -250,22 +255,24 @@ public class MainScreen extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Usuários");
-        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+        users_menu.setText("Usuários");
+        users_menu.setEnabled(false);
+        users_menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu3ActionPerformed(evt);
+                users_menuActionPerformed(evt);
             }
         });
 
         jMenuItem2.setText("Cadastro/Edição");
+        jMenuItem2.setEnabled(false);
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        users_menu.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(users_menu);
 
         jMenu4.setText("Ajuda");
         jMenu4.addActionListener(new java.awt.event.ActionListener() {
@@ -334,9 +341,9 @@ public class MainScreen extends javax.swing.JFrame {
         lblDate.setText(formatador.format(data));
     }//GEN-LAST:event_formWindowActivated
 
-    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+    private void users_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_users_menuActionPerformed
 
-    }//GEN-LAST:event_jMenu3ActionPerformed
+    }//GEN-LAST:event_users_menuActionPerformed
 
     /**
      * Event responsbile for open the Users screen
@@ -351,25 +358,25 @@ public class MainScreen extends javax.swing.JFrame {
  * Event responsible for open the Students screen
  * @param evt 
  */
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void students_menuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_students_menuitemActionPerformed
         StudentScreen alunos = new StudentScreen();
         alunos.setVisible(true);
         desktop.add(alunos);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_students_menuitemActionPerformed
 /**
  * Event responsible for calling the studentsReport function
  * @param evt 
  */
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void menu_students_relActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_students_relActionPerformed
         studentsReport();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_menu_students_relActionPerformed
 /**
  * Event responsible for calling the teachersReport function
  * @param evt 
  */
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menu_teachers_relActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_teachers_relActionPerformed
         teachersReport();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_menu_teachers_relActionPerformed
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
 
@@ -387,11 +394,11 @@ public class MainScreen extends javax.swing.JFrame {
  * Event responsible for calling the ReportManagement screen
  * @param evt 
  */
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void menu_reportsmanagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_reportsmanagementActionPerformed
        ReportManagementScreen reportsmanagement = new ReportManagementScreen();
        reportsmanagement.setVisible(true);
        desktop.add(reportsmanagement);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_menu_reportsmanagementActionPerformed
 
     /**
      * @param args the command line arguments
@@ -432,20 +439,20 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblDate;
+    public static javax.swing.JMenuItem menu_reportsmanagement;
+    public static javax.swing.JMenuItem menu_students_rel;
+    public static javax.swing.JMenuItem menu_teachers_rel;
     public static javax.swing.JLabel menu_username;
+    public static javax.swing.JMenu students_menu;
+    public javax.swing.JMenuItem students_menuitem;
+    public static javax.swing.JMenu users_menu;
     // End of variables declaration//GEN-END:variables
 }
