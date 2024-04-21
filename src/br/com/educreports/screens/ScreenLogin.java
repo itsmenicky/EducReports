@@ -126,6 +126,7 @@ public class ScreenLogin extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         lblDatabase = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -152,6 +153,7 @@ public class ScreenLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(65, 168, 97));
         setForeground(java.awt.Color.darkGray);
+        setPreferredSize(new java.awt.Dimension(844, 496));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -187,7 +189,7 @@ public class ScreenLogin extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 61, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -198,23 +200,23 @@ public class ScreenLogin extends javax.swing.JFrame {
         jLabel3.setPreferredSize(new java.awt.Dimension(270, 100));
         jLabel3.setRequestFocusEnabled(false);
         jLabel3.setVerifyInputWhenFocusTarget(false);
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, -1, -1));
 
         txtLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(411, 265, 253, 38));
+        getContentPane().add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, 253, 38));
 
         jLabel5.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         jLabel5.setText("SENHA");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(411, 321, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         jLabel6.setText("LOGIN");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(411, 241, -1, -1));
-        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(411, 345, 253, 36));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, -1, -1));
+        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, 253, 36));
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
@@ -224,10 +226,16 @@ public class ScreenLogin extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 390, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, -1, -1));
 
         lblDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dbdisconnected.png"))); // NOI18N
-        getContentPane().add(lblDatabase, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, -1, -1));
+        getContentPane().add(lblDatabase, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Montserrat", 0, 11)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 87, 255));
+        jLabel7.setText("<html><p style=\"text-decoration: underline\">Esqueci a senha</p></html>");
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 440, -1, -1));
 
         setSize(new java.awt.Dimension(858, 503));
         setLocationRelativeTo(null);
@@ -289,6 +297,7 @@ public class ScreenLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
