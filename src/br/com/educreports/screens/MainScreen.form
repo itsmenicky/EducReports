@@ -106,7 +106,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="users_menuitem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastro/Edi&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="Editar usu&#xe1;rio"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -115,6 +115,11 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cadastrar usu&#xe1;rio"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>

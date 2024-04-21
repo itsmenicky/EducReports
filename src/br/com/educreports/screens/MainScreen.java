@@ -113,6 +113,7 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         users_menu = new javax.swing.JMenu();
         users_menuitem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
 
@@ -261,7 +262,7 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        users_menuitem.setText("Cadastro/Edição");
+        users_menuitem.setText("Editar usuário");
         users_menuitem.setEnabled(false);
         users_menuitem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,6 +270,9 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
         users_menu.add(users_menuitem);
+
+        jMenuItem1.setText("Cadastrar usuário");
+        users_menu.add(jMenuItem1);
 
         jMenuBar1.add(users_menu);
 
@@ -440,6 +444,7 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;

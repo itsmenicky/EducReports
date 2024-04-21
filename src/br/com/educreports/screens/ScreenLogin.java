@@ -21,6 +21,8 @@ import br.com.educreports.dal.ConnectionModule;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.sql.*;
 import java.text.DateFormat;
 import java.util.Date;
@@ -55,16 +57,26 @@ public class ScreenLogin extends javax.swing.JFrame {
      * Method responsible for checking the existence of the user in the
      * database, and if so, calling the main screen
      */
-    
     public static Boolean Adminprofile = false;
-    
+
+    public static String bytesToHex(byte[] bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte b : bytes) {
+            result.append(String.format("%02x", b));
+        }
+        return result.toString();
+    }
+
     private void login() {
         String sql = "select * from tb_user where login=? and password=?";
         try {
             pst = conexao.prepareStatement(sql);
+            String senha = new String(txtPass.getPassword());
+            MessageDigest algorithm = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = algorithm.digest(senha.getBytes(StandardCharsets.UTF_8));
+            String senhaCriptografada = bytesToHex(messageDigest);
             pst.setString(1, txtLogin.getText());
-            String captura = new String(txtPass.getPassword());
-            pst.setString(2, captura);
+            pst.setString(2, senhaCriptografada);
             rs = pst.executeQuery();
 
             if (rs.next()) {
@@ -140,7 +152,6 @@ public class ScreenLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(65, 168, 97));
         setForeground(java.awt.Color.darkGray);
-        setPreferredSize(new java.awt.Dimension(844, 496));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -184,7 +195,10 @@ public class ScreenLogin extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Logo.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(394, 80, -1, -1));
+        jLabel3.setPreferredSize(new java.awt.Dimension(270, 100));
+        jLabel3.setRequestFocusEnabled(false);
+        jLabel3.setVerifyInputWhenFocusTarget(false);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, -1));
 
         txtLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,7 +229,7 @@ public class ScreenLogin extends javax.swing.JFrame {
         lblDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dbdisconnected.png"))); // NOI18N
         getContentPane().add(lblDatabase, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, -1, -1));
 
-        pack();
+        setSize(new java.awt.Dimension(858, 503));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
