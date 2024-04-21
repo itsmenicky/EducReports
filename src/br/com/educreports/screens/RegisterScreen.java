@@ -43,7 +43,7 @@ public class RegisterScreen extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Register");
+        setTitle("Cadastrar");
 
         jPanel1.setBackground(new java.awt.Color(65, 168, 97));
 

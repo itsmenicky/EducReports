@@ -235,6 +235,11 @@ public class LoginScreen extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 87, 255));
         jLabel7.setText("<html><p style=\"text-decoration: underline\">Esqueci a senha</p></html>");
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 440, -1, -1));
 
         setSize(new java.awt.Dimension(858, 503));
@@ -252,6 +257,11 @@ public class LoginScreen extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
     }//GEN-LAST:event_formWindowActivated
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        PasswordResetScreen password_reset = new PasswordResetScreen();
+        password_reset.setVisible(true);
+    }//GEN-LAST:event_jLabel7MouseClicked
 
     /**
      * @param args the command line arguments
