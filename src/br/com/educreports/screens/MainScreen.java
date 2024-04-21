@@ -272,6 +272,11 @@ public class MainScreen extends javax.swing.JFrame {
         users_menu.add(users_menuitem);
 
         jMenuItem1.setText("Cadastrar usuário");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         users_menu.add(jMenuItem1);
 
         jMenuBar1.add(users_menu);
@@ -401,6 +406,12 @@ public class MainScreen extends javax.swing.JFrame {
        reportsmanagement.setVisible(true);
        desktop.add(reportsmanagement);
     }//GEN-LAST:event_menu_reportsmanagementActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        RegisterScreen register = new RegisterScreen();
+        register.setVisible(true);
+        desktop.add(register);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
