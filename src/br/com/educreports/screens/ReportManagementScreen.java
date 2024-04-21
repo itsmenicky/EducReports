@@ -52,7 +52,7 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
      */
     private void search_child() {
         String sql = null;
-        if(ScreenLogin.Adminprofile == false){
+        if(LoginScreen.Adminprofile == false){
              sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ? and teacher_name like ?";
         }else{
             sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ?";
@@ -60,7 +60,7 @@ public class ReportManagementScreen extends javax.swing.JInternalFrame {
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, searchBar.getText() + "%");
-            if(ScreenLogin.Adminprofile == false){
+            if(LoginScreen.Adminprofile == false){
                 pst.setString(2, MainScreen.menu_username.getText() + "%");
             }
             rs = pst.executeQuery();

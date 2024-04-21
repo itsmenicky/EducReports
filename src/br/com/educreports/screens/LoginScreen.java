@@ -34,7 +34,7 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * @author Nick1
  */
-public class ScreenLogin extends javax.swing.JFrame {
+public class LoginScreen extends javax.swing.JFrame {
 
     Connection conexao = null;
     PreparedStatement pst = null;
@@ -43,7 +43,7 @@ public class ScreenLogin extends javax.swing.JFrame {
     /**
      * Creates new form ScreenLogin and starts connection with database
      */
-    public ScreenLogin() {
+    public LoginScreen() {
         this.getContentPane().setBackground(Color.WHITE);
         this.setVisible(true);
         conexao = ConnectionModule.conector();
@@ -270,20 +270,21 @@ public class ScreenLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ScreenLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ScreenLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ScreenLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ScreenLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ScreenLogin().setVisible(true);
+                new LoginScreen().setVisible(true);
             }
         });
     }

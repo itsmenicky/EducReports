@@ -326,7 +326,7 @@ public class MainScreen extends javax.swing.JFrame {
  * @param evt 
  */
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        ReportsEmission emissao = new ReportsEmission();
+        ReportsEmissionScreen emissao = new ReportsEmissionScreen();
         desktop.add(emissao);
         emissao.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
