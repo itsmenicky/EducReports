@@ -259,7 +259,7 @@ public class LoginScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        PasswordResetScreen password_reset = new PasswordResetScreen();
+        PasswordResetEmailScreen password_reset = new PasswordResetEmailScreen();
         password_reset.setVisible(true);
     }//GEN-LAST:event_jLabel7MouseClicked
 
