@@ -39,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
 /**
  * Student management screen
  *
- * @version 1.0
+ * @version 2.0
  * @author Nick1
  */
 public class StudentScreen extends javax.swing.JInternalFrame {

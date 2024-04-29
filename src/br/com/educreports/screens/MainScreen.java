@@ -34,7 +34,7 @@ import net.sf.jasperreports.view.JasperViewer;
 /**
  * EducReports main screen
  * 
- * @version 1.0
+ * @version 2.0
  * @author Nick1
  */
 public class MainScreen extends javax.swing.JFrame {
@@ -406,7 +406,10 @@ public class MainScreen extends javax.swing.JFrame {
        reportsmanagement.setVisible(true);
        desktop.add(reportsmanagement);
     }//GEN-LAST:event_menu_reportsmanagementActionPerformed
-
+/**
+ * Event responsible for calling the Register screen
+ * @param evt 
+ */
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         RegisterScreen register = new RegisterScreen();
         register.setVisible(true);

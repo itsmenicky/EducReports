@@ -1,6 +1,19 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Copyright (C) 2024 Nickolas Martins
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
 import br.com.educreports.dal.ConnectionModule;
@@ -9,7 +22,7 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * @version 2.0
  * @author Nick1
  */
 public class PasswordResetScreen extends javax.swing.JFrame {
@@ -156,6 +169,10 @@ public class PasswordResetScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pass_resetActionPerformed
 
+    /**
+     * Event responsible for update user password in database
+     * @param evt 
+     */
     private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_btnActionPerformed
         if(!pass_reset.getText().equals(pass_reset_confirm.getText())){
             JOptionPane.showMessageDialog(null, "As senhas não correspondem");

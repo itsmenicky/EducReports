@@ -28,7 +28,7 @@ import net.proteanit.sql.DbUtils;
 /**
  * Screen for users management
  * 
- * @version 1.0
+ * @version 2.0
  * @author Nick1
  */
 

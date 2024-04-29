@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 import br.com.educreports.services.sendEmail;
 
 /**
- * @version 1.1
+ * @version 2.0
  * @author Nick1
  */
 public class PasswordResetEmailScreen extends javax.swing.JFrame {
@@ -116,6 +116,11 @@ public class PasswordResetEmailScreen extends javax.swing.JFrame {
      * @param evt
      */
 
+    
+    /**
+     * Method responsible for sending verify code to the email, and request the code to the user
+     * @param mail_address 
+     */
     private void verifyCode(String mail_address) {
         Random generator = new Random();
         int mail_code = generator.nextInt(9000) + 1000;
@@ -130,6 +135,10 @@ public class PasswordResetEmailScreen extends javax.swing.JFrame {
         this.dispose();
     }
 
+    /**
+     * Event responsible for capturing the user email, verifying in the database, and calling the verifyCode method
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (email_field.getText().equals("") || email_field.getText().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Insira seu email!");

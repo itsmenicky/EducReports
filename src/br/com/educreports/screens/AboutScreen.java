@@ -19,7 +19,7 @@ package br.com.educreports.screens;
 
 /**
  * Info about EducReports
- * @version 1.0
+ * @version 2.0
  * @author Nick1
  */
 public class AboutScreen extends javax.swing.JInternalFrame {
@@ -52,7 +52,7 @@ public class AboutScreen extends javax.swing.JInternalFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Logo.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
-        jLabel2.setText("EducReports v1.0.0");
+        jLabel2.setText("EducReports v2.0.0");
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         jLabel3.setText("Sistema para gerenciamento e emissão de relatórios");

@@ -19,7 +19,7 @@ package br.com.educreports.dal;
 import java.sql.*;
 /**
  * Class responsible for the connection of the system with database
- * @version 1.0
+ * @version 2.0
  * @author Nick1
  */
 public class ConnectionModule {
