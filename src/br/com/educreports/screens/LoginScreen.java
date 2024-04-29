@@ -18,6 +18,7 @@
 package br.com.educreports.screens;
 
 import br.com.educreports.dal.ConnectionModule;
+import br.com.educreports.services.passwordCrypt;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -59,24 +60,13 @@ public class LoginScreen extends javax.swing.JFrame {
      */
     public static Boolean Adminprofile = false;
 
-    public static String bytesToHex(byte[] bytes) {
-        StringBuilder result = new StringBuilder();
-        for (byte b : bytes) {
-            result.append(String.format("%02x", b));
-        }
-        return result.toString();
-    }
-
     private void login() {
         String sql = "select * from tb_user where login=? and password=?";
         try {
             pst = conexao.prepareStatement(sql);
-            String senha = new String(txtPass.getPassword());
-            MessageDigest algorithm = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = algorithm.digest(senha.getBytes(StandardCharsets.UTF_8));
-            String senhaCriptografada = bytesToHex(messageDigest);
+            String password = new String(txtPass.getPassword());
             pst.setString(1, txtLogin.getText());
-            pst.setString(2, senhaCriptografada);
+            pst.setString(2, passwordCrypt.passCrypt(password));
             rs = pst.executeQuery();
 
             if (rs.next()) {

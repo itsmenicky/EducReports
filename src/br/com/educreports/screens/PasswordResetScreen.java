@@ -3,17 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package br.com.educreports.screens;
+import br.com.educreports.dal.ConnectionModule;
+import br.com.educreports.services.passwordCrypt;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Nick1
  */
 public class PasswordResetScreen extends javax.swing.JFrame {
+    private String account;
 
     /**
      * Creates new form PasswordResetScreen
+     * @param account
      */
-    public PasswordResetScreen() {
+    public PasswordResetScreen(String account) {
+        this.account = account;
         initComponents();
     }
 
@@ -34,6 +41,7 @@ public class PasswordResetScreen extends javax.swing.JFrame {
         pass_reset = new javax.swing.JTextField();
         pass_reset_confirm = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        confirm_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -82,6 +90,15 @@ public class PasswordResetScreen extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(179, 179, 179));
         jLabel5.setText("<html>(Mínimo 6 caracteres com letras maiúsculas, números e caracteres especiais)</html>");
 
+        confirm_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/confirm_btn.png"))); // NOI18N
+        confirm_btn.setBorderPainted(false);
+        confirm_btn.setContentAreaFilled(false);
+        confirm_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirm_btnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,18 +109,23 @@ public class PasswordResetScreen extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(143, 143, 143))
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pass_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pass_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pass_reset_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pass_reset_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(172, 172, 172)
+                        .addComponent(confirm_btn)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -121,7 +143,9 @@ public class PasswordResetScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(pass_reset_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(confirm_btn)
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -131,6 +155,25 @@ public class PasswordResetScreen extends javax.swing.JFrame {
     private void pass_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pass_resetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pass_resetActionPerformed
+
+    private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_btnActionPerformed
+        if(!pass_reset.getText().equals(pass_reset_confirm.getText())){
+            JOptionPane.showMessageDialog(null, "As senhas não correspondem");
+        }else{
+            Connection conexao = ConnectionModule.conector();
+            String sql = "update tb_user set password=? where email like ?";
+            try {
+                PreparedStatement pst = conexao.prepareStatement(sql);
+                pst.setString(1, passwordCrypt.passCrypt(pass_reset_confirm.getText()));
+                pst.setString(2, account);
+                pst.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Senha atualizada com sucesso!");
+                this.dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_confirm_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,12 +205,13 @@ public class PasswordResetScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PasswordResetScreen().setVisible(true);
+                new PasswordResetScreen(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton confirm_btn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

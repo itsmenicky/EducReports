@@ -121,18 +121,17 @@ public class PasswordResetEmailScreen extends javax.swing.JFrame {
         int mail_code = generator.nextInt(9000) + 1000;
         sendEmail.mailSender(mail_address, mail_code);
         String email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
-        while (email_confirmation.equals("")) {
+        while (!email_confirmation.equals(Integer.toString(mail_code))) {
             JOptionPane.showMessageDialog(null, "Código inválido!");
             email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
         }
-        while (Integer.parseInt(email_confirmation) != mail_code) {
-            JOptionPane.showMessageDialog(null, "Código inválido!");
-            email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
-        }
+        PasswordResetScreen password_reset = new PasswordResetScreen(mail_address);
+        password_reset.setVisible(true);
+        this.dispose();
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (email_field.getText().equals("")) {
+        if (email_field.getText().equals("") || email_field.getText().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Insira seu email!");
         } else {
             conexao = ConnectionModule.conector();
