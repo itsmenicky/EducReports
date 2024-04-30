@@ -21,21 +21,14 @@ import br.com.educreports.dal.ConnectionModule;
 import br.com.educreports.services.passwordCrypt;
 import java.awt.Color;
 import java.awt.Toolkit;
-import javax.swing.ImageIcon;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.sql.*;
-import java.text.DateFormat;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
  * Login screen of EducReports
  *
  * @version 2.0
- * @author Nick1
+ * @author itsmenicky
  */
 public class LoginScreen extends javax.swing.JFrame {
 

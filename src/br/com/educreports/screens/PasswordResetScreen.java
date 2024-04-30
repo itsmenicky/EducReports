@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 
 /**
  * @version 2.0
- * @author Nick1
+ * @author itsmenicky
  */
 public class PasswordResetScreen extends javax.swing.JFrame {
     private String account;

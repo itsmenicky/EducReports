@@ -30,7 +30,7 @@ import net.sf.jasperreports.view.JasperViewer;
 /**
  * Reports Management screen
  * @version 2.0
- * @author Nick1
+ * @author itsmenicky
  */
 public class ReportManagementScreen extends javax.swing.JInternalFrame {
 

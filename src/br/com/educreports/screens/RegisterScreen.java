@@ -19,7 +19,7 @@ package br.com.educreports.screens;
 
 /**
  * @version 2.0
- * @author Nick1
+ * @author itsmenicky
  */
 public class RegisterScreen extends javax.swing.JInternalFrame {
 

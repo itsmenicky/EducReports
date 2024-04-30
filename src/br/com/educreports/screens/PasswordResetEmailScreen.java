@@ -25,7 +25,7 @@ import br.com.educreports.services.sendEmail;
 
 /**
  * @version 2.0
- * @author Nick1
+ * @author itsmenicky
  */
 public class PasswordResetEmailScreen extends javax.swing.JFrame {
 

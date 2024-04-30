@@ -20,7 +20,7 @@ import java.sql.*;
 /**
  * Class responsible for the connection of the system with database
  * @version 2.0
- * @author Nick1
+ * @author itsmenicky
  */
 public class ConnectionModule {
     

@@ -20,7 +20,7 @@ package br.com.educreports.screens;
 /**
  * Info about EducReports
  * @version 2.0
- * @author Nick1
+ * @author itsmenicky
  */
 public class AboutScreen extends javax.swing.JInternalFrame {
 
