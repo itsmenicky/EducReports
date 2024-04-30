@@ -18,6 +18,7 @@
 package br.com.educreports.screens;
 import br.com.educreports.dal.ConnectionModule;
 import java.sql.*;
+import java.awt.Toolkit;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import br.com.educreports.services.sendEmail;
@@ -53,6 +54,8 @@ public class PasswordResetEmailScreen extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Reset de Senha");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginScreen.class.getResource("/assets/desktop-logo.png")));
         setResizable(false);
 
         jLabel2.setFont(new java.awt.Font("Montserrat", 0, 11)); // NOI18N

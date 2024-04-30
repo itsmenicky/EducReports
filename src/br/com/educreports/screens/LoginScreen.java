@@ -20,6 +20,8 @@ package br.com.educreports.screens;
 import br.com.educreports.dal.ConnectionModule;
 import br.com.educreports.services.passwordCrypt;
 import java.awt.Color;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.nio.charset.StandardCharsets;
@@ -40,7 +42,7 @@ public class LoginScreen extends javax.swing.JFrame {
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-
+    
     /**
      * Creates new form ScreenLogin and starts connection with database
      */
@@ -143,7 +145,7 @@ public class LoginScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(65, 168, 97));
         setForeground(java.awt.Color.darkGray);
-        setPreferredSize(new java.awt.Dimension(844, 496));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginScreen.class.getResource("/assets/desktop-logo.png")));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -187,7 +189,6 @@ public class LoginScreen extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Logo.png"))); // NOI18N
-        jLabel3.setPreferredSize(new java.awt.Dimension(270, 100));
         jLabel3.setRequestFocusEnabled(false);
         jLabel3.setVerifyInputWhenFocusTarget(false);
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, -1, -1));

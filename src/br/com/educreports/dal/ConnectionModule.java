@@ -27,9 +27,9 @@ public class ConnectionModule {
      public static Connection conector() {
         java.sql.Connection conexao = null;
         String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/educdb";
-        String user = "root";
-        String password = "C6621E01C8";
+        String url = "{port}";
+        String user = "{your user}";
+        String password = "{your password}";
         try {
             Class.forName(driver);
             conexao = DriverManager.getConnection(url, user, password);

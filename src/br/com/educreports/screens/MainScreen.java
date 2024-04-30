@@ -26,6 +26,7 @@ import java.util.Date;
 import java.text.DateFormat;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -121,6 +122,7 @@ public class MainScreen extends javax.swing.JFrame {
         setTitle("EducReports");
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(java.awt.Color.white);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginScreen.class.getResource("/assets/desktop-logo.png")));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

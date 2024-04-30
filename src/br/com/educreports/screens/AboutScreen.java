@@ -48,6 +48,7 @@ public class AboutScreen extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
+        setFrameIcon(null);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Logo.png"))); // NOI18N
 
