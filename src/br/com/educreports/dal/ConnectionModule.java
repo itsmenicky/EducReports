@@ -28,7 +28,7 @@ public class ConnectionModule {
         java.sql.Connection conexao = null;
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "{port}";
-        String user = "{your user}";
+        String user = "{your use}";
         String password = "{your password}";
         try {
             Class.forName(driver);
