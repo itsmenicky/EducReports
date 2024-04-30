@@ -25,7 +25,6 @@ import java.awt.Graphics;
 import java.util.Date;
 import java.text.DateFormat;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -36,7 +35,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * EducReports main screen
  * 
  * @version 2.0
- * @author Nick1
+ * @author itsmenicky
  */
 public class MainScreen extends javax.swing.JFrame {
 
