@@ -104,25 +104,29 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="users_menuitem">
+            <MenuItem class="javax.swing.JMenuItem" name="user_edit_menuitem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar usu&#xe1;rio"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="users_menuitemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="user_edit_menuitemActionPerformed"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="user_register_menuitem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar usu&#xe1;rio"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="user_register_menuitemActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -27,12 +27,14 @@ public class ConnectionModule {
      public static Connection conector() {
         java.sql.Connection conexao = null;
         String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "{port}";
-        String user = "{your user}";
-        String password = "{your password}";
+        String url = "jdbc:mysql://localhost:3306/educdb";
+        String user = System.getenv("DATABASE_USER");
+        String password = System.getenv("DATABASE_PASSWORD");
+         System.out.println(user + password);
         try {
             Class.forName(driver);
             conexao = DriverManager.getConnection(url, user, password);
+            System.out.println(conexao);
             return conexao;
         } catch (Exception e) {
             return null;

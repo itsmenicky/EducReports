@@ -16,12 +16,24 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
+import br.com.educreports.services.passwordCrypt;
+import br.com.educreports.services.sendEmail;
+import br.com.educreports.services.checkPass;
+import br.com.educreports.dal.ConnectionModule;
+import java.util.Random;
+import java.sql.*;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 /**
  * @version 2.0
  * @author itsmenicky
  */
 public class RegisterScreen extends javax.swing.JInternalFrame {
+
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
 
     /**
      * Creates new form RegisterScreen
@@ -50,9 +62,12 @@ public class RegisterScreen extends javax.swing.JInternalFrame {
         register_email = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        register_password = new javax.swing.JTextField();
-        register_confirm_password = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        confirm_btn = new javax.swing.JButton();
+        register_password = new javax.swing.JPasswordField();
+        register_password_confirm = new javax.swing.JPasswordField();
+        cbProfile = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -109,49 +124,83 @@ public class RegisterScreen extends javax.swing.JInternalFrame {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("* Confirme a senha");
 
-        register_password.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-
-        register_confirm_password.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-
         jLabel8.setFont(new java.awt.Font("Montserrat", 0, 8)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(179, 179, 179));
         jLabel8.setText("<html>(Mínimo 6 caracteres com letras maiúsculas, números e caracteres especiais)</html>");
+
+        confirm_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/confirm_btn.png"))); // NOI18N
+        confirm_btn.setBorderPainted(false);
+        confirm_btn.setContentAreaFilled(false);
+        confirm_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirm_btnActionPerformed(evt);
+            }
+        });
+
+        register_password_confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                register_password_confirmActionPerformed(evt);
+            }
+        });
+
+        cbProfile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "  ", "Admin", "Docente" }));
+
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("* Perfil");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(register_name, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(register_login, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(register_password, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(register_confirm_password, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(register_email, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(158, 158, 158))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(register_password, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(register_name, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(register_login, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(register_email, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(jLabel9)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(cbProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(register_password_confirm, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)))
+                                        .addGap(150, 150, 150)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(182, 182, 182)
+                        .addComponent(confirm_btn)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,20 +223,97 @@ public class RegisterScreen extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(register_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(register_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(register_confirm_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(130, Short.MAX_VALUE))
+                    .addComponent(register_password_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(confirm_btn)
+                .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void add_user() {
+        String sql = "insert into tb_user(username, email, login, password, hierarchy) values (?,?,?,?, ?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, register_name.getText());
+            pst.setString(2, register_email.getText());
+            pst.setString(3, register_login.getText());
+            pst.setString(4, passwordCrypt.passCrypt(Arrays.toString(register_password_confirm.getPassword())));
+            pst.setString(5, cbProfile.getSelectedItem().toString());
+            int added = pst.executeUpdate();
+            if (added > 0) {
+                JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+                register_name.setText(null);
+                register_email.setText(null);
+                register_login.setText(null);
+                register_password.setText(null);
+                register_password_confirm.setText(null);
+                cbProfile.setSelectedIndex(0);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void checkEmail() {
+        conexao = ConnectionModule.conector();
+        String sql = "select * from tb_user where email like ?";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, register_email.getText());
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Email já cadastrado!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_btnActionPerformed
+        checkEmail();
+        if (register_email.getText().isBlank() || register_name.getText().isBlank() || register_login.getText().isBlank() || register_password.getPassword() == null || register_password_confirm.getPassword() == null) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+        } else {
+            if (!Arrays.equals(register_password.getPassword(), register_password_confirm.getPassword())) {
+                JOptionPane.showMessageDialog(null, "As senhas não correspondem!");
+            } else {
+                if (checkPass.check_password_char(register_password_confirm.getPassword()) == true) {
+                    Random generator = new Random();
+                    int mail_code = generator.nextInt(9000) + 1000;
+                    sendEmail.mailSender(register_email.getText(), mail_code);
+                    String email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
+                    while (!email_confirmation.equals(Integer.toString(mail_code))) {
+                        JOptionPane.showMessageDialog(null, "Código inválido!");
+                        email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
+                    }
+                    add_user();
+                }else{
+                    JOptionPane.showMessageDialog(null, "A senha deve conter no mínimo 1 caractere especial, letra maiúscula e minúscula");
+                }
+            }
+        }
+    }//GEN-LAST:event_confirm_btnActionPerformed
+
+    private void register_password_confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register_password_confirmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_register_password_confirmActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbProfile;
+    private javax.swing.JButton confirm_btn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -196,11 +322,12 @@ public class RegisterScreen extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField register_confirm_password;
     private javax.swing.JTextField register_email;
     private javax.swing.JTextField register_login;
     private javax.swing.JTextField register_name;
-    private javax.swing.JTextField register_password;
+    private javax.swing.JPasswordField register_password;
+    private javax.swing.JPasswordField register_password_confirm;
     // End of variables declaration//GEN-END:variables
 }

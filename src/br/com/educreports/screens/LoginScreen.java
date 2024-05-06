@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
-
 import br.com.educreports.dal.ConnectionModule;
 import br.com.educreports.services.passwordCrypt;
 import java.awt.Color;
@@ -62,6 +61,7 @@ public class LoginScreen extends javax.swing.JFrame {
             String password = new String(txtPass.getPassword());
             pst.setString(1, txtLogin.getText());
             pst.setString(2, passwordCrypt.passCrypt(password));
+            System.out.println(passwordCrypt.passCrypt(password));
             rs = pst.executeQuery();
 
             if (rs.next()) {
@@ -75,7 +75,8 @@ public class LoginScreen extends javax.swing.JFrame {
                     MainScreen.menu_students_rel.setEnabled(true);
                     MainScreen.menu_teachers_rel.setEnabled(true);
                     MainScreen.students_menuitem.setEnabled(true);
-                    MainScreen.users_menuitem.setEnabled(true);
+                    MainScreen.user_edit_menuitem.setEnabled(true);
+                    MainScreen.user_register_menuitem.setEnabled(true);
                     Adminprofile = true;
                 }
                 this.dispose();

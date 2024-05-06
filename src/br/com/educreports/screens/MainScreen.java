@@ -112,8 +112,8 @@ public class MainScreen extends javax.swing.JFrame {
         menu_reportsmanagement = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         users_menu = new javax.swing.JMenu();
-        users_menuitem = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        user_edit_menuitem = new javax.swing.JMenuItem();
+        user_register_menuitem = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
 
@@ -263,22 +263,23 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        users_menuitem.setText("Editar usuário");
-        users_menuitem.setEnabled(false);
-        users_menuitem.addActionListener(new java.awt.event.ActionListener() {
+        user_edit_menuitem.setText("Editar usuário");
+        user_edit_menuitem.setEnabled(false);
+        user_edit_menuitem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                users_menuitemActionPerformed(evt);
+                user_edit_menuitemActionPerformed(evt);
             }
         });
-        users_menu.add(users_menuitem);
+        users_menu.add(user_edit_menuitem);
 
-        jMenuItem1.setText("Cadastrar usuário");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        user_register_menuitem.setText("Cadastrar usuário");
+        user_register_menuitem.setEnabled(false);
+        user_register_menuitem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                user_register_menuitemActionPerformed(evt);
             }
         });
-        users_menu.add(jMenuItem1);
+        users_menu.add(user_register_menuitem);
 
         jMenuBar1.add(users_menu);
 
@@ -357,11 +358,11 @@ public class MainScreen extends javax.swing.JFrame {
      * Event responsbile for open the Users screen
      * @param evt 
      */
-    private void users_menuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_users_menuitemActionPerformed
+    private void user_edit_menuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_edit_menuitemActionPerformed
         UserScreen usuarios = new UserScreen();
         desktop.add(usuarios);
         usuarios.setVisible(true);
-    }//GEN-LAST:event_users_menuitemActionPerformed
+    }//GEN-LAST:event_user_edit_menuitemActionPerformed
 /**
  * Event responsible for open the Students screen
  * @param evt 
@@ -411,11 +412,11 @@ public class MainScreen extends javax.swing.JFrame {
  * Event responsible for calling the Register screen
  * @param evt 
  */
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void user_register_menuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_register_menuitemActionPerformed
         RegisterScreen register = new RegisterScreen();
         register.setVisible(true);
         desktop.add(register);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_user_register_menuitemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -459,7 +460,6 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
@@ -470,7 +470,8 @@ public class MainScreen extends javax.swing.JFrame {
     public static javax.swing.JLabel menu_username;
     public static javax.swing.JMenu students_menu;
     public static javax.swing.JMenuItem students_menuitem;
+    public static javax.swing.JMenuItem user_edit_menuitem;
+    public static javax.swing.JMenuItem user_register_menuitem;
     public static javax.swing.JMenu users_menu;
-    public static javax.swing.JMenuItem users_menuitem;
     // End of variables declaration//GEN-END:variables
 }
