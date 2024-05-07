@@ -35,9 +35,12 @@ public class sendEmail {
     /**
      * Method responsible for sending emails
      * @param mail_address
-     * @param email_code 
+     * @param mail_code 
+     * @param mail_title
+     * @param mail_subject
+     * @param mail_content
      */
-    public static void mailSender(String mail_address, int email_code) {
+    public static void mailSender(String mail_address, int mail_code, String mail_subject, String mail_title, String mail_content) {
         final String mail_account = System.getenv("EMAIL_ADDRESS");
         final String mail_account_pass = System.getenv("EMAIL_PASSWORD");
         Properties props = new Properties();
@@ -64,11 +67,11 @@ public class sendEmail {
             Address[] toUser = InternetAddress.parse(mail_address);
 
             message.setRecipients(Message.RecipientType.TO, toUser);
-            message.setSubject("Recuperação de senha");
+            message.setSubject(mail_subject);
             message.setContent("<div style='text-align: center'><img src='https://raw.githubusercontent.com/itsmenicky/EducReports/master/src/assets/Logo.png'></div></br>"
-                    + "<h1 style='text-align: center;'>Código para recuperação de senha da sua conta EducReports</h1></br>"
-                    + "<h1 style='text-align: center;'><strong>" + email_code + "</h1></strong>"
-                    + "<p style='text-align: center;'>Se não solicitou um reset de senha, desconsidere o email...</p></br>"
+                    + "<h1 style='text-align: center;'>" + mail_title + "</h1></br>"
+                    + "<h1 style='text-align: center;'><strong>" + mail_code + "</h1></strong>"
+                    + "<p style='text-align: center;'>" + mail_content + "</p></br>"
                     + "<p><strong>Att, Equipe EducReports</strong></p>", "text/html; charset=utf-8");
             Transport.send(message);
             System.out.println("Email enviado!");

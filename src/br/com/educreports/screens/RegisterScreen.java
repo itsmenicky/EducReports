@@ -16,10 +16,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
+
 import br.com.educreports.services.passwordCrypt;
 import br.com.educreports.services.sendEmail;
 import br.com.educreports.services.checkPass;
 import br.com.educreports.dal.ConnectionModule;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.sql.*;
 import java.util.Arrays;
@@ -248,7 +250,9 @@ public class RegisterScreen extends javax.swing.JInternalFrame {
             pst.setString(1, register_name.getText());
             pst.setString(2, register_email.getText());
             pst.setString(3, register_login.getText());
-            pst.setString(4, passwordCrypt.passCrypt(Arrays.toString(register_password_confirm.getPassword())));
+            byte[] passwordBytes = new String(register_password_confirm.getPassword()).getBytes(StandardCharsets.UTF_8);
+            String password = new String(passwordBytes, StandardCharsets.UTF_8);
+            pst.setString(4, passwordCrypt.passCrypt(password));
             pst.setString(5, cbProfile.getSelectedItem().toString());
             int added = pst.executeUpdate();
             if (added > 0) {
@@ -283,7 +287,7 @@ public class RegisterScreen extends javax.swing.JInternalFrame {
 
     private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_btnActionPerformed
         checkEmail();
-        if (register_email.getText().isBlank() || register_name.getText().isBlank() || register_login.getText().isBlank() || register_password.getPassword() == null || register_password_confirm.getPassword() == null) {
+        if (register_email.getText().isBlank() || register_name.getText().isBlank() || register_login.getText().isBlank() || register_password.getPassword() == null || register_password_confirm.getPassword() == null || cbProfile.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
         } else {
             if (!Arrays.equals(register_password.getPassword(), register_password_confirm.getPassword())) {
@@ -292,14 +296,14 @@ public class RegisterScreen extends javax.swing.JInternalFrame {
                 if (checkPass.check_password_char(register_password_confirm.getPassword()) == true) {
                     Random generator = new Random();
                     int mail_code = generator.nextInt(9000) + 1000;
-                    sendEmail.mailSender(register_email.getText(), mail_code);
+                    sendEmail.mailSender(register_email.getText(), mail_code, "Confirmação de email", "Bem vindo(a) ao EducReports!", "Ficamos felizes de ter você conosco, insira o código acima em seu aplicativo para a confirmação de sua conta ;)");
                     String email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
                     while (!email_confirmation.equals(Integer.toString(mail_code))) {
                         JOptionPane.showMessageDialog(null, "Código inválido!");
                         email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
                     }
                     add_user();
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "A senha deve conter no mínimo 1 caractere especial, letra maiúscula e minúscula");
                 }
             }

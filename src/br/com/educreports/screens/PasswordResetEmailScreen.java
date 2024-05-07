@@ -127,7 +127,7 @@ public class PasswordResetEmailScreen extends javax.swing.JFrame {
     private void verifyCode(String mail_address) {
         Random generator = new Random();
         int mail_code = generator.nextInt(9000) + 1000;
-        sendEmail.mailSender(mail_address, mail_code);
+        sendEmail.mailSender(mail_address, mail_code, "Recuperação de senha", "Código para recuperação de senha da sua conta EducReports", "Se você não solicitou um reset de senha, desconsidere o email.");
         String email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
         while (!email_confirmation.equals(Integer.toString(mail_code))) {
             JOptionPane.showMessageDialog(null, "Código inválido!");
