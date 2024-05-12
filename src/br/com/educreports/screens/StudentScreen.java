@@ -25,7 +25,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -103,7 +102,7 @@ public class StudentScreen extends javax.swing.JInternalFrame {
      * Function responsible for search students in the database
      */
     private void search_student() {
-        String sql = "select RA as RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma from tb_child where child_name like ?";
+        String sql = "select RA as RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, status as Status from tb_child where child_name like ?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtSearchStudent.getText() + "%");
@@ -124,6 +123,7 @@ public class StudentScreen extends javax.swing.JInternalFrame {
         txtName.setText(tbStudent.getModel().getValueAt(set, 1).toString());
         txtBirth.setText(tbStudent.getModel().getValueAt(set, 2).toString());
         txtClass.setText(tbStudent.getModel().getValueAt(set, 3).toString());
+        cbStatus.setSelectedItem(tbStudent.getModel().getValueAt(set, 4).toString());
         String sql = "select child_phone, responsible, address, teacher_name, teacher_id, child_photo from tb_child where RA=?";
         try {
             pst = conexao.prepareStatement(sql);
@@ -168,7 +168,7 @@ public class StudentScreen extends javax.swing.JInternalFrame {
         String sql = "insert into tb_child(RA, child_name, birth, class, child_photo, child_phone, responsible, address, teacher_name, teacher_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             pst = conexao.prepareStatement(sql);
-            if (txtRA.getText().isBlank() || txtName.getText().isBlank() || txtBirth.getText().isBlank() || txtClass.getText().isBlank() || txtPhone.getText().isBlank() || txtResponsible.getText().isBlank() || txtAddress.getText().isBlank() || txtTeacherName.getText().isBlank() || txtTeacherId.getText().isBlank()) {
+            if (txtRA.getText().isBlank() || txtName.getText().isBlank() || txtBirth.getText().isBlank() || txtClass.getText().isBlank() || txtPhone.getText().isBlank() || txtResponsible.getText().isBlank() || txtAddress.getText().isBlank() || txtTeacherName.getText().isBlank() || txtTeacherId.getText().isBlank() || cbStatus.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
             } else {
                 pst.setString(1, txtRA.getText());
@@ -221,39 +221,16 @@ public class StudentScreen extends javax.swing.JInternalFrame {
         txtSearchStudent.setText(null);
         txtSearchTeacher.setText(null);
         lblPhoto.setIcon(new ImageIcon(getClass().getResource("/assets/camera-icon.png")));
+        cbStatus.setSelectedIndex(0);
         ((DefaultTableModel) tbTeacher.getModel()).setRowCount(0);
         ((DefaultTableModel) tbStudent.getModel()).setRowCount(0);
-    }
-
-    /**
-     * Function responsible for deleting student from database
-     */
-    private void delete_student() {
-        String sql = "delete from tb_child where RA=?";
-        int confirmation = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover esse aluno?", "Atenção!!", JOptionPane.YES_NO_OPTION);
-        if (confirmation == JOptionPane.YES_OPTION) {
-            try {
-                pst = conexao.prepareStatement(sql);
-                pst.setString(1, txtRA.getText());
-                int removed = pst.executeUpdate();
-                if (removed > 0) {
-                    JOptionPane.showMessageDialog(null, "Aluno removido com sucesso!");
-                    clean_fields();
-                    btnEditStudent.setEnabled(false);
-                    btnDelStudent.setEnabled(false);
-                    btnAddStudent.setEnabled(true);
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
     }
 
     /**
      * Function responsible for update student information in database
      */
 private void edit_student() {
-    String sql = "update tb_child set class=?, child_photo=?, child_phone=?, responsible=?, address=?, teacher_name=?, teacher_id=? where RA=?";
+    String sql = "update tb_child set class=?, child_photo=?, child_phone=?, responsible=?, address=?, teacher_name=?, teacher_id=?, status=? where RA=?";
     int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a atualização dos dados deste usuário?", "CONFIRMAÇÃO", JOptionPane.YES_NO_OPTION);
     if (confirmation == JOptionPane.YES_OPTION) {
         try {
@@ -281,7 +258,8 @@ private void edit_student() {
                 pst.setString(5, txtAddress.getText());
                 pst.setString(6, txtTeacherName.getText());
                 pst.setString(7, txtTeacherId.getText());
-                pst.setString(8, txtRA.getText());
+                pst.setString(8, cbStatus.getSelectedItem().toString());
+                pst.setString(9, txtRA.getText());
                 int updated = pst.executeUpdate();
                 if (updated > 0) {
                     JOptionPane.showMessageDialog(null, "Dados do aluno atualizados com sucesso!");
@@ -289,6 +267,7 @@ private void edit_student() {
                     txtRA.setEnabled(true);
                     txtName.setEnabled(true);
                     txtBirth.setEnabled(true);
+                    clean_fields();
                 }
             }
         } catch (Exception e) {
@@ -337,8 +316,9 @@ private void edit_student() {
         lblPhoto = new javax.swing.JLabel();
         btnAddStudent = new javax.swing.JButton();
         btnEditStudent = new javax.swing.JButton();
-        btnDelStudent = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        cbStatus = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -484,18 +464,14 @@ private void edit_student() {
             }
         });
 
-        btnDelStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/remove-user2.png"))); // NOI18N
-        btnDelStudent.setContentAreaFilled(false);
-        btnDelStudent.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDelStudent.setEnabled(false);
-        btnDelStudent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelStudentActionPerformed(evt);
-            }
-        });
-
         jLabel13.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         jLabel13.setText("* Todos os campos são obrigatórios");
+
+        jLabel14.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
+        jLabel14.setText("Status");
+
+        cbStatus.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Active", "Disable" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -503,55 +479,58 @@ private void edit_student() {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(67, 67, 67)
+                            .addComponent(jLabel13)
+                            .addGap(84, 84, 84))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtTeacherId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtClass, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtResponsible, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtRA, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(6, 6, 6)
+                                .addComponent(txtTeacherName, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAddStudent)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEditStudent))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(67, 67, 67)
-                        .addComponent(jLabel13)
-                        .addGap(84, 84, 84))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addGap(6, 6, 6)
-                            .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addGap(6, 6, 6)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addGap(6, 6, 6)
-                            .addComponent(txtTeacherId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(6, 6, 6)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(6, 6, 6)
-                            .addComponent(txtBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(6, 6, 6)
-                            .addComponent(txtClass, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addGap(6, 6, 6)
-                            .addComponent(txtResponsible, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(6, 6, 6)
-                            .addComponent(txtRA, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addGap(6, 6, 6)
-                            .addComponent(txtTeacherName, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnAddStudent)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnDelStudent)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnEditStudent))))
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -654,12 +633,14 @@ private void edit_student() {
                                 .addGap(4, 4, 4)
                                 .addComponent(jLabel10))
                             .addComponent(txtTeacherName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnAddStudent, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnDelStudent, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(btnEditStudent, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(btnAddStudent)
+                            .addComponent(btnEditStudent))
                         .addGap(64, 64, 64))))
         );
 
@@ -722,21 +703,11 @@ private void edit_student() {
     private void tbStudentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbStudentMouseClicked
         setStudentFields();
         btnAddStudent.setEnabled(false);
-        btnDelStudent.setEnabled(true);
         btnEditStudent.setEnabled(true);
         txtRA.setEnabled(false);
         txtName.setEnabled(false);
         txtBirth.setEnabled(false);
     }//GEN-LAST:event_tbStudentMouseClicked
-
-    /**
-     * Event responsible for calling delete student function
-     *
-     * @param evt
-     */
-    private void btnDelStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelStudentActionPerformed
-        delete_student();
-    }//GEN-LAST:event_btnDelStudentActionPerformed
 
     /**
      * Event responsible for calling edit student function
@@ -750,13 +721,14 @@ private void edit_student() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddStudent;
-    private javax.swing.JButton btnDelStudent;
     private javax.swing.JButton btnEditStudent;
+    private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

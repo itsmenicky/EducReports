@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
+
 import br.com.educreports.dal.ConnectionModule;
 import br.com.educreports.services.passwordCrypt;
 import br.com.educreports.services.sendEmail;
@@ -36,7 +37,7 @@ public class LoginScreen extends javax.swing.JFrame {
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+
     /**
      * Creates new form ScreenLogin and starts connection with database
      */
@@ -67,30 +68,34 @@ public class LoginScreen extends javax.swing.JFrame {
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                Random generator = new Random();
-                int mail_code = generator.nextInt(9999) + 1000;
-                sendEmail.mailSender(rs.getString(3), mail_code, "Confirmação de login", "Código para confirmação de login", "Confirme seu login na sua conta EducReports");
-                String mail_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
-                while(!mail_confirmation.equals(Integer.toString(mail_code))){
-                    JOptionPane.showMessageDialog(null, "Código inválido!");
-                    mail_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
+                if (!rs.getString(7).equals("Active")) {
+                    JOptionPane.showMessageDialog(null, "Usuário inativo no sistema, entre em contato com o administrador.");
+                } else {
+                    Random generator = new Random();
+                    int mail_code = generator.nextInt(9999) + 1000;
+                    sendEmail.mailSender(rs.getString(3), mail_code, "Confirmação de login", "Código para confirmação de login", "Confirme seu login na sua conta EducReports");
+                    String mail_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
+                    while (!mail_confirmation.equals(Integer.toString(mail_code))) {
+                        JOptionPane.showMessageDialog(null, "Código inválido!");
+                        mail_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
+                    }
+                    MainScreen telaPrincipal = new MainScreen();
+                    telaPrincipal.setExtendedState(6);
+                    telaPrincipal.setVisible(true);
+                    MainScreen.menu_username.setText(rs.getString(2));
+                    if (rs.getString(6).equals("Admin")) {
+                        MainScreen.students_menu.setEnabled(true);
+                        MainScreen.users_menu.setEnabled(true);
+                        MainScreen.menu_students_rel.setEnabled(true);
+                        MainScreen.menu_teachers_rel.setEnabled(true);
+                        MainScreen.students_menuitem.setEnabled(true);
+                        MainScreen.user_edit_menuitem.setEnabled(true);
+                        MainScreen.user_register_menuitem.setEnabled(true);
+                        Adminprofile = true;
+                    }
+                    this.dispose();
+                    conexao.close();
                 }
-                MainScreen telaPrincipal = new MainScreen();
-                telaPrincipal.setExtendedState(6);
-                telaPrincipal.setVisible(true);
-                MainScreen.menu_username.setText(rs.getString(2));
-                if (rs.getString(6).equals("Admin")) {
-                    MainScreen.students_menu.setEnabled(true);
-                    MainScreen.users_menu.setEnabled(true);
-                    MainScreen.menu_students_rel.setEnabled(true);
-                    MainScreen.menu_teachers_rel.setEnabled(true);
-                    MainScreen.students_menuitem.setEnabled(true);
-                    MainScreen.user_edit_menuitem.setEnabled(true);
-                    MainScreen.user_register_menuitem.setEnabled(true);
-                    Adminprofile = true;
-                }
-                this.dispose();
-                conexao.close();
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário/Senha incorretos");
             }

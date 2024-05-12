@@ -1,9 +1,10 @@
-CREATE TABLE `user` (`id_user` int not null PRIMARY KEY auto_increment, 
+CREATE TABLE `tb_user` (`id_user` int not null PRIMARY KEY auto_increment, 
 `username` varchar(30) not null, 
 `email` varchar(50) default null, 
-`login` varchar(15) not null UNIQUE KEY, 
-`password` varchar(15) not null, 
-`hierarchy` varchar(20) not null);
+`login` varchar(20) not null UNIQUE KEY, 
+`password` varchar(32) not null, 
+`hierarchy` varchar(20) not null, 
+`status` varchar(20) not null default('active'));
 
 CREATE TABLE `tb_child` (`RA` int not null PRIMARY KEY, 
 `child_name` varchar(50) not null, 
@@ -15,7 +16,7 @@ CREATE TABLE `tb_child` (`RA` int not null PRIMARY KEY,
 `address` varchar(100) not null, 
 `teacher_name` varchar(50) not null, 
 `teacher_id` int not null, 
-foreign key(teacher_id) references tb_teacher(id_teacher));
+foreign key(teacher_id) references tb_user(id_user));
 
 CREATE TABLE `tb_reports` (`ID Rel` int not null auto_increment PRIMARY KEY, 
 `child_RA` int not null, 
