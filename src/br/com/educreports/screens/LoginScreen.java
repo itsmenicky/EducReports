@@ -18,6 +18,8 @@
 package br.com.educreports.screens;
 import br.com.educreports.dal.ConnectionModule;
 import br.com.educreports.services.passwordCrypt;
+import br.com.educreports.services.sendEmail;
+import java.util.Random;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.sql.*;
@@ -65,6 +67,14 @@ public class LoginScreen extends javax.swing.JFrame {
             rs = pst.executeQuery();
 
             if (rs.next()) {
+                Random generator = new Random();
+                int mail_code = generator.nextInt(9999) + 1000;
+                sendEmail.mailSender(rs.getString(3), mail_code, "Confirmação de login", "Código para confirmação de login", "Confirme seu login na sua conta EducReports");
+                String mail_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
+                while(!mail_confirmation.equals(Integer.toString(mail_code))){
+                    JOptionPane.showMessageDialog(null, "Código inválido!");
+                    mail_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
+                }
                 MainScreen telaPrincipal = new MainScreen();
                 telaPrincipal.setExtendedState(6);
                 telaPrincipal.setVisible(true);
@@ -140,13 +150,14 @@ public class LoginScreen extends javax.swing.JFrame {
         setBackground(new java.awt.Color(65, 168, 97));
         setForeground(java.awt.Color.darkGray);
         setIconImage(Toolkit.getDefaultToolkit().getImage(LoginScreen.class.getResource("/assets/desktop-logo.png")));
+        setMinimumSize(new java.awt.Dimension(844, 496));
+        setPreferredSize(new java.awt.Dimension(844, 496));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(65, 168, 97));
 
@@ -179,30 +190,22 @@ public class LoginScreen extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, -1, 500));
-
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Logo.png"))); // NOI18N
         jLabel3.setRequestFocusEnabled(false);
         jLabel3.setVerifyInputWhenFocusTarget(false);
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, -1, -1));
 
         txtLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, 253, 38));
 
         jLabel5.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         jLabel5.setText("SENHA");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         jLabel6.setText("LOGIN");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, -1, -1));
-        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, 253, 36));
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Montserrat", 0, 14)); // NOI18N
         jButton2.setText("Entrar");
@@ -211,23 +214,73 @@ public class LoginScreen extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, -1, -1));
 
         lblDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/dbdisconnected.png"))); // NOI18N
-        getContentPane().add(lblDatabase, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 87, 255));
         jLabel7.setText("<html><p style=\"text-decoration: underline\">Esqueci a senha</p></html>");
+        jLabel7.setToolTipText("");
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel7MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 440, -1, -1));
 
-        setSize(new java.awt.Dimension(858, 503));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85)
+                .addComponent(jLabel8)
+                .addGap(90, 90, 90)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2))))
+                .addGap(17, 17, 17)
+                .addComponent(lblDatabase))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jLabel8))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel3)
+                .addGap(66, 66, 66)
+                .addComponent(jLabel6)
+                .addGap(2, 2, 2)
+                .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel5)
+                .addGap(2, 2, 2)
+                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jButton2)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(lblDatabase))
+        );
+
+        setSize(new java.awt.Dimension(858, 507));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
