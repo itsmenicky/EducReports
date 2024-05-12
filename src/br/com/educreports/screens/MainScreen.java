@@ -18,6 +18,7 @@
 package br.com.educreports.screens;
 
 import br.com.educreports.dal.ConnectionModule;
+import br.com.educreports.services.checkUser;
 import java.sql.*;
 import java.awt.Color;
 import java.awt.Image;
@@ -406,6 +407,10 @@ public class MainScreen extends javax.swing.JFrame {
  * @param evt 
  */
     private void menu_students_relActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_students_relActionPerformed
+        if(!checkUser.check_user() == true){
+            JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
+            System.exit(0);
+        }
         studentsReport();
     }//GEN-LAST:event_menu_students_relActionPerformed
 /**
@@ -413,6 +418,10 @@ public class MainScreen extends javax.swing.JFrame {
  * @param evt 
  */
     private void menu_teachers_relActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_teachers_relActionPerformed
+        if(checkUser.check_user() != true){
+            JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
+            System.exit(0);
+        }
         teachersReport();
     }//GEN-LAST:event_menu_teachers_relActionPerformed
 

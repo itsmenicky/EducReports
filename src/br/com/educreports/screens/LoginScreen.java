@@ -56,6 +56,7 @@ public class LoginScreen extends javax.swing.JFrame {
      * database, and if so, calling the main screen
      */
     public static Boolean Adminprofile = false;
+    public static String userIDSession = "";
 
     private void login() {
         String sql = "select * from tb_user where login=? and password=?";
@@ -83,6 +84,7 @@ public class LoginScreen extends javax.swing.JFrame {
                     telaPrincipal.setExtendedState(6);
                     telaPrincipal.setVisible(true);
                     MainScreen.menu_username.setText(rs.getString(2));
+                    userIDSession = rs.getString(1);
                     if (rs.getString(6).equals("Admin")) {
                         MainScreen.students_menu.setEnabled(true);
                         MainScreen.users_menu.setEnabled(true);

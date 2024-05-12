@@ -21,6 +21,7 @@ import br.com.educreports.services.passwordCrypt;
 import br.com.educreports.services.sendEmail;
 import br.com.educreports.services.checkPass;
 import br.com.educreports.dal.ConnectionModule;
+import br.com.educreports.services.checkUser;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.sql.*;
@@ -286,6 +287,10 @@ public class RegisterScreen extends javax.swing.JInternalFrame {
     }
 
     private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_btnActionPerformed
+        if(!checkUser.check_user() == true){
+            JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
+            System.exit(0);
+        }
         checkEmail();
         if (register_email.getText().isBlank() || register_name.getText().isBlank() || register_login.getText().isBlank() || register_password.getPassword() == null || register_password_confirm.getPassword() == null || cbProfile.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.");

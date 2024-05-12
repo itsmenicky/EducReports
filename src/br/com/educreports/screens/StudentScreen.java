@@ -18,6 +18,7 @@
 package br.com.educreports.screens;
 
 import br.com.educreports.dal.ConnectionModule;
+import br.com.educreports.services.checkUser;
 import java.awt.Graphics2D;
 import java.sql.*;
 import java.awt.Image;
@@ -682,6 +683,10 @@ private void edit_student() {
      * @param evt
      */
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
+        if(!checkUser.check_user() == true){
+            JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
+            System.exit(0);
+        } 
         addStudent();
     }//GEN-LAST:event_btnAddStudentActionPerformed
 
@@ -715,6 +720,10 @@ private void edit_student() {
      * @param evt
      */
     private void btnEditStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditStudentActionPerformed
+        if(!checkUser.check_user() == true){
+            JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
+            System.exit(0);
+        }
         edit_student();
     }//GEN-LAST:event_btnEditStudentActionPerformed
 

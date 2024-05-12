@@ -19,6 +19,7 @@ package br.com.educreports.screens;
 
 import br.com.educreports.services.sendEmail;
 import br.com.educreports.dal.ConnectionModule;
+import br.com.educreports.services.checkUser;
 import java.sql.*;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -235,6 +236,11 @@ public class UserScreen extends javax.swing.JInternalFrame {
                 btnEditUserMouseClicked(evt);
             }
         });
+        btnEditUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditUserActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         jLabel9.setText("* Campos obrigatórios");
@@ -368,12 +374,20 @@ public class UserScreen extends javax.swing.JInternalFrame {
      * @param evt
      */
     private void btnEditUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditUserMouseClicked
+        if(!checkUser.check_user() == true){
+            JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
+            System.exit(0);
+        }
         edit_user();
     }//GEN-LAST:event_btnEditUserMouseClicked
 
     private void cbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbStatusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbStatusActionPerformed
+
+    private void btnEditUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditUserActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
