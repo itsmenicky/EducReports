@@ -88,7 +88,7 @@ public class StudentScreen extends javax.swing.JInternalFrame {
      * Function responsible for search teacher in the database
      */
     private void search_teacher() {
-        String sql = "select id_user as ID, username as Nome from tb_user where username like ? and hierarchy='Docente'";
+        String sql = "select id_user as ID, username as Nome from tb_user where username like ? and hierarchy='Docente' and status!='Disabled' ";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtSearchTeacher.getText() + "%");
@@ -169,7 +169,7 @@ public class StudentScreen extends javax.swing.JInternalFrame {
         String sql = "insert into tb_child(RA, child_name, birth, class, child_photo, child_phone, responsible, address, teacher_name, teacher_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             pst = conexao.prepareStatement(sql);
-            if (txtRA.getText().isBlank() || txtName.getText().isBlank() || txtBirth.getText().isBlank() || txtClass.getText().isBlank() || txtPhone.getText().isBlank() || txtResponsible.getText().isBlank() || txtAddress.getText().isBlank() || txtTeacherName.getText().isBlank() || txtTeacherId.getText().isBlank() || cbStatus.getSelectedIndex() == 0) {
+            if (txtRA.getText().isBlank() || txtName.getText().isBlank() || txtBirth.getText().isBlank() || txtClass.getText().isBlank() || txtPhone.getText().isBlank() || txtResponsible.getText().isBlank() || txtAddress.getText().isBlank() || txtTeacherName.getText().isBlank() || txtTeacherId.getText().isBlank()) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
             } else {
                 pst.setString(1, txtRA.getText());
@@ -472,7 +472,12 @@ private void edit_student() {
         jLabel14.setText("Status");
 
         cbStatus.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Active", "Disable" }));
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Disabled" }));
+        cbStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbStatusActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -724,8 +729,12 @@ private void edit_student() {
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
         }
-        edit_student();
+         edit_student();   
     }//GEN-LAST:event_btnEditStudentActionPerformed
+
+    private void cbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbStatusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
