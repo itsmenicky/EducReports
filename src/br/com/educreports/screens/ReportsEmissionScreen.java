@@ -62,9 +62,9 @@ public class ReportsEmissionScreen extends javax.swing.JInternalFrame {
     private void search_child() {
         String sql = null;
          if(LoginScreen.Adminprofile == false){
-             sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ? and teacher_name like ?";
+             sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)'  from tb_child where child_name like ? and teacher_name like ? and status!= 'Disabled'";
         }else{
-            sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ?";
+            sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ? and status!='Disabled'";
         }
         try {
             pst = conexao.prepareStatement(sql);
