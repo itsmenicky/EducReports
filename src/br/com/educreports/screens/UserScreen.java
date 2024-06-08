@@ -386,7 +386,11 @@ public class UserScreen extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbStatusActionPerformed
 
     private void btnEditUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditUserActionPerformed
-        // TODO add your handling code here:
+        if(!checkUser.check_user() == true){
+            JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
+            System.exit(0);
+        }
+        edit_user();
     }//GEN-LAST:event_btnEditUserActionPerformed
 
 
