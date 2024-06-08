@@ -5,7 +5,9 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="titles" fontName="Times New Roman" fontSize="15"/>
 	<queryString>
-		<![CDATA[select id_user, username, email, login  from tb_user where hierarchy="Docente"]]>
+		<![CDATA[select id_user, username, email, login  
+from tb_user 
+where hierarchy="Docente" and status!='Disabled']]>
 	</queryString>
 	<field name="id_user" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="id_user"/>

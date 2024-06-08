@@ -5,7 +5,9 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL - EducDB"/>
 	<style name="Montserrat" fontName="Montserrat"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT RA, child_name, birth, class, teacher_name FROM tb_child]]>
+		<![CDATA[SELECT RA, child_name, birth, class, teacher_name 
+FROM tb_child
+WHERE status!='Disabled']]>
 	</queryString>
 	<field name="RA" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="RA"/>
