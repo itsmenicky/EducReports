@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="EducReports">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/EducReports.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

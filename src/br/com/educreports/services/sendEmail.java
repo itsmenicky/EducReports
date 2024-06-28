@@ -28,7 +28,7 @@ import javax.mail.internet.MimeMessage;
 
 /**
  * @version 2.0
- * @author Nick1
+ * @author itsmenicky
  */
 public class sendEmail {
 
@@ -41,8 +41,8 @@ public class sendEmail {
      * @param mail_content
      */
     public static void mailSender(String mail_address, int mail_code, String mail_subject, String mail_title, String mail_content) {
-        final String mail_account = System.getenv("EMAIL_ADDRESS");
-        final String mail_account_pass = System.getenv("EMAIL_PASSWORD");
+        final String mail_account = "educreportsofficial@gmail.com";
+        final String mail_account_pass = "mlkn oxvy evfd fjfu ";
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "587");

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TeacherReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d7957aaf-e433-4bc3-944e-e4540c9a29cb">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL - EducDB"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="titles" fontName="Times New Roman" fontSize="15"/>
+	<queryString>
+		<![CDATA[select id_user, username, email, login  
+from tb_user 
+where hierarchy="Docente" and status!='Disabled']]>
+	</queryString>
+	<field name="id_user" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_user"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_user"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_user"/>
+	</field>
+	<field name="username" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="username"/>
+		<property name="com.jaspersoft.studio.field.label" value="username"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_user"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_user"/>
+	</field>
+	<field name="login" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="login"/>
+		<property name="com.jaspersoft.studio.field.label" value="login"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_user"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="140" splitType="Stretch">
+			<image>
+				<reportElement x="152" y="5" width="250" height="90" uuid="c23a56a8-f895-4f52-aaa9-b76235b4567f"/>
+				<imageExpression><![CDATA["C:/Users/Nick1/OneDrive/Documentos/NetBeansProjects/EducReports/src/assets/Logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="60" y="120" width="430" height="20" uuid="7ac28730-abb5-4950-a2ea-a417e51a99e0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELAÇÃO DE DOCENTES CADASTRADOS NO SISTEMA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="71" splitType="Stretch">
+			<staticText>
+				<reportElement style="titles" x="10" y="40" width="20" height="19" uuid="16d73157-4a58-4a72-a168-5aab341c1a75"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="titles" x="150" y="40" width="40" height="18" uuid="66f2b27f-e672-497f-a450-2f55fb97acce"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="titles" x="320" y="39" width="40" height="20" uuid="f773c5fb-9d8f-479f-ac4f-337025c89456"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="titles" x="500" y="40" width="40" height="20" uuid="1b3a2770-08dc-4c50-a533-652c6f645848"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Login]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement style="titles" x="10" y="10" width="60" height="20" uuid="4e76441c-806a-4510-9d7a-07328f5bd666">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fef14af6-03ba-4ee8-89fb-7d9d48ef3a86"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_user}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="titles" x="150" y="10" width="133" height="20" uuid="0e67d8e6-40c3-48dc-9e18-adfd22356638">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="af2e7ed6-b898-41e7-9881-1da1f4996075"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{username}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="titles" x="320" y="10" width="140" height="20" uuid="c55d6d51-bc56-42bb-ada1-68b487a843f7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ff087692-38a8-403c-8faf-42c01c6ae678"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="titles" x="500" y="10" width="50" height="20" uuid="81bc679e-cbc3-47d9-863f-ecdc6c200565">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a70e5c14-9173-450f-b0ac-d19055081684"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{login}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="65" splitType="Stretch">
+			<textField>
+				<reportElement x="520" y="50" width="30" height="15" uuid="5e498d51-1306-455a-9bba-b988572550b7"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

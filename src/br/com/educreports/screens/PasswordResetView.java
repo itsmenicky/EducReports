@@ -16,27 +16,24 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
-import br.com.educreports.dal.ConnectionModule;
-import br.com.educreports.services.checkPass;
-import br.com.educreports.services.passwordCrypt;
-import java.nio.charset.StandardCharsets;
-import java.sql.*;
-import java.util.Arrays;
-import javax.swing.JOptionPane;
+import br.com.educreports.controllers.PasswordResetController;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * @version 2.0
  * @author itsmenicky
  */
-public class PasswordResetScreen extends javax.swing.JFrame {
-    private final String account;
+public class PasswordResetView extends javax.swing.JFrame {
+    private String account;
+    private PasswordResetController controller;
 
     /**
      * Creates new form PasswordResetScreen
      * @param account
      */
-    public PasswordResetScreen(String account) {
+    public PasswordResetView(String account) {
         this.account = account;
+        controller = new PasswordResetController();
         initComponents();
     }
 
@@ -105,7 +102,11 @@ public class PasswordResetScreen extends javax.swing.JFrame {
         confirm_btn.setContentAreaFilled(false);
         confirm_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirm_btnActionPerformed(evt);
+                try {
+                    confirm_btnActionPerformed(evt);
+                } catch (NoSuchAlgorithmException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -166,27 +167,8 @@ public class PasswordResetScreen extends javax.swing.JFrame {
      * Event responsible for update user password in database
      * @param evt 
      */
-    private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirm_btnActionPerformed
-        if(!Arrays.equals(pass_reset.getPassword(), pass_reset_confirm.getPassword())){
-            JOptionPane.showMessageDialog(null, "As senhas não correspondem");
-        }else if (checkPass.check_password_char(pass_reset_confirm.getPassword()) == false){
-            JOptionPane.showMessageDialog(null, "A senha deve conter no mínimo 1 caractere especial, letra maiúscula e minúscula");
-        } else{
-            Connection conexao = ConnectionModule.conector();
-            String sql = "update tb_user set password=? where email like ?";
-            try {
-                PreparedStatement pst = conexao.prepareStatement(sql);
-                byte[] passwordBytes = new String(pass_reset_confirm.getPassword()).getBytes(StandardCharsets.UTF_8);
-                String password = new String(passwordBytes, StandardCharsets.UTF_8);
-                pst.setString(1, passwordCrypt.passCrypt(password));
-                pst.setString(2, account);
-                pst.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Senha atualizada com sucesso!");
-                this.dispose();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
+    private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) throws NoSuchAlgorithmException {//GEN-FIRST:event_confirm_btnActionPerformed
+        controller.updatePassword(pass_reset.getPassword(), pass_reset_confirm.getPassword(), account);
     }//GEN-LAST:event_confirm_btnActionPerformed
 
     /**
@@ -206,20 +188,20 @@ public class PasswordResetScreen extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PasswordResetScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordResetView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PasswordResetScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordResetView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PasswordResetScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordResetView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PasswordResetScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordResetView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PasswordResetScreen(null).setVisible(true);
+                new PasswordResetView(null).setVisible(true);
             }
         });
     }

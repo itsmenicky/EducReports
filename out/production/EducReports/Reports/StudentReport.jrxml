@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StudentReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="61680767-4349-417d-929b-deef9746c649">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL - EducDB"/>
+	<style name="Montserrat" fontName="Montserrat"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT RA, child_name, birth, class, teacher_name 
+FROM tb_child
+WHERE status!='Disabled']]>
+	</queryString>
+	<field name="RA" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="RA"/>
+		<property name="com.jaspersoft.studio.field.label" value="RA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_child"/>
+	</field>
+	<field name="child_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="child_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="child_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_child"/>
+	</field>
+	<field name="birth" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="birth"/>
+		<property name="com.jaspersoft.studio.field.label" value="birth"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_child"/>
+	</field>
+	<field name="class" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="class"/>
+		<property name="com.jaspersoft.studio.field.label" value="class"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_child"/>
+	</field>
+	<field name="teacher_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="teacher_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="teacher_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_child"/>
+	</field>
+	<group name="RA">
+		<groupExpression><![CDATA[$F{RA}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="150" splitType="Stretch">
+			<image>
+				<reportElement x="150" y="10" width="250" height="90" uuid="07882a23-ea2c-4224-b430-fc6a52098291"/>
+				<imageExpression><![CDATA["C:/Users/Nick1/OneDrive/Documentos/NetBeansProjects/EducReports/src/assets/Logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="80" y="120" width="420" height="30" uuid="8dedae01-c96b-4f24-8917-6375f7dcad21"/>
+				<textElement>
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELAÇÃO DE ALUNOS CADASTRADOS NO SISTEMA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="40" width="30" height="20" uuid="61eb6da1-cce8-4ea2-9cfd-e4984b337068"/>
+				<textElement>
+					<font fontName="Times New Roman" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="40" width="50" height="20" uuid="413f6823-e710-4e3e-9eed-2e0d41680b60"/>
+				<textElement>
+					<font fontName="Times New Roman" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Montserrat" x="250" y="40" width="78" height="20" uuid="4883d03b-be88-405e-acc4-551f554650ea"/>
+				<textElement>
+					<font fontName="Times New Roman" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nascimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="40" width="70" height="20" uuid="21e8a18e-c9dc-4767-8b09-fa085ec9178f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Professor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="40" width="100" height="20" uuid="d403df33-50b9-4470-856b-9199980c63ee"/>
+				<textElement>
+					<font fontName="Times New Roman" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Agrupamento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="10" width="70" height="20" uuid="bd0b4750-9938-438c-a144-3ad8c62ed278">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="858d322e-9cb9-4827-b07d-9c224ec857d5"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="10" width="170" height="20" uuid="31ffff3c-8aca-4af6-b7f0-0155b7dadb8e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c65c0add-9f56-462b-9d77-389926311b16"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{child_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="d/M/yyyy">
+				<reportElement x="250" y="10" width="78" height="20" uuid="4865d5cd-30bc-4b7c-81af-ab1e819c59cd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d7b1d498-b58f-40c8-9dc4-e2d19fc5cd34"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{birth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="10" width="100" height="20" uuid="2ae6715e-e766-4892-8b0b-fb646f15d2c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ecc5d760-0f5f-44d5-90ec-0c82783009b4"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{class}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="10" width="110" height="20" uuid="4644ac84-4f2c-44f0-ae0d-b9fc438fbadb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="49a0d965-7cc6-4e78-bc53-97d0508301c2"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{teacher_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="65" splitType="Stretch">
+			<textField>
+				<reportElement x="520" y="41" width="30" height="24" uuid="e38c5127-f8f1-4598-a15f-81a67f3d5738"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

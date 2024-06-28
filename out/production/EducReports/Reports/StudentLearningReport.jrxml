@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="StudentLearningReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6360187d-d56b-43e4-ac5f-da7bf52cd8eb">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL - EducDB"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="ID_Rel" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select child_name, date_format(birth, '%d/%m/%Y'), class, teacher_name, report 
+from tb_reports
+where ID_Rel=$P!{ID_Rel}]]>
+	</queryString>
+	<field name="child_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="child_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="child_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_reports"/>
+	</field>
+	<field name="date_format(birth, &apos;%d/%m/%Y&apos;)" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name">
+			<![CDATA[date_format(birth, '%d/%m/%Y')]]>
+		</property>
+		<property name="com.jaspersoft.studio.field.label">
+			<![CDATA[date_format(birth, '%d/%m/%Y')]]>
+		</property>
+	</field>
+	<field name="class" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="class"/>
+		<property name="com.jaspersoft.studio.field.label" value="class"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_reports"/>
+	</field>
+	<field name="teacher_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="teacher_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="teacher_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_reports"/>
+	</field>
+	<field name="report" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="report"/>
+		<property name="com.jaspersoft.studio.field.label" value="report"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_reports"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="252" splitType="Stretch">
+			<staticText>
+				<reportElement x="37" y="130" width="480" height="30" uuid="d5528fba-0994-47e2-b7c8-5263abc5ce5e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE ACOMPANHAMENTO DAS APRENDIZAGENS]]></text>
+			</staticText>
+			<image>
+				<reportElement x="152" y="20" width="250" height="90" uuid="73ac47bb-e902-4eaf-8956-c798ef212bde">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["C:/Users/Nick1/OneDrive/Documentos/NetBeansProjects/EducReports/src/assets/Logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="20" y="230" width="80" height="22" uuid="10cbc368-57f2-47b1-a72f-d856c1b7caa1"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Professor(a):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="402" y="230" width="78" height="22" uuid="788313fd-9597-4cb9-9042-ad3b8237866d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{class}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="190" width="120" height="22" uuid="29828567-0d94-44e6-987f-de9b0d73bedb"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de nascimento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="230" width="52" height="22" uuid="2f428830-a4ee-4e32-b511-f478fb0f7448"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="470" y="190" width="74" height="22" uuid="5f4900eb-0156-4552-895c-884e5c37d381"/>
+				<textFieldExpression><![CDATA[$F{date_format(birth, '%d/%m/%Y')}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="230" width="100" height="22" uuid="5a1e26ed-c154-4a30-a6b8-daa9d1396c5f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{teacher_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="190" width="100" height="22" uuid="6b4eb9da-e286-48ea-a2a5-77aa4bd3a27a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{child_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="190" width="60" height="22" uuid="39a6a66a-c0f7-49da-9395-dc0834c3536d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aluno(a): ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="136" splitType="Stretch">
+			<textField textAdjust="StretchHeight" evaluationTime="Auto">
+				<reportElement x="20" y="13" width="515" height="122" uuid="38dae266-42c7-475b-811e-0b92dd140af4">
+					<property name="net.sf.jasperreports.print.part.split" value="true"/>
+					<property name="net.sf.jasperreports.print.part.test" value=""/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{report}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="81" splitType="Stretch">
+			<textField>
+				<reportElement x="530" y="48" width="24" height="28" uuid="31fa3cee-5fa2-45a2-8746-42d04710540b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="396">
+			<rectangle>
+				<reportElement x="80" y="20" width="399" height="170" uuid="7441d5b6-6597-4321-aeba-fef68a000bfe"/>
+			</rectangle>
+			<line>
+				<reportElement x="95" y="80" width="369" height="1" uuid="276d8a71-7a79-4c82-83f6-f955b4aa9b89"/>
+			</line>
+			<line>
+				<reportElement x="95" y="100" width="369" height="1" uuid="bbe9b868-0897-495f-9fc7-115d713ef8f9"/>
+			</line>
+			<line>
+				<reportElement x="95" y="120" width="369" height="1" uuid="61395a9f-107b-4017-87c0-cc7457f535e3"/>
+			</line>
+			<line>
+				<reportElement x="95" y="140" width="369" height="1" uuid="0bdfa550-654e-48f9-a731-d928fef2adae"/>
+			</line>
+			<line>
+				<reportElement x="95" y="160" width="369" height="1" uuid="4689da5f-4f42-420a-96af-bfbd46b2232a"/>
+			</line>
+			<line>
+				<reportElement x="95" y="180" width="369" height="1" uuid="03288112-f443-4bdb-9a2d-1d77afd38216"/>
+			</line>
+			<staticText>
+				<reportElement x="109" y="30" width="340" height="20" uuid="f28bedff-e1aa-40b7-8d3f-e54fac0ef837"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Parecer da família quanto as suas expectativas e os processos vividos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="137" y="229" width="53" height="15" uuid="8ce0e99f-5994-45b3-a194-39225f5a2ad4">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[São Paulo, ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="190" y="240" width="50" height="1" uuid="3bdaa0a6-731d-40f8-8840-88d1bbdfe7ba"/>
+			</line>
+			<staticText>
+				<reportElement x="240" y="229" width="12" height="14" uuid="90fa1e73-0726-402b-ab99-7e49dcfeb661">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+			<line>
+				<reportElement x="252" y="240" width="108" height="1" uuid="b67ee514-47dc-44b4-84bc-99960466b7e2"/>
+			</line>
+			<textField pattern="yyyy">
+				<reportElement x="375" y="230" width="38" height="13" uuid="fdfcff34-0bc4-43b6-bd59-c7d9b97fab0c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="229" width="15" height="14" uuid="fca3e6f1-e21b-4a9e-a099-a401b7907ca3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[de ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="80" y="290" width="160" height="1" uuid="407d0029-9966-4b1d-9c5c-4a91e90f7833"/>
+			</line>
+			<staticText>
+				<reportElement x="80" y="300" width="72" height="16" uuid="7439ca91-ca0c-46f2-a0f8-856a35ff4e8e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Professor(a):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="300" width="100" height="16" uuid="a00159ec-54e7-414e-a707-d04a736f695d"/>
+				<textFieldExpression><![CDATA[$F{teacher_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="359" width="72" height="16" uuid="b76b7bb7-e2f4-45ac-8ee0-9a7f74d926e6"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Responsável]]></text>
+			</staticText>
+			<line>
+				<reportElement x="80" y="349" width="160" height="1" uuid="cf201d8f-d584-4bb2-9e3f-5e8809d0a45a"/>
+			</line>
+			<staticText>
+				<reportElement x="320" y="300" width="82" height="16" uuid="f55a126d-8a7a-49e7-8197-9af0fbde8378"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Coordenadora: ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="320" y="290" width="160" height="1" uuid="9b598e97-0032-41b4-afa7-1b9c8a8f207f"/>
+			</line>
+			<line>
+				<reportElement x="320" y="350" width="160" height="1" uuid="6f990e91-33ee-47b2-b24f-bf68402bd407"/>
+			</line>
+			<staticText>
+				<reportElement x="320" y="360" width="54" height="16" uuid="0e4a1dfd-2550-4caa-9771-f7b38dfeb5ee"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diretora: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="300" width="96" height="30" uuid="9111ac47-fd21-4781-a754-ff8564cc5179"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Mariana Urbaneza     Rodrigues]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="375" y="359" width="94" height="31" uuid="ddca038b-8af2-4d6f-b231-236125813bbe"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Grasiely C. Q. dos Anjos]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

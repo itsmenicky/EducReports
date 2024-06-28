@@ -439,7 +439,7 @@ private void edit_student() {
         lblPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/camera-icon.png"))); // NOI18N
         lblPhoto.setToolTipText("Carregar foto");
         lblPhoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        lblPhoto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblPhoto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblPhoto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPhotoMouseClicked(evt);
@@ -448,7 +448,7 @@ private void edit_student() {
 
         btnAddStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add-user2.png"))); // NOI18N
         btnAddStudent.setContentAreaFilled(false);
-        btnAddStudent.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAddStudent.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAddStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddStudentActionPerformed(evt);
@@ -457,7 +457,7 @@ private void edit_student() {
 
         btnEditStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit-user2.png"))); // NOI18N
         btnEditStudent.setContentAreaFilled(false);
-        btnEditStudent.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditStudent.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEditStudent.setEnabled(false);
         btnEditStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

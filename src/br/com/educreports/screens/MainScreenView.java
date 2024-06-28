@@ -17,9 +17,8 @@
  */
 package br.com.educreports.screens;
 
-import br.com.educreports.dal.ConnectionModule;
+import br.com.educreports.controllers.MainScreenController;
 import br.com.educreports.services.checkUser;
-import java.sql.*;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Graphics;
@@ -28,9 +27,6 @@ import java.text.DateFormat;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * EducReports main screen
@@ -38,48 +34,17 @@ import net.sf.jasperreports.view.JasperViewer;
  * @version 2.0
  * @author itsmenicky
  */
-public class MainScreen extends javax.swing.JFrame {
+public class MainScreenView extends javax.swing.JFrame {
+    private MainScreenController controller;
 
     /**
      * Creates new form MainScreen
      */
-    public MainScreen() {
+    public MainScreenView() {
         this.getContentPane().setBackground(Color.WHITE);
         this.setVisible(true);
         initComponents();
-    }
-
-    /**
-     * Function responsible for issuing reports on students registered in the system
-     */
-    private void studentsReport() {
-        int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
-        if (confirmation == JOptionPane.YES_OPTION) {
-            try {
-                Connection conexao = ConnectionModule.conector();
-                JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/Reports/StudentReport.jasper"), null, conexao);
-                JasperViewer.viewReport(print, false);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
-    }
-
-
-    /**
-     * Function responsible for issuing reports on students registered in the system
-     */
-    private void teachersReport() {
-        int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
-        if (confirmation == JOptionPane.YES_OPTION) {
-            try {
-                Connection conexao = ConnectionModule.conector();
-                JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/Reports/TeacherReport.jasper"), null, conexao);
-                JasperViewer.viewReport(print, false);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
+        controller = new MainScreenController();
     }
 
     /**
@@ -131,7 +96,7 @@ public class MainScreen extends javax.swing.JFrame {
         setTitle("EducReports");
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(java.awt.Color.white);
-        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginScreen.class.getResource("/assets/desktop-logo.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginView.class.getResource("/assets/desktop-logo.png")));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -204,11 +169,6 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuBar1.setBackground(new java.awt.Color(65, 168, 97));
         jMenuBar1.setForeground(new java.awt.Color(65, 168, 97));
         jMenuBar1.setFont(new java.awt.Font("Montserrat", 1, 14)); // NOI18N
-        jMenuBar1.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentResized(java.awt.event.ComponentEvent evt) {
-                jMenuBar1ComponentResized(evt);
-            }
-        });
 
         students_menu.setText("Alunos");
 
@@ -224,12 +184,6 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuBar1.add(students_menu);
 
         jMenu2.setText("Relatórios");
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
-            }
-        });
-
         menu_teachers_rel.setText("Relatório de Docentes");
         menu_teachers_rel.setEnabled(false);
         menu_teachers_rel.addActionListener(new java.awt.event.ActionListener() {
@@ -362,14 +316,6 @@ public class MainScreen extends javax.swing.JFrame {
         desktop.add(emissao);
         emissao.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu2ActionPerformed
-
-    private void jMenuBar1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jMenuBar1ComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuBar1ComponentResized
 /**
  * Event responsible for setting actual date in the system
  * @param evt 
@@ -407,11 +353,11 @@ public class MainScreen extends javax.swing.JFrame {
  * @param evt 
  */
     private void menu_students_relActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_students_relActionPerformed
-        if(!checkUser.check_user() == true){
+        if(!checkUser.check_user() != true){
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
         }
-        studentsReport();
+        controller.studentsReport();
     }//GEN-LAST:event_menu_students_relActionPerformed
 /**
  * Event responsible for calling the teachersReport function
@@ -422,7 +368,7 @@ public class MainScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
         }
-        teachersReport();
+        controller.teachersReport();
     }//GEN-LAST:event_menu_teachers_relActionPerformed
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
@@ -433,7 +379,7 @@ public class MainScreen extends javax.swing.JFrame {
  * @param evt 
  */
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        AboutScreen about = new AboutScreen();
+        AboutView about = new AboutView();
         about.setVisible(true);
         desktop.add(about);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
@@ -442,7 +388,7 @@ public class MainScreen extends javax.swing.JFrame {
  * @param evt 
  */
     private void menu_reportsmanagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_reportsmanagementActionPerformed
-       ReportManagementScreen reportsmanagement = new ReportManagementScreen();
+       ReportManagementView reportsmanagement = new ReportManagementView();
        reportsmanagement.setVisible(true);
        desktop.add(reportsmanagement);
     }//GEN-LAST:event_menu_reportsmanagementActionPerformed
@@ -451,7 +397,7 @@ public class MainScreen extends javax.swing.JFrame {
  * @param evt 
  */
     private void user_register_menuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_register_menuitemActionPerformed
-        RegisterScreen register = new RegisterScreen();
+        RegisterView register = new RegisterView();
         register.setVisible(true);
         desktop.add(register);
     }//GEN-LAST:event_user_register_menuitemActionPerformed
@@ -461,7 +407,7 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        LoginScreen login = new LoginScreen();
+        LoginView login = new LoginView();
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
@@ -483,22 +429,15 @@ public class MainScreen extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainScreenView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainScreenView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainScreenView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainScreenView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainScreen().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

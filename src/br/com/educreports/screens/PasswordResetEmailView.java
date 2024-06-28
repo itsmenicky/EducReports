@@ -16,27 +16,22 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.screens;
-import br.com.educreports.dal.ConnectionModule;
-import java.sql.*;
+import br.com.educreports.controllers.PasswordResetController;
 import java.awt.Toolkit;
-import java.util.Random;
 import javax.swing.JOptionPane;
-import br.com.educreports.services.sendEmail;
 
 /**
  * @version 2.0
  * @author itsmenicky
  */
-public class PasswordResetEmailScreen extends javax.swing.JFrame {
-
-    Connection conexao = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
+public class PasswordResetEmailView extends javax.swing.JFrame {
+    PasswordResetController controller;
 
     /**
      * Creates new form PasswordResetEmailScreen
      */
-    public PasswordResetEmailScreen() {
+    public PasswordResetEmailView() {
+        controller = new PasswordResetController();
         initComponents();
     }
 
@@ -55,7 +50,7 @@ public class PasswordResetEmailScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Reset de Senha");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginScreen.class.getResource("/assets/desktop-logo.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginView.class.getResource("/assets/desktop-logo.png")));
         setResizable(false);
 
         jLabel2.setFont(new java.awt.Font("Montserrat", 0, 11)); // NOI18N
@@ -113,32 +108,6 @@ public class PasswordResetEmailScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_email_fieldActionPerformed
 
     /**
-     * Event responsible for capture the email field and send a confirmation
-     * email to the account.
-     *
-     * @param evt
-     */
-
-    
-    /**
-     * Method responsible for sending verify code to the email, and request the code to the user
-     * @param mail_address 
-     */
-    private void verifyCode(String mail_address) {
-        Random generator = new Random();
-        int mail_code = generator.nextInt(9000) + 1000;
-        sendEmail.mailSender(mail_address, mail_code, "Recuperação de senha", "Código para recuperação de senha da sua conta EducReports", "Se você não solicitou um reset de senha, desconsidere o email.");
-        String email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
-        while (!email_confirmation.equals(Integer.toString(mail_code))) {
-            JOptionPane.showMessageDialog(null, "Código inválido!");
-            email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
-        }
-        PasswordResetScreen password_reset = new PasswordResetScreen(mail_address);
-        password_reset.setVisible(true);
-        this.dispose();
-    }
-
-    /**
      * Event responsible for capturing the user email, verifying in the database, and calling the verifyCode method
      * @param evt 
      */
@@ -146,22 +115,12 @@ public class PasswordResetEmailScreen extends javax.swing.JFrame {
         if (email_field.getText().equals("") || email_field.getText().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Insira seu email!");
         } else {
-            conexao = ConnectionModule.conector();
-            String sql = "select * from tb_user where email like ?";
-            try {
-                pst = conexao.prepareStatement(sql);
-                pst.setString(1, email_field.getText());
-                String mail_address = email_field.getText();
-                rs = pst.executeQuery();
-                if (rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Um email de confirmação foi enviado para o endereço, verifique sua caixa de entrada.");
-                     verifyCode(mail_address);
-                     this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Email não encontrado! Insira um endereço válido.");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
+            if(controller.passResetAuth(email_field.getText())){
+                JOptionPane.showMessageDialog(null, "Um email de confirmação foi enviado para o endereço, verifique sua caixa de entrada.");
+                controller.verifyCode(email_field.getText());
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Email inválido!");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -183,20 +142,20 @@ public class PasswordResetEmailScreen extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PasswordResetEmailScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordResetEmailView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PasswordResetEmailScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordResetEmailView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PasswordResetEmailScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordResetEmailView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PasswordResetEmailScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PasswordResetEmailView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PasswordResetEmailScreen().setVisible(true);
+                new PasswordResetEmailView().setVisible(true);
             }
         });
     }

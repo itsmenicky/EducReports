@@ -16,38 +16,19 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package br.com.educreports.services;
-import java.sql.*;
-import br.com.educreports.dal.ConnectionModule;
-import br.com.educreports.screens.LoginScreen;
+import br.com.educreports.session.userSession;
 
 /**
  *
- * @author Nick1
+ * @author itsmenicky
  * @version 2.0
  */
 public class checkUser {
     
     public static Boolean check_user(){
-        Connection conexao = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-        Boolean authSession = false;
-        
-        String sql = "select * from tb_user where id_user=?";
-        try {
-            conexao = ConnectionModule.conector();
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, LoginScreen.userIDSession);
-            rs = pst.executeQuery();
-            if(rs.next()){
-                String userStatus = rs.getString(7);
-                if(userStatus.equals("Active")){
-                    authSession = true;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+        if(userSession.getInstance().getUser().getStatus().equals("Active")){
+            return true;
         }
-        return authSession;
+        return null;
     }
 }

@@ -19,21 +19,18 @@ package br.com.educreports.screens;
 import br.com.educreports.dal.ConnectionModule;
 import java.awt.Graphics;
 import java.sql.*;
-import javax.sql.rowset.serial.SerialBlob;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+
+import br.com.educreports.session.userSession;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -61,7 +58,7 @@ public class ReportsEmissionScreen extends javax.swing.JInternalFrame {
      */
     private void search_child() {
         String sql = null;
-         if(LoginScreen.Adminprofile == false){
+         if(!userSession.getInstance().getUser().getHierarchy().equals("Admin")){
              sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)'  from tb_child where child_name like ? and teacher_name like ? and status!= 'Disabled'";
         }else{
             sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ? and status!='Disabled'";
@@ -69,8 +66,8 @@ public class ReportsEmissionScreen extends javax.swing.JInternalFrame {
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, lblSearch.getText() + "%");
-            if(LoginScreen.Adminprofile == false){
-                pst.setString(2, MainScreen.menu_username.getText() + "%");
+            if(!userSession.getInstance().getUser().getHierarchy().equals("Admin")){
+                pst.setString(2, MainScreenView.menu_username.getText() + "%");
             }
             rs = pst.executeQuery();
             tbChild.setModel(DbUtils.resultSetToTableModel(rs));
@@ -249,7 +246,7 @@ public class ReportsEmissionScreen extends javax.swing.JInternalFrame {
         lblPhoto.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         lblPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/camera-icon.png"))); // NOI18N
         lblPhoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        lblPhoto.setCursor(new java.awt.Cursor(java.awt.Cursor.MOVE_CURSOR));
+        lblPhoto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblPhoto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPhotoMouseClicked(evt);
@@ -302,7 +299,7 @@ public class ReportsEmissionScreen extends javax.swing.JInternalFrame {
 
         jButton1.setFont(new java.awt.Font("Montserrat", 1, 18)); // NOI18N
         jButton1.setText("Emitir relatório");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

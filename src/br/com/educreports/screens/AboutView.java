@@ -22,12 +22,12 @@ package br.com.educreports.screens;
  * @version 2.0
  * @author itsmenicky
  */
-public class AboutScreen extends javax.swing.JInternalFrame {
+public class AboutView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form AboutScreen
      */
-    public AboutScreen() {
+    public AboutView() {
         initComponents();
     }
 

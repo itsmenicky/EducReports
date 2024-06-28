@@ -28,8 +28,8 @@ public class ConnectionModule {
         java.sql.Connection conexao = null;
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/educdb";
-        String user = System.getenv("DATABASE_USER");
-        String password = System.getenv("DATABASE_PASSWORD");
+        String user = "root";
+        String password = "root";
          System.out.println(user + password);
         try {
             Class.forName(driver);
@@ -37,6 +37,7 @@ public class ConnectionModule {
             System.out.println(conexao);
             return conexao;
         } catch (Exception e) {
+            System.out.println(e);
             return null;
         }
     }

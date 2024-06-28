@@ -229,7 +229,7 @@ public class UserScreen extends javax.swing.JInternalFrame {
         btnEditUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit-user.png"))); // NOI18N
         btnEditUser.setToolTipText("editar usuário");
         btnEditUser.setContentAreaFilled(false);
-        btnEditUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditUser.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEditUser.setEnabled(false);
         btnEditUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
