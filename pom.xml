@@ -16,16 +16,17 @@
     </resources>
     <plugins>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <configuration>
-          <release>17</release>
-        </configuration>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-compiler-plugin</artifactId>
+		  <version>3.8.1</version>
+		  <configuration>
+			  <release>17</release>
+		  </configuration>
       </plugin>
     </plugins>
   </build>
   <dependencies>
-		<!-- https://mvnrepository.com/artifact/commons-dbutils/commons-dbutils -->
+	  <!-- https://mvnrepository.com/artifact/commons-dbutils/commons-dbutils -->
 		<dependency>
 		    <groupId>commons-dbutils</groupId>
 		    <artifactId>commons-dbutils</artifactId>

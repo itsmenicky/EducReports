@@ -41,8 +41,6 @@ public class sendEmail {
      * @param mail_content
      */
     public static void mailSender(String mail_address, int mail_code, String mail_subject, String mail_title, String mail_content) {
-        final String mail_account = "educreportsofficial@gmail.com";
-        final String mail_account_pass = "mlkn oxvy evfd fjfu ";
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "587");
@@ -54,7 +52,7 @@ public class sendEmail {
         Session session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(mail_account, mail_account_pass);
+                return new PasswordAuthentication(System.getenv("EMAIL_ACCOUNT"), System.getenv("EMAIL_PASSWORD"));
             }
         });
 
@@ -62,7 +60,7 @@ public class sendEmail {
         
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(mail_account));
+            message.setFrom(new InternetAddress(System.getenv("EMAIL_ACCOUNT")));
 
             Address[] toUser = InternetAddress.parse(mail_address);
 
