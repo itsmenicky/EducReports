@@ -335,7 +335,7 @@ public class MainScreenView extends javax.swing.JFrame {
      * @param evt 
      */
     private void user_edit_menuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_edit_menuitemActionPerformed
-        UserScreen usuarios = new UserScreen();
+        UserScreenView usuarios = new UserScreenView();
         desktop.add(usuarios);
         usuarios.setVisible(true);
     }//GEN-LAST:event_user_edit_menuitemActionPerformed
@@ -344,7 +344,7 @@ public class MainScreenView extends javax.swing.JFrame {
  * @param evt 
  */
     private void students_menuitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_students_menuitemActionPerformed
-        StudentScreen alunos = new StudentScreen();
+        StudentView alunos = new StudentView();
         alunos.setVisible(true);
         desktop.add(alunos);
     }//GEN-LAST:event_students_menuitemActionPerformed

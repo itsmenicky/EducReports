@@ -17,22 +17,17 @@
  */
 package br.com.educreports.screens;
 
-import br.com.educreports.dal.ConnectionModule;
+import br.com.educreports.controllers.StudentController;
+import br.com.educreports.dao.ChildDAO;
+import br.com.educreports.dao.TeacherDAO;
+import br.com.educreports.models.Child;
 import br.com.educreports.services.checkUser;
-import java.awt.Graphics2D;
+import java.io.IOException;
 import java.sql.*;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.*;
 import net.proteanit.sql.DbUtils;
 import javax.swing.table.DefaultTableModel;
 
@@ -42,115 +37,39 @@ import javax.swing.table.DefaultTableModel;
  * @version 2.0
  * @author itsmenicky
  */
-public class StudentScreen extends javax.swing.JInternalFrame {
-
-    Connection conexao = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
-
-    //Instantiating object for byte stream
-    private FileInputStream fis;
-
-    //global variable to store the image size (bytes)
-    private int size;
+public class StudentView extends javax.swing.JInternalFrame {
+    private StudentController controller;
+    private TeacherDAO teacherDAO;
+    private ChildDAO childDAO;
 
     /**
      * Creates new form StudentScreen
      */
-    public StudentScreen() {
+    public StudentView() {
         initComponents();
-        conexao = ConnectionModule.conector();
-    }
-
-    /**
-     * Function responsible for uploading photo on the system, and setting the
-     * photo on the interface
-     */
-    private void photoUpload() {
-        JFileChooser fileExplorer = new JFileChooser();
-        fileExplorer.setDialogTitle("Selecionar arquivo");
-        fileExplorer.setFileFilter(new FileNameExtensionFilter("Arquivo de imagens (*.PNG, *.JPG, *.JPEG)", "png", "jpg", "jpeg"));
-        int result = fileExplorer.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            try {
-                fis = new FileInputStream(fileExplorer.getSelectedFile());
-                size = (int) fileExplorer.getSelectedFile().length();
-                Image photo = ImageIO.read(fileExplorer.getSelectedFile()).getScaledInstance(lblPhoto.getWidth(), lblPhoto.getHeight(), Image.SCALE_SMOOTH);
-                lblPhoto.setIcon(new ImageIcon(photo));
-                lblPhoto.updateUI();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
-    }
-
-    /**
-     * Function responsible for search teacher in the database
-     */
-    private void search_teacher() {
-        String sql = "select id_user as ID, username as Nome from tb_user where username like ? and hierarchy='Docente' and status!='Disabled' ";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtSearchTeacher.getText() + "%");
-            rs = pst.executeQuery();
-            tbTeacher.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-
-    /**
-     * Function responsible for search students in the database
-     */
-    private void search_student() {
-        String sql = "select RA as RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, status as Status from tb_child where child_name like ?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtSearchStudent.getText() + "%");
-            rs = pst.executeQuery();
-            tbStudent.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+        controller = new StudentController(this);
+        teacherDAO = new TeacherDAO();
+        childDAO = new ChildDAO();
     }
 
     /**
      * Function responsible for setting student txt fields and photo on the
      * interface
      */
-    private void setStudentFields() {
+    private void setStudentFields() throws SQLException {
         int set = tbStudent.getSelectedRow();
         txtRA.setText(tbStudent.getModel().getValueAt(set, 0).toString());
         txtName.setText(tbStudent.getModel().getValueAt(set, 1).toString());
         txtBirth.setText(tbStudent.getModel().getValueAt(set, 2).toString());
         txtClass.setText(tbStudent.getModel().getValueAt(set, 3).toString());
         cbStatus.setSelectedItem(tbStudent.getModel().getValueAt(set, 4).toString());
-        String sql = "select child_phone, responsible, address, teacher_name, teacher_id, child_photo from tb_child where RA=?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtRA.getText());
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                txtResponsible.setText(rs.getString("responsible"));
-                txtPhone.setText(rs.getString("child_phone"));
-                txtAddress.setText(rs.getString("address"));
-                txtTeacherId.setText(rs.getString("teacher_id"));
-                txtTeacherName.setText(rs.getString("teacher_name"));
-                Blob blob = (Blob) rs.getBlob("child_photo");
-                byte[] img = blob.getBytes(1, (int) blob.length());
-                BufferedImage imagem = null;
-                try {
-                    imagem = ImageIO.read(new ByteArrayInputStream(img));
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e);
-                }
-                ImageIcon icone = new ImageIcon(imagem);
-                Icon foto = new ImageIcon(icone.getImage().getScaledInstance(lblPhoto.getWidth(), lblPhoto.getHeight(), Image.SCALE_SMOOTH));
-                lblPhoto.setIcon(foto);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+        ResultSet last_fields = childDAO.search_child_fields(txtRA.getText());
+        txtResponsible.setText(last_fields.getString("responsible"));
+        txtPhone.setText(last_fields.getString("child_phone"));
+        txtAddress.setText(last_fields.getString("address"));
+        txtTeacherId.setText(last_fields.getString("teacher_id"));
+        txtTeacherName.setText(last_fields.getString("teacher_name"));
+        lblPhoto.setIcon(controller.blob_to_icon(last_fields.getBlob("child_photo"), this.lblPhoto));
     }
 
     /**
@@ -160,49 +79,6 @@ public class StudentScreen extends javax.swing.JInternalFrame {
         int set = tbTeacher.getSelectedRow();
         txtTeacherId.setText(tbTeacher.getModel().getValueAt(set, 0).toString());
         txtTeacherName.setText(tbTeacher.getModel().getValueAt(set, 1).toString());
-    }
-
-    /**
-     * Function responsible for creating students in the database
-     */
-    private void addStudent() {
-        String sql = "insert into tb_child(RA, child_name, birth, class, child_photo, child_phone, responsible, address, teacher_name, teacher_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            pst = conexao.prepareStatement(sql);
-            if (txtRA.getText().isBlank() || txtName.getText().isBlank() || txtBirth.getText().isBlank() || txtClass.getText().isBlank() || txtPhone.getText().isBlank() || txtResponsible.getText().isBlank() || txtAddress.getText().isBlank() || txtTeacherName.getText().isBlank() || txtTeacherId.getText().isBlank()) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
-            } else {
-                pst.setString(1, txtRA.getText());
-                pst.setString(2, txtName.getText());
-                String birthString = txtBirth.getText();
-                try {
-                    //Criando objeto SimpleDateFormat para o formato que a gente deseja
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                    //Converte a string para um objeto java.util.date
-                    java.util.Date dateUtil = format.parse(birthString);
-                    //Converte o objeto do java.util.date para java.sql.date
-                    java.sql.Date dateSQL = new java.sql.Date(dateUtil.getTime());
-                    pst.setDate(3, dateSQL);
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "O campo data deve ser preenchido no formato dd/mm/aaaa");
-                }
-                pst.setString(4, txtClass.getText());
-                pst.setBlob(5, fis, size);
-                pst.setString(6, txtPhone.getText());
-                pst.setString(7, txtResponsible.getText());
-                pst.setString(8, txtAddress.getText());
-                pst.setString(9, txtTeacherName.getText());
-                pst.setString(10, txtTeacherId.getText());
-
-                int added = pst.executeUpdate();
-                if (added > 0) {
-                    JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso!");
-                    clean_fields();
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
     }
 
     /**
@@ -226,56 +102,6 @@ public class StudentScreen extends javax.swing.JInternalFrame {
         ((DefaultTableModel) tbTeacher.getModel()).setRowCount(0);
         ((DefaultTableModel) tbStudent.getModel()).setRowCount(0);
     }
-
-    /**
-     * Function responsible for update student information in database
-     */
-private void edit_student() {
-    String sql = "update tb_child set class=?, child_photo=?, child_phone=?, responsible=?, address=?, teacher_name=?, teacher_id=?, status=? where RA=?";
-    int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a atualização dos dados deste usuário?", "CONFIRMAÇÃO", JOptionPane.YES_NO_OPTION);
-    if (confirmation == JOptionPane.YES_OPTION) {
-        try {
-            if (txtClass.getText().isBlank() || txtPhone.getText().isBlank() || txtResponsible.getText().isBlank() || txtAddress.getText().isBlank() || txtTeacherName.getText().isBlank() || txtTeacherId.getText().isBlank()) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
-            } else {
-                pst = conexao.prepareStatement(sql);
-                pst.setString(1, txtClass.getText());
-
-                // Convertendo o ícone em bytes
-                ImageIcon icon = (ImageIcon) lblPhoto.getIcon();
-                Image image = icon.getImage();
-                BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-                Graphics2D g2d = bufferedImage.createGraphics();
-                g2d.drawImage(image, 0, 0, null);
-                g2d.dispose();
-
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
-                byte[] imageBytes = byteArrayOutputStream.toByteArray();
-
-                pst.setBytes(2, imageBytes);
-                pst.setString(3, txtPhone.getText());
-                pst.setString(4, txtResponsible.getText());
-                pst.setString(5, txtAddress.getText());
-                pst.setString(6, txtTeacherName.getText());
-                pst.setString(7, txtTeacherId.getText());
-                pst.setString(8, cbStatus.getSelectedItem().toString());
-                pst.setString(9, txtRA.getText());
-                int updated = pst.executeUpdate();
-                if (updated > 0) {
-                    JOptionPane.showMessageDialog(null, "Dados do aluno atualizados com sucesso!");
-                    btnAddStudent.setEnabled(true);
-                    txtRA.setEnabled(true);
-                    txtName.setEnabled(true);
-                    txtBirth.setEnabled(true);
-                    clean_fields();
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-}
 
 
     /**
@@ -409,7 +235,11 @@ private void edit_student() {
         ));
         tbStudent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbStudentMouseClicked(evt);
+                try {
+                    tbStudentMouseClicked(evt);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         jScrollPane2.setViewportView(tbStudent);
@@ -442,7 +272,11 @@ private void edit_student() {
         lblPhoto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblPhoto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPhotoMouseClicked(evt);
+                try {
+                    lblPhotoMouseClicked(evt);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -451,7 +285,11 @@ private void edit_student() {
         btnAddStudent.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAddStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddStudentActionPerformed(evt);
+                try {
+                    btnAddStudentActionPerformed(evt);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -461,7 +299,11 @@ private void edit_student() {
         btnEditStudent.setEnabled(false);
         btnEditStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditStudentActionPerformed(evt);
+                try {
+                    btnEditStudentActionPerformed(evt);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -473,11 +315,6 @@ private void edit_student() {
 
         cbStatus.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Disabled" }));
-        cbStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbStatusActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -660,8 +497,10 @@ private void edit_student() {
      *
      * @param evt
      */
-    private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
-        photoUpload();
+    private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) throws IOException {//GEN-FIRST:event_lblPhotoMouseClicked
+        Image photo = ImageIO.read(controller.photoUpload()).getScaledInstance(lblPhoto.getWidth(), lblPhoto.getHeight(), Image.SCALE_SMOOTH);
+        lblPhoto.setIcon(new ImageIcon(photo));
+        lblPhoto.updateUI();
     }//GEN-LAST:event_lblPhotoMouseClicked
 
     /**
@@ -670,7 +509,7 @@ private void edit_student() {
      * @param evt
      */
     private void txtSearchTeacherKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchTeacherKeyReleased
-        search_teacher();
+        tbTeacher.setModel(DbUtils.resultSetToTableModel(teacherDAO.search_teacher(txtTeacherName.getText())));
     }//GEN-LAST:event_txtSearchTeacherKeyReleased
 
     /**
@@ -687,12 +526,13 @@ private void edit_student() {
      *
      * @param evt
      */
-    private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
+    private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {//GEN-FIRST:event_btnAddStudentActionPerformed
         if(!checkUser.check_user() == true){
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
-        } 
-        addStudent();
+        }
+        Child student = new Child(txtName.getText(), controller.string_to_date(txtBirth.getText()), txtClass.getText(), controller.iconToBytes(lblPhoto.getIcon(), "png"), txtPhone.getText(), txtResponsible.getText(), txtAddress.getText(), txtTeacherName.getText(), Long.parseLong(txtTeacherId.getText()), "Active");
+        controller.add_student(student);
     }//GEN-LAST:event_btnAddStudentActionPerformed
 
     /**
@@ -701,7 +541,7 @@ private void edit_student() {
      * @param evt
      */
     private void txtSearchStudentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchStudentKeyReleased
-        search_student();
+        tbStudent.setModel(DbUtils.resultSetToTableModel(childDAO.search_child_to_table(txtSearchStudent.getText())));
     }//GEN-LAST:event_txtSearchStudentKeyReleased
 
     /**
@@ -710,7 +550,7 @@ private void edit_student() {
      *
      * @param evt
      */
-    private void tbStudentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbStudentMouseClicked
+    private void tbStudentMouseClicked(java.awt.event.MouseEvent evt) throws SQLException {//GEN-FIRST:event_tbStudentMouseClicked
         setStudentFields();
         btnAddStudent.setEnabled(false);
         btnEditStudent.setEnabled(true);
@@ -724,17 +564,22 @@ private void edit_student() {
      *
      * @param evt
      */
-    private void btnEditStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditStudentActionPerformed
+    private void btnEditStudentActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {//GEN-FIRST:event_btnEditStudentActionPerformed
         if(!checkUser.check_user() == true){
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
         }
-         edit_student();   
+        int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a atualização dos dados deste usuário?", "CONFIRMAÇÃO", JOptionPane.YES_NO_OPTION);
+        Child student = new Child(txtName.getText(), controller.string_to_date(txtBirth.getText()), txtClass.getText(), controller.iconToBytes(lblPhoto.getIcon(), "png"), txtPhone.getText(), txtResponsible.getText(), txtAddress.getText(), txtTeacherName.getText(), Long.parseLong(txtTeacherId.getText()), cbStatus.getSelectedItem().toString());
+        if (confirmation == JOptionPane.YES_OPTION) {
+            controller.edit_student(student, txtRA.getText());
+        }
+        btnAddStudent.setEnabled(true);
+        txtRA.setEnabled(true);
+        txtName.setEnabled(true);
+        txtBirth.setEnabled(true);
+        clean_fields();
     }//GEN-LAST:event_btnEditStudentActionPerformed
-
-    private void cbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbStatusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

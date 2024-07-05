@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2a9e1990-9627-4b9c-befe-4eb290a99501" name="Changes" comment="feat: implement architectural changes to improve MVC structure">
+      <change beforePath="$PROJECT_DIR$/build/built-jar.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/built-jar.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dao/ChildDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dao/ChildDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dao/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/models/Child.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/models/Child.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/MainScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/MainScreenView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportManagementView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportManagementView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportsEmissionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportsEmissionView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/StudentScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/StudentView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/UserScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/UserScreenView.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;itsmenicky&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://itsmenicky@github.com/itsmenicky/EducReports.git&quot;,
+    &quot;accountId&quot;: &quot;ae2c2048-977c-436a-8638-4ee00ad5edaf&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="customMavenHome" value="/usr/share/maven" />
+        <option name="mavenHomeTypeForPersistence" value="CUSTOM" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="21" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2hnNYh4m3FaGxPjf5RhZUzPrvr0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LoginScreen.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LoginView.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MainScreen.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MainScreenView.executor&quot;: &quot;Run&quot;,
+    &quot;Application.PasswordResetEmailScreen.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.EducReports [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.EducReports [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/nick/Documentos/EducReports/pom.xml&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dist/lib" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="br.com.educreports.screens" />
+    </key>
+    <key name="MoveInnerDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="br.com.educreports.views" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.educreports.App" />
+      <module name="EducReports" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.educreports.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="EMAIL_ACCOUNT" value="educreportsofficial@gmail.com" />
+        <env name="EMAIL_PASSWORD" value="olfr ostx rivu mvza" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="br.com.educreports.screens.LoginView" />
+      <module name="EducReports" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.educreports.screens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PasswordResetEmailView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.educreports.screens.PasswordResetEmailView" />
+      <module name="EducReports" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.educreports.screens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.App" />
+      <item itemvalue="Application.LoginView" />
+      <item itemvalue="Application.PasswordResetEmailView" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+        <item itemvalue="Application.LoginView" />
+        <item itemvalue="Application.PasswordResetEmailView" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2a9e1990-9627-4b9c-befe-4eb290a99501" name="Changes" comment="" />
+      <created>1718225930381</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1718225930381</updated>
+    </task>
+    <task id="LOCAL-00001" summary="feat: implement architectural changes to improve MVC structure">
+      <option name="closed" value="true" />
+      <created>1719535638730</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1719535638730</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: implement architectural changes to improve MVC structure">
+      <option name="closed" value="true" />
+      <created>1719876588417</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1719876588417</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: implement architectural changes to improve MVC structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement architectural changes to improve MVC structure" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/LoginView.java</url>
+          <line>253</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/LoginView.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/PasswordResetEmailView.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/PasswordResetView.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalStateException" package="java.lang" />
+          <option name="timeStamp" value="4" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/PasswordResetEmailView.java</url>
+          <line>32</line>
+          <properties class="br.com.educreports.screens.PasswordResetEmailView" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/PasswordResetView.java</url>
+          <line>46</line>
+          <properties class="br.com.educreports.screens.PasswordResetView" method="initComponents">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/LoginView.java</url>
+          <line>60</line>
+          <properties class="br.com.educreports.screens.LoginView" method="initComponents">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/ReportsEmissionView.java</url>
+          <line>104</line>
+          <properties class="br.com.educreports.screens.ReportsEmissionView" method="initComponents">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/StudentView.java</url>
+          <line>113</line>
+          <properties class="br.com.educreports.screens.StudentView" method="initComponents">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

@@ -29,11 +29,35 @@ public class User {
     }
 
     /**
+     * Class constructor (without password)
+     * @param username
+     * @param email
+     * @param login
+     * @param hierarchy
+     * @param status
+     */
+    public User(String username, String email, String login, String hierarchy, String status){
+        this.username = username;
+        this.email = email;
+        this.login = login;
+        this.hierarchy = hierarchy;
+        this.status = status;
+    }
+
+    /**
      * Method responsible for validating a user
      * @return
      */
     public boolean isValid(){
         return isUsernameValid() && isEmailValid() && isLoginValid() && isPasswordValid() && isHierarchyValid() && isStatusValid();
+    }
+
+    /**
+     * Method responsible for validating a user for updates
+     * @return
+     */
+    public boolean isValidUpdate(){
+        return isUsernameValid() && isEmailValid() && isLoginValid() && isHierarchyValid() && isStatusValid();
     }
 
     /**

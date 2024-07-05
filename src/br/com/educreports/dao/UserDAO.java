@@ -2,6 +2,8 @@ package br.com.educreports.dao;
 import br.com.educreports.dal.ConnectionModule;
 import br.com.educreports.models.User;
 import br.com.educreports.services.passwordCrypt;
+import br.com.educreports.services.sendEmail;
+import net.proteanit.sql.DbUtils;
 
 import javax.swing.*;
 import java.nio.charset.StandardCharsets;
@@ -9,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 public class UserDAO {
     private Connection conexao;
@@ -119,5 +122,43 @@ public class UserDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    /**
+     * Function responsible for updating user data in the database
+     */
+    public void edit_user(User user, String user_id) {
+        String sql = "update tb_user set username=?, email=?, login=?, hierarchy=?, status=? where id_user=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, user.getUsername());
+            pst.setString(2, user.getEmail());
+            pst.setString(3, user.getLogin());
+            pst.setString(4, user.getHierarchy());
+            pst.setString(5, user.getStatus());
+            pst.setString(6, user_id);
+            int updated = pst.executeUpdate();
+            if(updated > 0){
+                JOptionPane.showMessageDialog(null, "Alterações salvas!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    /**
+     * Function responsible for search users in the database
+     */
+    public ResultSet search(String search) {
+        String sql = "select id_user as Id, username as Nome, email as Email, login as Login, hierarchy as Perfil, status as Status from tb_user where username like ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, search + "%");
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
     }
 }

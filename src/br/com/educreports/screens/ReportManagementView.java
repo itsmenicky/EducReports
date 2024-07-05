@@ -287,7 +287,7 @@ public class ReportManagementView extends javax.swing.JInternalFrame {
      * @param evt
      */
     private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
-        tbChild.setModel(DbUtils.resultSetToTableModel(childDAO.search_child(searchBar.getText())));
+        tbChild.setModel(DbUtils.resultSetToTableModel(childDAO.search_child_to_table(searchBar.getText())));
     }//GEN-LAST:event_searchBarKeyReleased
 
     private void tbChildKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbChildKeyPressed

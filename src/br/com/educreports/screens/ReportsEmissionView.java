@@ -431,7 +431,7 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
      * @param evt
      */
     private void lblSearchKeyReleased(java.awt.event.KeyEvent evt) {    // GEN-FIRST:event_lblSearchKeyReleased
-        tbChild.setModel(DbUtils.resultSetToTableModel(childDAO.search_child(lblSearch.getText())));
+        tbChild.setModel(DbUtils.resultSetToTableModel(childDAO.search_child_to_table(lblSearch.getText())));
     }    // GEN-LAST:event_lblSearchKeyReleased
 
     /**

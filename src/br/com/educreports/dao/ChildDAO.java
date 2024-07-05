@@ -1,12 +1,17 @@
 package br.com.educreports.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.sql.*;
 
+import javax.imageio.ImageIO;
+import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.*;
 
 import br.com.educreports.dal.ConnectionModule;
+import br.com.educreports.models.Child;
 import br.com.educreports.screens.MainScreenView;
 import br.com.educreports.session.userSession;
 
@@ -23,9 +28,9 @@ public class ChildDAO {
     }
 
     /**
-     * Function responsible for searching child in the database
+     * Function responsible for searching child in the database to view table
      */
-    public ResultSet search_child(String search) {
+    public ResultSet search_child_to_table(String search) {
         String sql;
 
         if (!userSession.getInstance().getUser().getHierarchy().equals("Admin")) {
@@ -52,6 +57,29 @@ public class ChildDAO {
         return null;
     }
 
+    /**
+     * Function responsible for searching last fields to studentView
+     * @param search
+     * @return
+     */
+    public ResultSet search_child_fields(String search){
+        String sql = "select child_phone, responsible, address, teacher_name, teacher_id, child_photo from tb_child where RA=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, search);
+            rs = pst.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
+    }
+
+    /**
+     * Function responsible for searching child photo
+     * @param RA
+     * @return
+     */
     public ResultSet search_child_photo(String RA) {
         String sql = "select child_photo from tb_child where RA=?";
 
@@ -66,6 +94,11 @@ public class ChildDAO {
         return null;
     }
 
+    /**
+     * Function responsible for searching reports
+     * @param search
+     * @return
+     */
     public ResultSet search_reports(String search) {
         String sql =
             "select ID_Rel as ID, report as Relatório, date_format(emission_date, '%d/%m/%Y') as 'Data de emissão' from tb_reports where child_RA=?";
@@ -81,6 +114,57 @@ public class ChildDAO {
         }
 
         return null;
+    }
+
+    /**
+     * Function responsible for saving student into database
+     * @param student
+     */
+    public void save(Child student){
+        String sql = "insert into tb_child(child_name, birth, class, child_photo, child_phone, responsible, address, teacher_name, teacher_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, student.getName());
+            pst.setDate(2, (Date) student.getBirth_date());
+            pst.setString(3, student.getGrade());
+            Blob blob = new SerialBlob(student.getPhoto());
+            pst.setBlob(4, blob);
+            pst.setString(5, student.getContact());
+            pst.setString(6, student.getResponsible());
+            pst.setString(7, student.getAddress());
+            pst.setString(8, student.getTeacher_name());
+            pst.setString(9, student.getTeacher_id().toString());
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    /**
+     * Function responsible for update student data in database
+     * @param student
+     * @param RA
+     */
+    public void update(Child student, String RA){
+        String sql = "update tb_child set class=?, child_photo=?, child_phone=?, responsible=?, address=?, teacher_name=?, teacher_id=?, status=? where RA=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, student.getGrade());
+            Blob blob = new SerialBlob(student.getPhoto());
+            pst.setBlob(2, blob);
+            pst.setString(3, student.getContact());
+            pst.setString(4, student.getResponsible());
+            pst.setString(5, student.getAddress());
+            pst.setString(6, student.getTeacher_name());
+            pst.setString(7, student.getTeacher_id().toString());
+            pst.setString(8, student.getStatus());
+            pst.setString(9, RA);
+            int updated = pst.executeUpdate();
+            if (updated > 0) {
+                JOptionPane.showMessageDialog(null, "Dados do aluno atualizados com sucesso!");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 }
 

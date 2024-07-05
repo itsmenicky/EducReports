@@ -42,4 +42,60 @@ public class Child {
         this.teacher_id = teacher_id;
         this.status = status;
     }
+
+    /**
+     * Method responsible for validate a student
+     * @return
+     */
+    public boolean isValid(){
+        return isNameValid() && isBirthDateValid() && isGradeValid()  && isContactValid() && isResponsibleValid() && isAddressValid();
+    }
+
+    /**
+     * Method responsible for validate a student name
+     * @return
+     */
+    public boolean isNameValid(){
+        return name != null && !name.trim().isEmpty();
+    }
+
+    /**
+     * Method responsible for validate a student birth date
+     * @return
+     */
+    public boolean isBirthDateValid(){
+        return birth_date != null;
+    }
+
+    /**
+     * Method responsible for validate a student class
+     * @return
+     */
+    public boolean isGradeValid(){
+        return grade != null && !grade.trim().isEmpty();
+    }
+
+    /**
+     * Method responsible for validate student contact
+     * @return
+     */
+    public boolean isContactValid(){
+        return contact != null && !contact.trim().isEmpty();
+    }
+
+    /**
+     * Method responsible for validate student responsible
+     * @return
+     */
+    public boolean isResponsibleValid(){
+        return responsible != null && responsible.trim().isEmpty();
+    }
+
+    /**
+     * Method responsible for validate student address
+     * @return
+     */
+    public boolean isAddressValid(){
+        return address != null && address.trim().isEmpty();
+    }
 }

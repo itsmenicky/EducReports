@@ -17,11 +17,10 @@
  */
 package br.com.educreports.screens;
 
-import br.com.educreports.services.sendEmail;
-import br.com.educreports.dal.ConnectionModule;
+import br.com.educreports.controllers.UserController;
+import br.com.educreports.dao.UserDAO;
+import br.com.educreports.models.User;
 import br.com.educreports.services.checkUser;
-import java.sql.*;
-import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
@@ -32,18 +31,17 @@ import net.proteanit.sql.DbUtils;
  * @version 2.0
  * @author itsmenicky
  */
-public class UserScreen extends javax.swing.JInternalFrame {
-
-    Connection conexao = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
+public class UserScreenView extends javax.swing.JInternalFrame {
+    private UserController controller;
+    private UserDAO userDAO;
 
     /**
      * Creates new form UsersScreen
      */
-    public UserScreen() {
+    public UserScreenView() {
         initComponents();
-        conexao = ConnectionModule.conector();
+        controller = new UserController(this);
+        userDAO = new UserDAO();
     }
 
     /**
@@ -67,21 +65,6 @@ public class UserScreen extends javax.swing.JInternalFrame {
     }
 
     /**
-     * Function responsible for search users in the database
-     */
-    private void search() {
-        String sql = "select id_user as Id, username as Nome, email as Email, login as Login, hierarchy as Perfil, status as Status from tb_user where username like ?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, lblSearch.getText() + "%");
-            rs = pst.executeQuery();
-            tbUsers.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-
-    /**
      * Function responsible for setting interface text fields and combobox with
      * database informations
      */
@@ -93,43 +76,6 @@ public class UserScreen extends javax.swing.JInternalFrame {
         txtUserEmail.setText(tbUsers.getModel().getValueAt(set, 2).toString());
         cbProfile.setSelectedItem(tbUsers.getModel().getValueAt(set, 4).toString());
         cbStatus.setSelectedItem(tbUsers.getModel().getValueAt(set, 5).toString());
-    }
-
-    /**
-     * Function responsible for updating user data in the database
-     */
-    private void edit_user() {
-        String sql = "update tb_user set username=?, email=?, login=?, hierarchy=?, status=? where id_user=?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtUserName.getText());
-            pst.setString(2, txtUserEmail.getText());
-            pst.setString(3, txtUserLogin.getText());
-            pst.setString(4, cbProfile.getSelectedItem().toString());
-            pst.setString(5, cbStatus.getSelectedItem().toString());
-            pst.setString(6, txtUserId.getText());
-            if (txtUserName.getText().isBlank() || txtUserLogin.getText().isBlank() || cbProfile.getSelectedIndex() == 0 || cbStatus.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
-            } else {
-                if (!txtUserEmail.getText().equals(tbUsers.getModel().getValueAt(tbUsers.getSelectedRow(), 2))) {
-                    Random generator = new Random();
-                    int mail_code = generator.nextInt(9000) + 1000;
-                    sendEmail.mailSender(txtUserEmail.getText(), mail_code, "Confirmação de email", "Bem vindo(a) ao EducReports!", "Ficamos felizes de ter você conosco, insira o código acima em seu aplicativo para a confirmação de sua conta ;)");
-                    String email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
-                    while (!email_confirmation.equals(Integer.toString(mail_code))) {
-                        JOptionPane.showMessageDialog(null, "Código inválido!");
-                        email_confirmation = JOptionPane.showInputDialog(null, "Insira o código que enviamos ao seu email", "Código de verificação", HEIGHT);
-                    }
-                }
-                int updated = pst.executeUpdate();
-                if (updated > 0) {
-                    JOptionPane.showMessageDialog(null, "Alterações salvas!");
-                    clean_fields();
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -178,11 +124,6 @@ public class UserScreen extends javax.swing.JInternalFrame {
 
         cbProfile.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         cbProfile.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Admin", "Docente" }));
-        cbProfile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbProfileActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         jLabel7.setText("* Perfil");
@@ -231,11 +172,6 @@ public class UserScreen extends javax.swing.JInternalFrame {
         btnEditUser.setContentAreaFilled(false);
         btnEditUser.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEditUser.setEnabled(false);
-        btnEditUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnEditUserMouseClicked(evt);
-            }
-        });
         btnEditUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditUserActionPerformed(evt);
@@ -250,11 +186,6 @@ public class UserScreen extends javax.swing.JInternalFrame {
 
         cbStatus.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Active", "Disabled" }));
-        cbStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbStatusActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -344,17 +275,13 @@ public class UserScreen extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProfileActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbProfileActionPerformed
-
     /**
      * Event responsible for calling search function
      *
      * @param evt
      */
     private void lblSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblSearchKeyReleased
-        search();
+        tbUsers.setModel(DbUtils.resultSetToTableModel(userDAO.search(lblSearch.getText())));
     }//GEN-LAST:event_lblSearchKeyReleased
     /**
      * Event responsible for calling set fields function and configuring
@@ -373,24 +300,14 @@ public class UserScreen extends javax.swing.JInternalFrame {
      *
      * @param evt
      */
-    private void btnEditUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditUserMouseClicked
-        if(!checkUser.check_user() == true){
-            JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
-            System.exit(0);
-        }
-        edit_user();
-    }//GEN-LAST:event_btnEditUserMouseClicked
-
-    private void cbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbStatusActionPerformed
-
     private void btnEditUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditUserActionPerformed
         if(!checkUser.check_user() == true){
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
         }
-        edit_user();
+        User user = new User(txtUserName.getText(), txtUserEmail.getText(), txtUserLogin.getText(), cbProfile.getSelectedItem().toString(), cbStatus.getSelectedItem().toString());
+        controller.update_user(user, txtUserId.getText(), txtUserEmail.getText());
+        clean_fields();
     }//GEN-LAST:event_btnEditUserActionPerformed
 
 
