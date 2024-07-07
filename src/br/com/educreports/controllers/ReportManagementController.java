@@ -3,7 +3,6 @@ package br.com.educreports.controllers;
 import br.com.educreports.dao.ChildDAO;
 import br.com.educreports.dao.ReportsDAO;
 import br.com.educreports.screens.ReportManagementView;
-import net.proteanit.sql.DbUtils;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;

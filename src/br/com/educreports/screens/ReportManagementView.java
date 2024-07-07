@@ -18,6 +18,8 @@
 package br.com.educreports.screens;
 
 import br.com.educreports.controllers.ReportManagementController;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import br.com.educreports.dao.ChildDAO;
 import net.proteanit.sql.DbUtils;
@@ -44,7 +46,7 @@ public class ReportManagementView extends javax.swing.JInternalFrame {
      * selected report
      */
     private void set_report_area() {
-        txtReport.setText(tbReports.getModel().getValueAt(tbReports.getSelectedRow(), 1).toString());
+        textReport.setText(tbReports.getModel().getValueAt(tbReports.getSelectedRow(), 1).toString());
         btnPrintReport.setEnabled(true);
         btnUpdateReport.setEnabled(true);
         btnDeleteReport.setEnabled(true);
@@ -56,7 +58,7 @@ public class ReportManagementView extends javax.swing.JInternalFrame {
     private void clean_fields() {
         ((DefaultTableModel) tbReports.getModel()).setRowCount(0);
         ((DefaultTableModel) tbChild.getModel()).setRowCount(0);
-        txtReport.setText(null);
+        textReport.setText(null);
         searchBar.setText(null);
     }
 
@@ -68,7 +70,6 @@ public class ReportManagementView extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jFrame1 = new javax.swing.JFrame();
         jLabel1 = new javax.swing.JLabel();
         searchBar = new javax.swing.JTextField();
@@ -79,9 +80,9 @@ public class ReportManagementView extends javax.swing.JInternalFrame {
         tbReports = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        txtReport = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        textReport = new JTextPane();
         btnPrintReport = new javax.swing.JButton();
         btnDeleteReport = new javax.swing.JButton();
         btnUpdateReport = new javax.swing.JButton();
@@ -160,11 +161,8 @@ public class ReportManagementView extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         jLabel2.setText("Relatórios Cadastrados");
-
-        txtReport.setColumns(20);
-        txtReport.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        txtReport.setRows(5);
-        jScrollPane3.setViewportView(txtReport);
+        textReport.setContentType("text/html");
+        jScrollPane3.setViewportView(textReport);
 
         jLabel3.setFont(new java.awt.Font("Montserrat", 0, 16)); // NOI18N
         jLabel3.setText("Relatório");
@@ -339,7 +337,7 @@ public class ReportManagementView extends javax.swing.JInternalFrame {
      * @param evt
      */
     private void btnUpdateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateReportActionPerformed
-        controller.updateReport(tbReports.getModel().getValueAt(tbReports.getSelectedRow(), 0).toString(), txtReport.getText());
+        controller.updateReport(tbReports.getModel().getValueAt(tbReports.getSelectedRow(), 0).toString(), textReport.getText());
         clean_fields();
         btnPrintReport.setEnabled(false);
         btnUpdateReport.setEnabled(false);
@@ -357,12 +355,12 @@ public class ReportManagementView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
+    private JTextPane textReport;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField searchBar;
     private javax.swing.JTable tbChild;
     private javax.swing.JTable tbReports;
-    private javax.swing.JTextArea txtReport;
     // End of variables declaration//GEN-END:variables
 }

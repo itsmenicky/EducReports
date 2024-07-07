@@ -19,16 +19,10 @@
 
 
 package br.com.educreports.screens;
-
-import java.awt.Image;
-
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.educreports.controllers.ReportsEmissionController;
@@ -64,7 +58,7 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel      lblPhoto;
     private javax.swing.JTextField  lblSearch;
     private javax.swing.JTable      tbChild;
-    private javax.swing.JTextArea   txtAreaReport;
+    private JTextPane textReport;
     private javax.swing.JTextField  txtBirth;
     private javax.swing.JTextField  txtClass;
     private javax.swing.JTextField  txtName;
@@ -91,7 +85,7 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
         txtBirth.setText(null);
         txtClass.setText(null);
         txtTeacher.setText(null);
-        txtAreaReport.setText(null);
+        textReport.setText(null);
         lblSearch.setText(null);
         ((DefaultTableModel) tbChild.getModel()).setRowCount(0);
     }
@@ -120,7 +114,7 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
         jLabel9       = new javax.swing.JLabel();
         jLabel10      = new javax.swing.JLabel();
         jScrollPane2  = new javax.swing.JScrollPane();
-        txtAreaReport = new javax.swing.JTextArea();
+        textReport = new JTextPane();
         jButton1      = new javax.swing.JButton();
         jLabel5       = new javax.swing.JLabel();
         txtRA         = new javax.swing.JTextField();
@@ -176,10 +170,11 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Montserrat", 0, 16));                                           // NOI18N
         jLabel9.setText("Relatório");
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-icon.png")));    // NOI18N
-        txtAreaReport.setColumns(20);
-        txtAreaReport.setFont(new java.awt.Font("Montserrat", 0, 12));                                     // NOI18N
-        txtAreaReport.setRows(5);
-        jScrollPane2.setViewportView(txtAreaReport);
+        textReport.setContentType("text/html");
+//        txtAreaReport.setColumns(20);
+//        txtAreaReport.setFont(new java.awt.Font("Montserrat", 0, 12));                                     // NOI18N
+//        txtAreaReport.setRows(5);
+        jScrollPane2.setViewportView(textReport);
         jButton1.setFont(new java.awt.Font("Montserrat", 1, 18));                                          // NOI18N
         jButton1.setText("Emitir relatório");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -429,7 +424,7 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
                                     txtBirth.getText(),
                                     txtClass.getText(),
                                     txtTeacher.getText(),
-                                    txtAreaReport.getText());
+                                    textReport.getText());
             clean_fields();
         }
     }                                                                     // GEN-LAST:event_jButton1ActionPerformed

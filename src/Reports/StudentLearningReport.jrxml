@@ -45,7 +45,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 			<staticText>
 				<reportElement x="37" y="130" width="480" height="30" uuid="d5528fba-0994-47e2-b7c8-5263abc5ce5e"/>
 				<textElement>
-					<font fontName="Times New Roman" size="16" isBold="true"/>
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RELATÓRIO DE ACOMPANHAMENTO DAS APRENDIZAGENS]]></text>
 			</staticText>
@@ -59,7 +59,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 			<staticText>
 				<reportElement x="20" y="230" width="80" height="22" uuid="10cbc368-57f2-47b1-a72f-d856c1b7caa1"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Professor(a):]]></text>
 			</staticText>
@@ -68,21 +68,21 @@ where ID_Rel=$P!{ID_Rel}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Times New Roman" size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{class}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="350" y="190" width="120" height="22" uuid="29828567-0d94-44e6-987f-de9b0d73bedb"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Data de nascimento:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="350" y="230" width="52" height="22" uuid="2f428830-a4ee-4e32-b511-f478fb0f7448"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Turma:]]></text>
 			</staticText>
@@ -93,21 +93,21 @@ where ID_Rel=$P!{ID_Rel}]]>
 			<textField>
 				<reportElement x="100" y="230" width="100" height="22" uuid="5a1e26ed-c154-4a30-a6b8-daa9d1396c5f"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{teacher_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="80" y="190" width="100" height="22" uuid="6b4eb9da-e286-48ea-a2a5-77aa4bd3a27a"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{child_name}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="20" y="190" width="60" height="22" uuid="39a6a66a-c0f7-49da-9395-dc0834c3536d"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Aluno(a): ]]></text>
 			</staticText>
@@ -122,7 +122,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Justified" markup="styled">
-					<font fontName="Times New Roman" size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{report}]]></textFieldExpression>
 			</textField>
@@ -133,7 +133,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 			<textField>
 				<reportElement x="530" y="48" width="24" height="28" uuid="31fa3cee-5fa2-45a2-8746-42d04710540b"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
@@ -165,7 +165,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 			<staticText>
 				<reportElement x="109" y="30" width="340" height="20" uuid="f28bedff-e1aa-40b7-8d3f-e54fac0ef837"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[Parecer da família quanto as suas expectativas e os processos vividos]]></text>
 			</staticText>
@@ -174,7 +174,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Times New Roman" size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[São Paulo, ]]></text>
 			</staticText>
@@ -187,7 +187,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Times New Roman" size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[de]]></text>
 			</staticText>
@@ -206,7 +206,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement>
-					<font fontName="Times New Roman" size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[de ]]></text>
 			</staticText>
@@ -216,7 +216,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 			<staticText>
 				<reportElement x="80" y="300" width="72" height="16" uuid="7439ca91-ca0c-46f2-a0f8-856a35ff4e8e"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Professor(a):]]></text>
 			</staticText>
@@ -227,7 +227,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 			<staticText>
 				<reportElement x="80" y="359" width="72" height="16" uuid="b76b7bb7-e2f4-45ac-8ee0-9a7f74d926e6"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Responsável]]></text>
 			</staticText>
@@ -237,7 +237,7 @@ where ID_Rel=$P!{ID_Rel}]]>
 			<staticText>
 				<reportElement x="320" y="300" width="82" height="16" uuid="f55a126d-8a7a-49e7-8197-9af0fbde8378"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Coordenadora: ]]></text>
 			</staticText>
@@ -250,21 +250,21 @@ where ID_Rel=$P!{ID_Rel}]]>
 			<staticText>
 				<reportElement x="320" y="360" width="54" height="16" uuid="0e4a1dfd-2550-4caa-9771-f7b38dfeb5ee"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Diretora: ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="402" y="300" width="96" height="30" uuid="9111ac47-fd21-4781-a754-ff8564cc5179"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[Mariana Urbaneza     Rodrigues]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="375" y="359" width="94" height="31" uuid="ddca038b-8af2-4d6f-b231-236125813bbe"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12"/>
+					<font fontName="DejaVu Sans" size="12"/>
 				</textElement>
 				<text><![CDATA[Grasiely C. Q. dos Anjos]]></text>
 			</staticText>
