@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.sql.Blob;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ReportsEmissionController {
@@ -30,18 +31,17 @@ public class ReportsEmissionController {
      * @throws SQLException
      */
     public ImageIcon catch_child_photo(String RA) throws SQLException {
-        if(childDAO.search_child_photo(RA) != null){
-            Blob blob = childDAO.search_child_photo(RA).getBlob("child_photo");
+        ResultSet child_photo = childDAO.search_child_photo(RA);
+        if(child_photo.next()) {
+            Blob blob = child_photo.getBlob("child_photo");
             byte[] img = blob.getBytes(1, (int) blob.length());
-            BufferedImage image = null;
             try {
-                image = ImageIO.read(new ByteArrayInputStream(img));
+                BufferedImage image = ImageIO.read(new ByteArrayInputStream(img));
+                ImageIcon icon = new ImageIcon(image);
+                return icon;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
-
-            ImageIcon icon = new ImageIcon(image);
-            return icon;
         }
         return null;
     }

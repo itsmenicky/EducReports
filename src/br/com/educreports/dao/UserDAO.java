@@ -42,6 +42,9 @@ public class UserDAO {
             if(rs.next()){
                 User userLogged = new User(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5).toCharArray(), rs.getString(6), rs.getString(7));
                 return userLogged;
+            } else{
+                JOptionPane.showMessageDialog(null, "Usuário/Senha incorretos!");
+                return null;
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e);

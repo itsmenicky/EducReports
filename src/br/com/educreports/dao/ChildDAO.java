@@ -62,8 +62,8 @@ public class ChildDAO {
      * @param search
      * @return
      */
-    public ResultSet search_child_fields(String search){
-        String sql = "select child_phone, responsible, address, teacher_name, teacher_id, child_photo from tb_child where RA=?";
+    public ResultSet search_child(String search){
+        String sql = "select * from tb_child where RA=?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, search);
@@ -144,13 +144,12 @@ public class ChildDAO {
      * @param student
      * @param RA
      */
-    public void update(Child student, String RA){
+    public void update(Child student, String RA, byte[] imageBytes){
         String sql = "update tb_child set class=?, child_photo=?, child_phone=?, responsible=?, address=?, teacher_name=?, teacher_id=?, status=? where RA=?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, student.getGrade());
-            Blob blob = new SerialBlob(student.getPhoto());
-            pst.setBlob(2, blob);
+            pst.setBytes(2, imageBytes);
             pst.setString(3, student.getContact());
             pst.setString(4, student.getResponsible());
             pst.setString(5, student.getAddress());

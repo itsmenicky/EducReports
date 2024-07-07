@@ -35,7 +35,6 @@ public class passwordCrypt {
     */ 
     public static String passCrypt(String password) throws NoSuchAlgorithmException {
         MessageDigest algorithm = MessageDigest.getInstance("MD5");
-        System.out.println(password);
         byte[] messageDigest = algorithm.digest(password.getBytes(StandardCharsets.UTF_8));
         String encrypted_password = bytesToHex(messageDigest);
         return encrypted_password;

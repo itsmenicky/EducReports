@@ -62,14 +62,17 @@ public class StudentView extends javax.swing.JInternalFrame {
         txtName.setText(tbStudent.getModel().getValueAt(set, 1).toString());
         txtBirth.setText(tbStudent.getModel().getValueAt(set, 2).toString());
         txtClass.setText(tbStudent.getModel().getValueAt(set, 3).toString());
-        cbStatus.setSelectedItem(tbStudent.getModel().getValueAt(set, 4).toString());
-        ResultSet last_fields = childDAO.search_child_fields(txtRA.getText());
-        txtResponsible.setText(last_fields.getString("responsible"));
-        txtPhone.setText(last_fields.getString("child_phone"));
-        txtAddress.setText(last_fields.getString("address"));
-        txtTeacherId.setText(last_fields.getString("teacher_id"));
-        txtTeacherName.setText(last_fields.getString("teacher_name"));
-        lblPhoto.setIcon(controller.blob_to_icon(last_fields.getBlob("child_photo"), this.lblPhoto));
+        System.out.println(tbStudent.getModel().getValueAt(set, 4).toString());
+        ResultSet last_fields = childDAO.search_child(txtRA.getText());
+        if(last_fields.next()){
+            txtResponsible.setText(last_fields.getString("responsible"));
+            txtPhone.setText(last_fields.getString("child_phone"));
+            txtAddress.setText(last_fields.getString("address"));
+            txtTeacherId.setText(last_fields.getString("teacher_id"));
+            txtTeacherName.setText(last_fields.getString("teacher_name"));
+            cbStatus.setSelectedItem(last_fields.getString("status"));
+            lblPhoto.setIcon(controller.blob_to_icon(last_fields.getBlob("child_photo"), this.lblPhoto));
+        }
     }
 
     /**
@@ -289,6 +292,8 @@ public class StudentView extends javax.swing.JInternalFrame {
                     btnAddStudentActionPerformed(evt);
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }
         });
@@ -301,7 +306,7 @@ public class StudentView extends javax.swing.JInternalFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     btnEditStudentActionPerformed(evt);
-                } catch (ParseException e) {
+                } catch (ParseException | IOException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -526,7 +531,7 @@ public class StudentView extends javax.swing.JInternalFrame {
      *
      * @param evt
      */
-    private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {//GEN-FIRST:event_btnAddStudentActionPerformed
+    private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) throws ParseException, IOException {//GEN-FIRST:event_btnAddStudentActionPerformed
         if(!checkUser.check_user() == true){
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
@@ -564,7 +569,7 @@ public class StudentView extends javax.swing.JInternalFrame {
      *
      * @param evt
      */
-    private void btnEditStudentActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {//GEN-FIRST:event_btnEditStudentActionPerformed
+    private void btnEditStudentActionPerformed(java.awt.event.ActionEvent evt) throws ParseException, IOException {//GEN-FIRST:event_btnEditStudentActionPerformed
         if(!checkUser.check_user() == true){
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
@@ -572,7 +577,7 @@ public class StudentView extends javax.swing.JInternalFrame {
         int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a atualização dos dados deste usuário?", "CONFIRMAÇÃO", JOptionPane.YES_NO_OPTION);
         Child student = new Child(txtName.getText(), controller.string_to_date(txtBirth.getText()), txtClass.getText(), controller.iconToBytes(lblPhoto.getIcon(), "png"), txtPhone.getText(), txtResponsible.getText(), txtAddress.getText(), txtTeacherName.getText(), Long.parseLong(txtTeacherId.getText()), cbStatus.getSelectedItem().toString());
         if (confirmation == JOptionPane.YES_OPTION) {
-            controller.edit_student(student, txtRA.getText());
+            controller.edit_student(student, txtRA.getText(), lblPhoto.getIcon());
         }
         btnAddStudent.setEnabled(true);
         txtRA.setEnabled(true);

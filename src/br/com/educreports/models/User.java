@@ -73,7 +73,7 @@ public class User {
      * @return
      */
     public boolean isEmailValid(){
-        return email != null && email.trim().isEmpty();
+        return email != null && !email.trim().isEmpty();
     }
 
     /**
@@ -127,7 +127,7 @@ public class User {
      * @return
      */
     public boolean isStatusValid(){
-        return status.equals("Active");
+        return !status.trim().isEmpty();
     }
 
     /**
@@ -153,6 +153,27 @@ public class User {
         }
         if(!isPasswordValid()){
             errors.append("A senha não se enquadra nas exigências!");
+        }
+        return errors.toString();
+    }
+
+
+    public String getValidationUpdateErrors(){
+        StringBuilder errors = new StringBuilder();
+        if(!isUsernameValid()){
+            errors.append("Campo nome vazio!");
+        }
+        if(!isLoginValid()){
+            errors.append("Campo login vazio!");
+        }
+        if(!isEmailValid()){
+            errors.append("Campo email vazio!");
+        }
+        if(!isHierarchyValid()){
+            errors.append("Campo de perfil vazio!");
+        }
+        if(!isStatusValid()){
+            errors.append("Usuário desativado!");
         }
         return errors.toString();
     }

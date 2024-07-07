@@ -9,10 +9,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -92,9 +89,11 @@ public class StudentController {
      * @param student
      * @param RA
      */
-    public void edit_student(Child student, String RA){
+    public void edit_student(Child student, String RA, Icon photo) throws IOException {
         if(student.isValid()){
-            childDAO.update(student, RA);
+            childDAO.update(student, RA, iconToBytes(photo, "png"));
+        }else{
+            JOptionPane.showMessageDialog(null, "ERRO AO ATUALIZAR OS DADOS: " + student.getValidationErrors());
         }
     }
 
@@ -140,9 +139,18 @@ public class StudentController {
      * @param format
      * @return
      */
-    public byte[] iconToBytes(Icon icon, String format) {
-        BufferedImage bufferedImage = iconToBufferedImage(icon);
-        return bufferedImageToBytes(bufferedImage, format);
+    public byte[] iconToBytes(Icon icon, String format) throws IOException {
+        ImageIcon image_icon = (ImageIcon) icon;
+        Image image = image_icon.getImage();
+        BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = bufferedImage.createGraphics();
+        g2d.drawImage(image, 0, 0, null);
+        g2d.dispose();
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, format, byteArrayOutputStream);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+        return imageBytes;
     }
 
     /**

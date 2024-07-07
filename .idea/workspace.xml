@@ -5,16 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a9e1990-9627-4b9c-befe-4eb290a99501" name="Changes" comment="feat: implement architectural changes to improve MVC structure">
-      <change beforePath="$PROJECT_DIR$/build/built-jar.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/built-jar.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reports/StudentLearningReport.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reports/StudentLearningReport.jasper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reports/StudentReport.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reports/StudentReport.jasper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reports/TeacherReport.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reports/TeacherReport.jasper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Reports/TeacherReport.jrxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/ReportsEmissionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/ReportsEmissionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dal/ConnectionModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dal/ConnectionModule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dao/ChildDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dao/ChildDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dao/UserDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/models/Child.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/models/Child.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/models/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/MainScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/MainScreenView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportManagementView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportManagementView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportsEmissionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportsEmissionView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/StudentScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/StudentView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/UserScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/UserScreenView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/StudentView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/StudentView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/UserScreenView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/UserScreenView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/services/passwordCrypt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/services/passwordCrypt.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +84,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/nick/Documentos/EducReports/pom.xml&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/nick/Downloads/EducReports-2.0&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -96,7 +105,7 @@
       <recent name="br.com.educreports.views" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Application.LoginView">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="br.com.educreports.App" />
       <module name="EducReports" />
@@ -147,8 +156,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.App" />
         <item itemvalue="Application.LoginView" />
+        <item itemvalue="Application.App" />
         <item itemvalue="Application.PasswordResetEmailView" />
       </list>
     </recent_temporary>
@@ -178,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719876588417</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: implement architectural changes to improve MVC structure">
+      <option name="closed" value="true" />
+      <created>1720150155444</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1720150155444</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -244,21 +261,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/ReportsEmissionView.java</url>
-          <line>104</line>
+          <line>106</line>
           <properties class="br.com.educreports.screens.ReportsEmissionView" method="initComponents">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/br/com/educreports/screens/StudentView.java</url>
-          <line>113</line>
-          <properties class="br.com.educreports.screens.StudentView" method="initComponents">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

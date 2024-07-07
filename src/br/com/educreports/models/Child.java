@@ -88,7 +88,7 @@ public class Child {
      * @return
      */
     public boolean isResponsibleValid(){
-        return responsible != null && responsible.trim().isEmpty();
+        return responsible != null && !responsible.trim().isEmpty();
     }
 
     /**
@@ -96,6 +96,33 @@ public class Child {
      * @return
      */
     public boolean isAddressValid(){
-        return address != null && address.trim().isEmpty();
+        return address != null && !address.trim().isEmpty();
+    }
+
+    /**
+     * Method responsible for getting validation errors
+     * @return
+     */
+    public String getValidationErrors(){
+        StringBuilder errors = new StringBuilder();
+        if(!isNameValid()){
+            errors.append("Campo nome inválido!");
+        }
+        if(!isBirthDateValid()){
+            errors.append("Campo de data de nascimento inválido!");
+        }
+        if(!isGradeValid()){
+            errors.append("Campo turma inválido!");
+        }
+        if(!isContactValid()){
+            errors.append("Campo de contato inválido!");
+        }
+        if(!isResponsibleValid()){
+            errors.append("Campo de responsável inválido!");
+        }
+        if(!isAddressValid()){
+            errors.append("Campo de endereço inválido!");
+        }
+        return errors.toString();
     }
 }

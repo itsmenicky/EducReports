@@ -22,6 +22,8 @@ package br.com.educreports.screens;
 
 import java.awt.Image;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.*;
 
 import javax.swing.Icon;
@@ -147,21 +149,30 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
         lblPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/camera-icon.png")));    // NOI18N
         lblPhoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         lblPhoto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblPhoto.addMouseListener(new java.awt.event.MouseAdapter() {
-                                      public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                          lblPhotoMouseClicked(evt);
-                                      }
-                                  });
         tbChild.setFont(new java.awt.Font("Montserrat", 0, 12));    // NOI18N
         tbChild.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
             { null, null, null, null }, { null, null, null, null }, { null, null, null, null },
             { null, null, null, null }
         },                                                       new String[] { "Title 1", "Title 2", "Title 3",
                                                                                 "Title 4" }));
+        tbChild.addMouseListener(new java.awt.event.MouseAdapter(){
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    tbChildMouseClicked(e);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
         jScrollPane1.setViewportView(tbChild);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search-icon.png")));     // NOI18N
         lblSearch.setFont(new java.awt.Font("Montserrat", 0, 12));                                         // NOI18N
         lblSearch.setToolTipText("Selecione a criança");
+        lblSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                lblSearchKeyReleased(evt);
+            }
+        });
         jLabel9.setFont(new java.awt.Font("Montserrat", 0, 16));                                           // NOI18N
         jLabel9.setText("Relatório");
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/report-icon.png")));    // NOI18N
@@ -423,9 +434,6 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
         }
     }                                                                     // GEN-LAST:event_jButton1ActionPerformed
 
-    private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {    // GEN-FIRST:event_lblPhotoMouseClicked
-    }                                                                     // GEN-LAST:event_lblPhotoMouseClicked
-
     /**
      * Event responsible for calling search child function
      * @param evt
@@ -445,12 +453,7 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
         txtBirth.setText(tbChild.getModel().getValueAt(set, 2).toString());
         txtClass.setText(tbChild.getModel().getValueAt(set, 3).toString());
         txtTeacher.setText(tbChild.getModel().getValueAt(set, 4).toString());
-
-        Icon photo = new ImageIcon(
-                         controller.catch_child_photo(txtRA.getText()).getImage().getScaledInstance(lblPhoto.getWidth(),
-                                                                                                    lblPhoto.getHeight(),
-                                                                                                    Image.SCALE_SMOOTH));
-
+        Icon photo = controller.catch_child_photo(txtRA.getText());
         lblPhoto.setIcon(photo);
     }
 

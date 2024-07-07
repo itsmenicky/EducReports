@@ -353,7 +353,7 @@ public class MainScreenView extends javax.swing.JFrame {
  * @param evt 
  */
     private void menu_students_relActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_students_relActionPerformed
-        if(!checkUser.check_user() != true){
+        if(!checkUser.check_user()){
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
         }
@@ -364,7 +364,7 @@ public class MainScreenView extends javax.swing.JFrame {
  * @param evt 
  */
     private void menu_teachers_relActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_teachers_relActionPerformed
-        if(checkUser.check_user() != true){
+        if(!checkUser.check_user()){
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
         }

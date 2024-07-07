@@ -30,7 +30,6 @@ public class ConnectionModule {
         String url = "jdbc:mysql://localhost:3306/educdb";
         String user = "root";
         String password = "root";
-         System.out.println(user + password);
         try {
             Class.forName(driver);
             conexao = DriverManager.getConnection(url, user, password);

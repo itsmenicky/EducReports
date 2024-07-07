@@ -306,7 +306,7 @@ public class UserScreenView extends javax.swing.JInternalFrame {
             System.exit(0);
         }
         User user = new User(txtUserName.getText(), txtUserEmail.getText(), txtUserLogin.getText(), cbProfile.getSelectedItem().toString(), cbStatus.getSelectedItem().toString());
-        controller.update_user(user, txtUserId.getText(), txtUserEmail.getText());
+        controller.update_user(user, txtUserId.getText(), txtUserEmail.getText(), tbUsers.getModel().getValueAt(tbUsers.getSelectedRow(), 2).toString());
         clean_fields();
     }//GEN-LAST:event_btnEditUserActionPerformed
 
