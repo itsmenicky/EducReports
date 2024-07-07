@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a9e1990-9627-4b9c-befe-4eb290a99501" name="Changes" comment="fix: report and update data">
+    <list default="true" id="2a9e1990-9627-4b9c-befe-4eb290a99501" name="Changes" comment="feat: improve reports emission with JTextPane">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Reports/StudentLearningReport.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reports/StudentLearningReport.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Reports/StudentLearningReport.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Reports/StudentLearningReport.jrxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/ReportManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/ReportManagementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportManagementView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportManagementView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportsEmissionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/screens/ReportsEmissionView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dao/ChildDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dao/ChildDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720313071843</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: improve reports emission with JTextPane">
+      <option name="closed" value="true" />
+      <created>1720324268526</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1720324268526</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -199,7 +204,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: implement architectural changes to improve MVC structure" />
     <MESSAGE value="fix: report and update data" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: report and update data" />
+    <MESSAGE value="feat: improve reports emission with JTextPane" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: improve reports emission with JTextPane" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

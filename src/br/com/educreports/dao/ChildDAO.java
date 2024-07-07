@@ -1,18 +1,11 @@
 package br.com.educreports.dao;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.sql.*;
 
-import javax.imageio.ImageIO;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.*;
 
 import br.com.educreports.dal.ConnectionModule;
 import br.com.educreports.models.Child;
-import br.com.educreports.screens.MainScreenView;
 import br.com.educreports.session.userSession;
 
 public class ChildDAO {
@@ -34,9 +27,9 @@ public class ChildDAO {
         String sql;
 
         if (!userSession.getInstance().getUser().getHierarchy().equals("Admin")) {
-            sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ? and teacher_name like ?";
+            sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ? and teacher_name like ? and status like 'Active%'";
         } else {
-            sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ?";
+            sql = "select RA, child_name as Nome, date_format(birth, '%d/%m/%Y') as Nascimento, class as Turma, teacher_name as 'Professor(a)' from tb_child where child_name like ? and status like 'Active%'";
         }
 
         try {
