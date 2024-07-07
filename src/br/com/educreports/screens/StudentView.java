@@ -188,7 +188,8 @@ public class StudentView extends javax.swing.JInternalFrame {
         txtTeacherId.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
         txtTeacherId.setEnabled(false);
 
-        txtRA.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
+        txtRA.setFont(new java.awt.Font("Montserrat", 0, 12));
+        txtRA.setEnabled(false);// NOI18N
 
         txtName.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
 
@@ -559,7 +560,6 @@ public class StudentView extends javax.swing.JInternalFrame {
         setStudentFields();
         btnAddStudent.setEnabled(false);
         btnEditStudent.setEnabled(true);
-        txtRA.setEnabled(false);
         txtName.setEnabled(false);
         txtBirth.setEnabled(false);
     }//GEN-LAST:event_tbStudentMouseClicked
@@ -580,7 +580,6 @@ public class StudentView extends javax.swing.JInternalFrame {
             controller.edit_student(student, txtRA.getText(), lblPhoto.getIcon());
         }
         btnAddStudent.setEnabled(true);
-        txtRA.setEnabled(true);
         txtName.setEnabled(true);
         txtBirth.setEnabled(true);
         clean_fields();

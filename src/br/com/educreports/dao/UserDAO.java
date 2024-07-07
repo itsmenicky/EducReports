@@ -120,7 +120,7 @@ public class UserDAO {
             pst.setString(5, user.getHierarchy());
             int added = pst.executeUpdate();
             if (added > 0) {
-                JOptionPane.showMessageDialog(null, "Usuário " + user.getUsername() + "cadastrado com sucesso!");
+                JOptionPane.showMessageDialog(null, "Usuário " + user.getUsername() + " cadastrado com sucesso!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);

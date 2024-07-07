@@ -114,7 +114,7 @@ public class ChildDAO {
      * @param student
      */
     public void save(Child student){
-        String sql = "insert into tb_child(child_name, birth, class, child_photo, child_phone, responsible, address, teacher_name, teacher_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into tb_child(child_name, birth, class, child_photo, child_phone, responsible, address, teacher_name, teacher_id, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, student.getName());
@@ -127,6 +127,11 @@ public class ChildDAO {
             pst.setString(7, student.getAddress());
             pst.setString(8, student.getTeacher_name());
             pst.setString(9, student.getTeacher_id().toString());
+            pst.setString(10, "Active");
+            int added = pst.executeUpdate();
+            if(added > 0){
+                JOptionPane.showMessageDialog(null, "Aluno " + student.getName() + " cadastrado com sucesso!");
+            }
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, e);
         }

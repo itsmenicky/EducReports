@@ -81,6 +81,8 @@ public class StudentController {
     public void add_student(Child student){
         if(student.isValid()){
             childDAO.save(student);
+        } else{
+            JOptionPane.showMessageDialog(null, student.getValidationErrors());
         }
     }
 

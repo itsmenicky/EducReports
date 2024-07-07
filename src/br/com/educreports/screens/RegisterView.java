@@ -244,21 +244,14 @@ private void confirm_btnActionPerformed(java.awt.event.ActionEvent evt) {
     if(!checkUser.check_user() == true){
         JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
         System.exit(0);
-    }
-
-    String username = register_name.getText();
-    String login = register_login.getText();
-    String email = register_email.getText();
-    char[] password = register_password_confirm.getPassword();
-    String hierarchy = cbProfile.getSelectedItem().toString();
-    String status = "Active";
-
-    if(!Arrays.equals(register_password.getPassword(), register_password_confirm.getPassword())){
-        JOptionPane.showMessageDialog(null, "As senhas não correspondem!");//GEN-FIRST:event_confirm_btnActionPerformed
     }else{
-        User user = new User(username, email, login, password, hierarchy, status);
-        controller.register_user(user);
-        cleanFields();
+        if(!Arrays.equals(register_password.getPassword(), register_password_confirm.getPassword())){
+            JOptionPane.showMessageDialog(null, "As senhas não correspondem!");//GEN-FIRST:event_confirm_btnActionPerformed
+        }else{
+            User user = new User(register_name.getText(), register_email.getText(), register_login.getText(), register_password_confirm.getPassword(), cbProfile.getSelectedItem().toString(), "Active");
+            controller.register_user(user);
+            cleanFields();
+        }
     }
 }
 
