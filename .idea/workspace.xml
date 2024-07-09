@@ -4,25 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a9e1990-9627-4b9c-befe-4eb290a99501" name="Changes" comment="doc: license">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="2a9e1990-9627-4b9c-befe-4eb290a99501" name="Changes" comment="doc: create javadoc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/LoginScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/LoginScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/MainScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/MainScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/PasswordResetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/PasswordResetController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/RegisterScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/RegisterScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/ReportManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/ReportManagementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/ReportsEmissionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/ReportsEmissionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dao/ChildDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dao/ChildDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dao/ReportsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dao/ReportsDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dao/TeacherDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dao/TeacherDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/models/Child.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/models/Child.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/services/checkUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/services/checkUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720559011291</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="doc: create javadoc">
+      <option name="closed" value="true" />
+      <created>1720560176115</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1720560176115</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -274,7 +266,8 @@
     <MESSAGE value="feat: DatePicker on student screen" />
     <MESSAGE value="fix: clean fields on register" />
     <MESSAGE value="doc: license" />
-    <option name="LAST_COMMIT_MESSAGE" value="doc: license" />
+    <MESSAGE value="doc: create javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="doc: create javadoc" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
