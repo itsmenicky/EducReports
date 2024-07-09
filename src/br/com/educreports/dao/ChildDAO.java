@@ -117,7 +117,9 @@ public class ChildDAO {
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, student.getName());
-            pst.setDate(2, (Date) student.getBirth_date());
+            java.util.Date utilDate = student.getBirth_date();
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            pst.setDate(2, sqlDate);
             pst.setString(3, student.getGrade());
             Blob blob = new SerialBlob(student.getPhoto());
             pst.setBlob(4, blob);

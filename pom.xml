@@ -23,6 +23,27 @@
 			  <release>17</release>
 		  </configuration>
       </plugin>
+	  <plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-jar-plugin</artifactId>
+		  <version>3.3.0</version>
+		  <configuration>
+			  <archive>
+				  <manifest>
+					  <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+					  <mainClass>br.com.educreports.screens.LoginView</mainClass>
+		  		  </manifest>
+		  	</archive>
+		  </configuration>
+	  </plugin>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>exec-maven-plugin</artifactId>
+			<version>3.0.0</version>
+			<configuration>
+				<mainClass>br.com.educreports.screens.LoginView</mainClass>
+			</configuration>
+		</plugin>
     </plugins>
   </build>
   <dependencies>
@@ -86,6 +107,11 @@
 		  <artifactId>jasperreports-fonts</artifactId>
 		  <version>6.20.6</version>
 	  </dependency>
-
+	  <!-- https://mvnrepository.com/artifact/org.swinglabs/swingx -->
+	  <dependency>
+		  <groupId>org.swinglabs</groupId>
+		  <artifactId>swingx</artifactId>
+		  <version>1.6.1</version>
+	  </dependency>
   </dependencies>
 </project>

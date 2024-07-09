@@ -21,6 +21,7 @@ import br.com.educreports.controllers.StudentController;
 import br.com.educreports.dao.ChildDAO;
 import br.com.educreports.dao.TeacherDAO;
 import br.com.educreports.models.Child;
+import br.com.educreports.services.dateParser;
 import br.com.educreports.services.checkUser;
 import java.io.IOException;
 import java.sql.*;
@@ -29,6 +30,8 @@ import java.text.ParseException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import net.proteanit.sql.DbUtils;
+import org.jdesktop.swingx.JXDatePicker;
+
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -60,7 +63,7 @@ public class StudentView extends javax.swing.JInternalFrame {
         int set = tbStudent.getSelectedRow();
         txtRA.setText(tbStudent.getModel().getValueAt(set, 0).toString());
         txtName.setText(tbStudent.getModel().getValueAt(set, 1).toString());
-        txtBirth.setText(tbStudent.getModel().getValueAt(set, 2).toString());
+        birthDate.setDate(dateParser.to_date(tbStudent.getModel().getValueAt(set, 2).toString()));
         txtClass.setText(tbStudent.getModel().getValueAt(set, 3).toString());
         System.out.println(tbStudent.getModel().getValueAt(set, 4).toString());
         ResultSet last_fields = childDAO.search_child(txtRA.getText());
@@ -91,7 +94,7 @@ public class StudentView extends javax.swing.JInternalFrame {
     private void clean_fields() {
         txtRA.setText(null);
         txtName.setText(null);
-        txtBirth.setText(null);
+        birthDate.setDate(null);
         txtClass.setText(null);
         txtPhone.setText(null);
         txtResponsible.setText(null);
@@ -129,7 +132,7 @@ public class StudentView extends javax.swing.JInternalFrame {
         txtTeacherId = new javax.swing.JTextField();
         txtRA = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
-        txtBirth = new javax.swing.JTextField();
+        birthDate = new JXDatePicker();
         txtClass = new javax.swing.JTextField();
         txtResponsible = new javax.swing.JTextField();
         txtPhone = new javax.swing.JTextField();
@@ -193,7 +196,7 @@ public class StudentView extends javax.swing.JInternalFrame {
 
         txtName.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
 
-        txtBirth.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
+        birthDate.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
 
         txtClass.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
 
@@ -355,7 +358,7 @@ public class StudentView extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(6, 6, 6)
-                                .addComponent(txtBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(birthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(6, 6, 6)
@@ -445,7 +448,7 @@ public class StudentView extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(jLabel4))
-                            .addComponent(txtBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(birthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -537,7 +540,7 @@ public class StudentView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Usuário inativo! Encerrando a sessão...");
             System.exit(0);
         }
-        Child student = new Child(txtName.getText(), controller.string_to_date(txtBirth.getText()), txtClass.getText(), controller.iconToBytes(lblPhoto.getIcon(), "png"), txtPhone.getText(), txtResponsible.getText(), txtAddress.getText(), txtTeacherName.getText(), Long.parseLong(txtTeacherId.getText()), "Active");
+        Child student = new Child(txtName.getText(), birthDate.getDate(), txtClass.getText(), controller.iconToBytes(lblPhoto.getIcon(), "png"), txtPhone.getText(), txtResponsible.getText(), txtAddress.getText(), txtTeacherName.getText(), Long.parseLong(txtTeacherId.getText()), "Active");
         controller.add_student(student);
     }//GEN-LAST:event_btnAddStudentActionPerformed
 
@@ -561,7 +564,7 @@ public class StudentView extends javax.swing.JInternalFrame {
         btnAddStudent.setEnabled(false);
         btnEditStudent.setEnabled(true);
         txtName.setEnabled(false);
-        txtBirth.setEnabled(false);
+        birthDate.setEnabled(false);
     }//GEN-LAST:event_tbStudentMouseClicked
 
     /**
@@ -575,13 +578,13 @@ public class StudentView extends javax.swing.JInternalFrame {
             System.exit(0);
         }
         int confirmation = JOptionPane.showConfirmDialog(null, "Confirma a atualização dos dados deste usuário?", "CONFIRMAÇÃO", JOptionPane.YES_NO_OPTION);
-        Child student = new Child(txtName.getText(), controller.string_to_date(txtBirth.getText()), txtClass.getText(), controller.iconToBytes(lblPhoto.getIcon(), "png"), txtPhone.getText(), txtResponsible.getText(), txtAddress.getText(), txtTeacherName.getText(), Long.parseLong(txtTeacherId.getText()), cbStatus.getSelectedItem().toString());
+        Child student = new Child(txtName.getText(), birthDate.getDate(), txtClass.getText(), controller.iconToBytes(lblPhoto.getIcon(), "png"), txtPhone.getText(), txtResponsible.getText(), txtAddress.getText(), txtTeacherName.getText(), Long.parseLong(txtTeacherId.getText()), cbStatus.getSelectedItem().toString());
         if (confirmation == JOptionPane.YES_OPTION) {
             controller.edit_student(student, txtRA.getText(), lblPhoto.getIcon());
         }
         btnAddStudent.setEnabled(true);
         txtName.setEnabled(true);
-        txtBirth.setEnabled(true);
+        birthDate.setEnabled(true);
         clean_fields();
     }//GEN-LAST:event_btnEditStudentActionPerformed
 
@@ -610,7 +613,7 @@ public class StudentView extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbStudent;
     private javax.swing.JTable tbTeacher;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtBirth;
+    private JXDatePicker birthDate;
     private javax.swing.JTextField txtClass;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhone;
