@@ -542,6 +542,7 @@ public class StudentView extends javax.swing.JInternalFrame {
         }
         Child student = new Child(txtName.getText(), birthDate.getDate(), txtClass.getText(), controller.iconToBytes(lblPhoto.getIcon(), "png"), txtPhone.getText(), txtResponsible.getText(), txtAddress.getText(), txtTeacherName.getText(), Long.parseLong(txtTeacherId.getText()), "Active");
         controller.add_student(student);
+        clean_fields();
     }//GEN-LAST:event_btnAddStudentActionPerformed
 
     /**

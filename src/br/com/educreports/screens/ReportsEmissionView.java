@@ -87,6 +87,7 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
         txtTeacher.setText(null);
         textReport.setText(null);
         lblSearch.setText(null);
+        lblPhoto.setIcon(new ImageIcon(getClass().getResource("/assets/camera-icon.png")));
         ((DefaultTableModel) tbChild.getModel()).setRowCount(0);
     }
 
