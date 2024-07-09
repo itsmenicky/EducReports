@@ -80,7 +80,6 @@ public class ChildDAO {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, RA);
             rs = pst.executeQuery();
-
             return rs;
         } catch (Exception e) {}
 

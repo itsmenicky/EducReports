@@ -1,8 +1,7 @@
 package br.com.educreports.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.awt.*;
+import java.sql.*;
 
 import java.text.SimpleDateFormat;
 
@@ -32,9 +31,9 @@ public class ReportsDAO {
      * @param report
      */
     public void createReport(String child_RA, String child_name, String child_birth, String child_class,
-                             String teacher_name, String report) {
+                             String teacher_name, String report, Blob child_photo) {
         String sql =
-            "insert into tb_reports (child_RA, child_name, birth, class, teacher_name, report) values(?,?, ?,?,?, ?)";
+            "insert into tb_reports (child_RA, child_name, birth, class, teacher_name, report, child_photo) values(?,?, ?,?,?, ?, ?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -54,6 +53,7 @@ public class ReportsDAO {
                 pst.setString(4, child_class);
                 pst.setString(5, teacher_name);
                 pst.setString(6, report);
+                pst.setBlob(7, child_photo);
 
                 int added = pst.executeUpdate();
 
@@ -112,6 +112,21 @@ public class ReportsDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    public Blob catch_report_child_photo(String id_rel){
+        String sql = "select child_photo from tb_reports where ID_Rel like ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, id_rel);
+            rs = pst.executeQuery();
+            if(rs.next()){
+                return rs.getBlob("child_photo");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     /**

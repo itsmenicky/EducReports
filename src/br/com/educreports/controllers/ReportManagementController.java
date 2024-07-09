@@ -7,7 +7,13 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class ReportManagementController {
@@ -29,6 +35,9 @@ public class ReportManagementController {
         if (confirmation == JOptionPane.YES_OPTION) {
             try {
                 HashMap<String, Object> filtro = new HashMap<>();
+                reportsDAO.catch_report_child_photo(id_report);
+                Blob child_photo = reportsDAO.catch_report_child_photo(id_report);
+                filtro.put("child_photo", blob_to_icon(child_photo));
                 filtro.put("ID_Rel", Integer.parseInt(id_report));
                 JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/Reports/StudentLearningReport.jasper"), filtro, reportsDAO.validateConnection());
                 JasperViewer.viewReport(print, false);
@@ -36,6 +45,18 @@ public class ReportManagementController {
                 JOptionPane.showMessageDialog(null, e);
             }
         }
+    }
+
+    public Image blob_to_icon(Blob child_photo_blob) throws SQLException {
+        byte[] img = child_photo_blob.getBytes(1, (int) child_photo_blob.length());
+        BufferedImage imagem = null;
+        try {
+            imagem = ImageIO.read(new ByteArrayInputStream(img));
+            return imagem;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
     }
 
     /**

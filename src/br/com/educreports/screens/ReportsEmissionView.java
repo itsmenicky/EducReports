@@ -180,7 +180,11 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
                                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                           jButton1ActionPerformed(evt);
+                                           try {
+                                               jButton1ActionPerformed(evt);
+                                           } catch (SQLException e) {
+                                               throw new RuntimeException(e);
+                                           }
                                        }
                                    });
         jLabel5.setFont(new java.awt.Font("Montserrat", 0, 12));       // NOI18N
@@ -412,20 +416,26 @@ public class ReportsEmissionView extends javax.swing.JInternalFrame {
      * Event responsible for calling create report function
      * @param evt
      */
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {    // GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {    // GEN-FIRST:event_jButton1ActionPerformed
         int confirmation = JOptionPane.showConfirmDialog(null,
                                                          "Confirma a emissão deste relatório?",
                                                          "CONFIRMAÇÃO",
                                                          JOptionPane.YES_NO_OPTION);
 
         if (confirmation == JOptionPane.YES_OPTION) {
-            reportsDAO.createReport(txtRA.getText(),
-                                    txtName.getText(),
-                                    txtBirth.getText(),
-                                    txtClass.getText(),
-                                    txtTeacher.getText(),
-                                    textReport.getText());
-            clean_fields();
+            ResultSet child_photo = childDAO.search_child_photo(txtRA.getText());
+            if(child_photo.next()){
+                reportsDAO.createReport(txtRA.getText(),
+                        txtName.getText(),
+                        txtBirth.getText(),
+                        txtClass.getText(),
+                        txtTeacher.getText(),
+                        textReport.getText(),
+                        child_photo.getBlob("child_photo"));
+                clean_fields();
+            }else{
+                JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR RELATÓRIO");
+            }
         }
     }                                                                     // GEN-LAST:event_jButton1ActionPerformed
 
