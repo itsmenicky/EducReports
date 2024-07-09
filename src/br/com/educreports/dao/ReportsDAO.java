@@ -26,6 +26,11 @@ import javax.swing.*;
 
 import br.com.educreports.dal.ConnectionModule;
 
+/**
+ * Report data access object
+ * @author itsmenicky
+ * @version 2.0
+ */
 public class ReportsDAO {
     private Connection        conexao;
     private PreparedStatement pst;
@@ -131,6 +136,11 @@ public class ReportsDAO {
         }
     }
 
+    /**
+     * Function responsible for returning child photo blob
+     * @param id_rel
+     * @return
+     */
     public Blob catch_report_child_photo(String id_rel){
         String sql = "select child_photo from tb_reports where ID_Rel like ?";
         try {

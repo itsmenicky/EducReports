@@ -29,6 +29,10 @@ import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @author itsmenicky
+ * @version 2.0
+ */
 public class ReportsEmissionController {
     private ChildDAO childDAO;
     private ReportsEmissionView view;

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a9e1990-9627-4b9c-befe-4eb290a99501" name="Changes" comment="fix: clean fields on register">
+    <list default="true" id="2a9e1990-9627-4b9c-befe-4eb290a99501" name="Changes" comment="doc: license">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/LoginScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/LoginScreenController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/MainScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/MainScreenController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/controllers/PasswordResetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/controllers/PasswordResetController.java" afterDir="false" />
@@ -21,6 +22,7 @@
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/dao/UserDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/models/Child.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/models/Child.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/br/com/educreports/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/br/com/educreports/services/checkUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/br/com/educreports/services/checkUser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720545862976</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="doc: license">
+      <option name="closed" value="true" />
+      <created>1720559011291</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1720559011291</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -263,7 +273,8 @@
     <MESSAGE value="feat: report with child photo" />
     <MESSAGE value="feat: DatePicker on student screen" />
     <MESSAGE value="fix: clean fields on register" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: clean fields on register" />
+    <MESSAGE value="doc: license" />
+    <option name="LAST_COMMIT_MESSAGE" value="doc: license" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

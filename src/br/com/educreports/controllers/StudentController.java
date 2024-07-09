@@ -34,6 +34,10 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * @author itsmenicky
+ * @version 2.0
+ */
 public class StudentController {
     private StudentView view;
     private ChildDAO childDAO;

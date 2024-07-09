@@ -25,6 +25,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+/**
+ * Teacher data access object
+ * @author itsmenicky
+ * @version 2.0
+ */
 public class TeacherDAO {
     private Connection conexao;
     private PreparedStatement pst;

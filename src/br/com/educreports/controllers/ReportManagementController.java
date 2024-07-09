@@ -34,6 +34,10 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+/**
+ * @author itsmenicky
+ * @version 2.0
+ */
 public class ReportManagementController {
     private ChildDAO childDAO;
     private ReportManagementView view;

@@ -19,6 +19,10 @@
 package br.com.educreports.models;
 import lombok.Data;
 
+/**
+ * @author itsmenicky
+ * @version 2.0
+ */
 @Data
 public class User {
     private String username;

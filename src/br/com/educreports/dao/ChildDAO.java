@@ -26,6 +26,11 @@ import br.com.educreports.dal.ConnectionModule;
 import br.com.educreports.models.Child;
 import br.com.educreports.session.userSession;
 
+/**
+ * Child data access object
+ * @author itsmenicky
+ * @version 2.0
+ */
 public class ChildDAO {
     private Connection        conexao;
     private PreparedStatement pst;

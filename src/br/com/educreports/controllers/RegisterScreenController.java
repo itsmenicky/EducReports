@@ -26,6 +26,10 @@ import br.com.educreports.services.sendEmail;
 import javax.swing.*;
 import java.util.Random;
 
+/**
+ * @author itsmenicky
+ * @version 2.0
+ */
 public class RegisterScreenController {
     private UserDAO userDAO;
     private RegisterView view;

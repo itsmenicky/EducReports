@@ -25,6 +25,10 @@ import net.sf.jasperreports.view.JasperViewer;
 import javax.swing.*;
 import java.sql.Connection;
 
+/**
+ * @author itsmenicky
+ * @version 2.0
+ */
 public class MainScreenController {
 
     public MainScreenController(){}

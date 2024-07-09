@@ -28,6 +28,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * User data access object
+ * @author itsmenicky
+ * @version 2.0
+ */
 public class UserDAO {
     private Connection conexao;
     private PreparedStatement pst;

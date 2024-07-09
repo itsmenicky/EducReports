@@ -24,7 +24,11 @@ import br.com.educreports.session.userSession;
  * @version 2.0
  */
 public class checkUser {
-    
+
+    /**
+     * Function responsible for checking if user is active in database
+     * @return
+     */
     public static Boolean check_user(){
         if(userSession.getInstance().getUser().getStatus().equals("Active")){
             return true;
