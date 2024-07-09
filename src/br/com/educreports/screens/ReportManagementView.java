@@ -26,7 +26,7 @@ import net.proteanit.sql.DbUtils;
 
 /**
  * Reports Management screen
- * @version 2.0
+ * @version 3.0
  * @author itsmenicky
  */
 public class ReportManagementView extends javax.swing.JInternalFrame {

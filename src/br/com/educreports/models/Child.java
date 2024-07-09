@@ -24,7 +24,7 @@ import java.util.Date;
 
 /**
  * @author itsmenicky
- * @version 2.0
+ * @version 3.0
  */
 @Data
 public class Child {

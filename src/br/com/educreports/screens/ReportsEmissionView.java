@@ -34,7 +34,7 @@ import net.proteanit.sql.DbUtils;
 /**
  * Screen for reports emission
  *
- * @version 2.0
+ * @version 3.0
  * @author itsmenicky
  */
 public class ReportsEmissionView extends javax.swing.JInternalFrame {

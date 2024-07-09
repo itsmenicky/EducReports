@@ -36,7 +36,7 @@ import java.util.HashMap;
 
 /**
  * @author itsmenicky
- * @version 2.0
+ * @version 3.0
  */
 public class ReportManagementController {
     private ChildDAO childDAO;

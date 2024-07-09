@@ -28,7 +28,7 @@ import net.proteanit.sql.DbUtils;
 /**
  * Screen for users management
  *
- * @version 2.0
+ * @version 3.0
  * @author itsmenicky
  */
 public class UserScreenView extends javax.swing.JInternalFrame {

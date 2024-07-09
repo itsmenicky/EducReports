@@ -25,7 +25,7 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
- * @version 2.0
+ * @version 3.0
  * @author itsmenicky
  */
 public class RegisterView extends javax.swing.JInternalFrame {

@@ -25,7 +25,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Login screen of EducReports
  *
- * @version 2.0
+ * @version 3.0
  * @author itsmenicky
  */
 public class LoginView extends javax.swing.JFrame {

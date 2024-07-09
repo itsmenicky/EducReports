@@ -19,7 +19,7 @@ package br.com.educreports.screens;
 
 /**
  * Info about EducReports
- * @version 2.0
+ * @version 3.0
  * @author itsmenicky
  */
 public class AboutView extends javax.swing.JInternalFrame {

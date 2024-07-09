@@ -20,7 +20,7 @@ import br.com.educreports.controllers.PasswordResetController;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @version 2.0
+ * @version 3.0
  * @author itsmenicky
  */
 public class PasswordResetView extends javax.swing.JFrame {

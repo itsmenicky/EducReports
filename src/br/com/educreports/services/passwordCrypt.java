@@ -22,7 +22,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @version 2.0
+ * @version 3.0
  * @author itsmenicky
  */
 public class passwordCrypt {

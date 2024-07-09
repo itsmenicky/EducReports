@@ -15,29 +15,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package br.com.educreports.dal;
-import java.sql.*;
+
+package br.com.educreports.services;
+
+import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
- * Class responsible for the connection of the system with database
  * @version 3.0
  * @author itsmenicky
  */
-public class ConnectionModule {
-    
-     public static Connection conector() {
-        java.sql.Connection conexao = null;
-        String driver = "com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/educdb";
-        String user = "root";
-        String password = "root";
-        try {
-            Class.forName(driver);
-            conexao = DriverManager.getConnection(url, user, password);
-            System.out.println(conexao);
-            return conexao;
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
+public class dateParser {
+
+    /**
+     * Function responsible for parsing string to java.util.Date
+     * @param dateString
+     * @return
+     */
+    public static Date to_date(String dateString){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+            Date date = dateFormat.parse(dateString);
+            return date;
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "ERRO: Falha ao capturar data");
         }
+        return null;
     }
 }

@@ -29,7 +29,7 @@ import br.com.educreports.dal.ConnectionModule;
 /**
  * Report data access object
  * @author itsmenicky
- * @version 2.0
+ * @version 3.0
  */
 public class ReportsDAO {
     private Connection        conexao;
